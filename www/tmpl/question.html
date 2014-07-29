@@ -3,4 +3,10 @@
 
   <h1>{{q.Question}}</h1>
 
+  <ul>
+  	<li ng-repeat="x in q.AnswerSplit">
+  		<div class="btn btn-default" ng-click="setResponse(x)">{{ x }}</div>
+  	</li>
+  </ul>
+
 </div>

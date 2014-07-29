@@ -33,6 +33,11 @@ angular.module('hq')
 					return;
 				}
 				$scope.q = matching_qs[0];
+				$scope.q.AnswerSplit = $scope.q.Answer.split(';').map(function(x) { return x.trim(); });
+				$scope.setResponse = function(response) {
+					console.log('anna clicked on ', response);
+					// show feedback, then probably go to next question
+				};
 				console.log('question is ', $scope.q);
 			}
 		});
