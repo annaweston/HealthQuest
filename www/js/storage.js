@@ -1,7 +1,7 @@
 /* jshint undef: true, strict:false, trailing:false, unused:false */
 /* global require, exports, console, process, module, L, angular, _, jQuery, Backbone*/
 
-angular.module('affinity')
+angular.module('hq')
 	.factory('storage', function(utils) {
 		return {
 			getProfile:function() {
@@ -21,31 +21,6 @@ angular.module('affinity')
 				// store for everything but diary
 				var d = utils.deferred(),
 					C = Backbone.Collection.extend({ localStorage:new Backbone.LocalStorage('main') }),
-					c = new C();
-				c.fetch().then(function() { d.resolve(c); }).fail(d.reject);
-				return d.promise();
-			},
-			getDiary : function() {
-				// diary is in its own
-				var d = utils.deferred(),
-					C = Backbone.Collection.extend({ localStorage:new Backbone.LocalStorage('diary') }),
-					c = new C();
-
-				c.fetch().then(function() { d.resolve(c); }).fail(d.reject);
-				return d.promise();
-			},
-			getINRs : function() {
-				// diary is in its own
-				var d = utils.deferred(),
-					C = Backbone.Collection.extend({ localStorage:new Backbone.LocalStorage('inr') }),
-					c = new C();
-				c.fetch().then(function() { d.resolve(c); }).fail(d.reject);
-				return d.promise();
-			},
-			getDocs : function() {
-				// diary is in its own
-				var d = utils.deferred(),
-					C = Backbone.Collection.extend({ localStorage:new Backbone.LocalStorage('docs') }),
 					c = new C();
 				c.fetch().then(function() { d.resolve(c); }).fail(d.reject);
 				return d.promise();

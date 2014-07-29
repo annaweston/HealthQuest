@@ -1,15 +1,7 @@
 <div class="home" ng-click="unsetShowMenu($event)" ng-swipe-right="showMenu()" ng-swipe-left="hideMenu()">
    <div class="backmenu">
       <ul>
-         <li><a ui-sref="profile">my profile</a></li>
-         <!--<li><a ng-click="home.showPanel='journey'">my journey</a></li>-->
-         <li><a ui-sref='diary'>wellness diary</a></li>
-         <li><a ui-sref='inr'>inr diary</a></li>
-         <li><a ui-sref='library'>library</a></li>
-         <li><a ui-sref="riskcalcs">risk calculator</a></li>
-         <li><a ui-sref="locker">data locker <span class="glyphicon glyphicon-lock"></span></a></li>
-         <li><a ui-sref="settings">settings</a></li>         
-         <!--<li><a ui-sref="help">help</a></li>-->
+         <li><a ui-sref="somestate">some state</a></li>
       </ul>
    </div>
    <div ng-class="{front:true,showmenu:home.showmenu}">
@@ -17,45 +9,8 @@
          <a class="image" ng-click="home.showmenu=!home.showmenu" target="_blank">
             <img src="img/menuburger-thin.png">
          </a>
-      </div>   
-      <div class="datetime" ng-click="goCalendar()">
-         <div class="dow">{{ dow }}</div>
-         <div class="date">{{ date }}</div>
-      </div>
-      <div class="name"><a ui-sref="profile">{{ profile.firstname }}'s AF companion</a></div>
-      <quickdiary diary="diary"></quickdiary>
-      <div class="profilepic">
-         <a ui-sref="profile">
-            <img ng-show="profile.photo" ng-src="{{profile.photo}}">
-            <div class="noimage">no photo</div>
-         </a>
-      </div>
-      <div class="buttons">
-         <div class="button" ng-click="openCompose()">
-            <a class="image">
-               <img src="img/pencil.png">
-            </a>
-            <div class="btnlabel">compose</div>
-         </div>
-         <div class="button diary-button">
-            <a class="image" ui-sref="diary">
-               <img src="img/clipboard.png">
-            </a>
-            <div class="btnlabel">view diary</div>
-         </div>
-         <div class="button library-button">
-            <a class="image" ui-sref="library">
-               <img src="img/book.png">
-            </a>
-            <div class="btnlabel">library</div>
-         </div>
-         <div ng-show="showINR" class="button inr-button">
-            <a class="image" ui-sref="inr">
-               <img src="img/waterdrop-grey.png">
-            </a>
-            <div class="btnlabel">inr</div>
-         </div>         
-      </div>
+      </div> 
+
+      <h1> home! </h1>  
    </div>
-   <journey ng-if="home.showPanel=='journey'" />
 </div>
