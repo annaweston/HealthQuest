@@ -3,7 +3,6 @@
 
 angular.module('hq')
 	.config(function($stateProvider) {
-
 		$stateProvider.state('home', {
 			url:'/home',
 			templateUrl:'tmpl/home.html',
