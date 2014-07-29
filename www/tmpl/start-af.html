@@ -1,0 +1,27 @@
+<div class="start-panel">
+   <div style="z-index:10">
+      <div class="copy">
+         <p>
+         <h1>Your AF</h1>
+
+         <p>Atrial fibrillation is considered in 3 subsets, defined by the way the abnormal rhythm comes and goes. 
+         Deciding which of these types you have is important for treatment plans.
+
+         <p> Select your condition from the options below. Consult your cardiologist
+         if you are not certain; you can change this later.
+         </p>
+         <ol style="list-style-type:none; padding-left:0px; ">
+            <li><input type="radio" name="af" value="paroxysmal" ng-model="input.afmode"/> - <a ng-click="showHelp('paroxysmal')"> paroxysmal </a>
+            <li><input type="radio" name="af" value="persistent" ng-model="input.afmode"/> - <a ng-click="showHelp('persistent')"> persistent </a>
+            <li><input type="radio" name="af" value="permanent" ng-model="input.afmode"/> - <a ng-click="showHelp('permanent')"> permanent </a>
+            <li><input type="radio" name="af" value="unknown" ng-model="input.afmode" selected /> - <label> I don't know</label> 
+         </ol>
+      </div>
+      <div class="buttons">
+         <a class="btn btn-info" ng-click="saveAndAdvance({af:input.afmode})"> Next ! &gt; </a>
+      </div>      
+   </div>
+   <img class="cover" style="width:320px;left:0px;right:0px;top:auto;bottom:-45px;z-index:-10;" src="img/mask.png">
+   <img class="bgimg" style="width:320px;bottom:0px;top:auto;z-index:-20;" src="img/inhale1a.gif">
+   <start-af-help ng-if="helpSection" section="helpSection" cancel="closeHelp"></start-af-help>   
+</div>

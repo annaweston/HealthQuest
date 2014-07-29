@@ -1,0 +1,30 @@
+<div class="diaryframe">
+	<div class="toolbar">
+		<a class="back pressable glyphicon glyphicon-chevron-left" ui-sref="home"></a>
+		<div class="pressable glyphicon glyphicon-search" ng-click="toggleSearch()"></div>
+		<div class="divider"></div>
+		<!-- <div class="pressable glyphicon glyphicon-edit" ng-click="showcompose('inr')"></div> -->
+		<div ng-class="{pressable:true, glyphicon:true, 'glyphicon-calendar':true, active:view!=='month'}" ng-click="toggleView('month')"></div>
+
+		<!-- <div class="pressable glyphicon glyphicon-dashboard" ng-click="showcompose('inr')"></div> -->
+		<div class="pressable glyphicon glyphicon-plus" ng-click="showcompose('text')"></div>
+	</div>
+	<div ng-show="view=='day'" class="diary">
+		<div ng-if="showsearch">
+			<input class="search" type="text" ng-model="search"></input>
+		</div>
+		<div class="chrontrols">
+			<a class="pressable arrowleft" ng-click="selectDay(-1)">&lt;&lt;</a>
+			<div class="pressable middle" ng-bind="dayLabel"></div>
+			<a class="pressable arrowright" ng-show="!isToday(diarystate.selectedDay)" ng-click="selectDay(1)">&gt;&gt;</a>
+		</div>	
+		<div class="main">			
+			<diary-entry ng-repeat="m in viewEntries" model='m' delete="delete"></diary-entry>
+			<div ng-show="viewEntries.length == 0" class="msg-noentries">
+				no entries
+			</div>
+		</div>
+	</div>
+	<diary-calendar selected="diarystate.selectedDay" close="closeCalendar" diary="diary" ng-show="view==='month'"></diary-calendar>	
+	<diary-compose ng-if="diarystate.showCompose" save="savecompose" cancel="closecompose"></diary-compose>
+</div>

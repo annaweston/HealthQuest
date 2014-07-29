@@ -1,0 +1,24 @@
+<div class="start-panel">
+	<div class="copy">
+		<div>
+			Let's start with your name. 
+		</div>
+		<div>
+			<label class="question">What shall we call you?</label>
+		</div>
+		<div>
+			<label>First name, please:</label>
+			<input type="text" ng-model="input.firstname">
+		</div>
+		<div>
+			<label>Last or family name, please:</label>
+			<input type="text" ng-model="input.lastname">
+		</div>
+
+	</div>
+	<div class="buttons">
+		<a class="btn btn-info" ng-click="saveAndAdvance({firstname:input.firstname,lastname:input.lastname})"> Next ! &gt; </a>
+	</div>
+	<img class="cover" src="img/mask.png">
+	<img class="bgimg" style="width:320px;bottom:0px;top:auto;" src="img/lady.jpg">
+</div>

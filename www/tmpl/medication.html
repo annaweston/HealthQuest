@@ -1,0 +1,8 @@
+<div class="medication">
+	<div ng-if="!m.moreinfo" class="name" ng-bind='m.name'></div>
+	<div ng-if="m.moreinfo" class="name">
+		<a ng-if='m.moreinfo' ng-href='m.moreinfo' ng-bind='m.name'></a>
+	</div>
+</div>
+
+	

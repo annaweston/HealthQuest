@@ -1,0 +1,14 @@
+<div class="inr-entry">
+	<div class="deletelayer"><a ng-click="delete()">delete</a></div>
+	<div ng-class='{"mainlayer":true, "shifted":entry.deleteShowing}' ng-swipe-left="showDelete()" ng-click="hideDelete()" ng-swipe-right="hideDelete()" ng-style="getColour(m)">
+		<div class="body">
+			<div class="when">
+				<div class="date">{{ m.cdate }}</div>
+				<div class="month">{{ m.cmonth }}</div>
+				<div class="dow">{{ m.cdow }}</div>
+			</div>		
+			<div class="reading">{{ m.reading }}</div>
+			<div class="warfarindose">{{ m.warfarindose }} mg</div>
+		</div>
+	</div>
+</div>

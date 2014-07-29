@@ -1,0 +1,24 @@
+<div class="transition-slideup inr-compose">
+	<div class="toolbar">
+		<a class="back pressable glyphicon glyphicon-chevron-left" ng-click="cancel()"></a>
+		<div class="title">add inr reading</div>
+		<div ng-class="{pressable:true,save:true,disabled:!checkSaveEnabled(inr)}" ng-click="save(inr)">save</div>
+	</div>
+	<div class="main">
+		<form role="form"> 
+			<div class="field reading">
+				<h2>INR reading:</h2>
+				<input type="number" ng-model="inr.reading"></input>
+			</div>
+			<div class="field warfarin">
+				<h4>warfarin dose taken:</h4>
+				<input type="number" ng-model="inr.warfarindose">&nbsp;mg</input>
+		</div>
+			<div class="field taken">
+				<h4>reading taken:</h4> 
+				<input type="date" ng-model="inr.whentaken">
+				<input type="time" ng-model="inr.timetaken">				
+			</div>
+		</form>
+	</div> <!-- main -->
+</div>

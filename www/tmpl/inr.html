@@ -1,0 +1,22 @@
+<div class="inr">
+	<div class="toolbar">
+		<a class="back pressable glyphicon glyphicon-chevron-left" ui-sref="home"></a>
+		<!--<div class="pressable glyphicon glyphicon-search" ng-click="toggleSearch()"></div>-->
+		<div class="divider"></div>
+		<!-- <div class="pressable glyphicon glyphicon-edit" ng-click="showcompose('inr')"></div> -->
+		<!--<div ng-class="{pressable:true, glyphicon:true, 'glyphicon-calendar':true, active:view!=='month'}" ng-click="toggleView('month')"></div>-->
+		<div class="pressable glyphicon glyphicon-dashboard" ng-click="showINRTime()"></div> 
+		<div class="pressable glyphicon glyphicon-plus" ng-click="showcompose('text')"></div>
+	</div>
+	<div ng-if="showsearch">
+		<input class="search" type="text" ng-model="search"></input>
+	</div>
+	<div class="main">			
+		<inr-entry ng-repeat="m in viewEntries" model='m' delete="delete" profile="profile"></inr-entry>
+		<div ng-show="viewEntries.length == 0" class="msg-noentries">
+			no entries
+		</div>
+	</div>
+	<inr-compose ng-if="diarystate.showCompose" save="savecompose" cancel="closecompose" profile='profile'></inr-compose>
+	<inr-time ng-if="diarystate.showINRTime" cancel="closeINRTime" inrs="viewEntries"></inr-time>
+</div>

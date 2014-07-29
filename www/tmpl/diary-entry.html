@@ -1,0 +1,10 @@
+<div class="diary-entry">
+	<div class="deletelayer"><a ng-click="delete(m)">delete</a></div>
+	<div ng-class='{"mainlayer":true, "shifted":entry.deleteShowing,feeling1:m.get("feel")=="1",feeling2:m.get("feel")=="2",feeling3:m.get("feel")=="3",feeling4:m.get("feel")=="4",feeling5:m.get("feel")=="5"}' ng-swipe-left="showDelete()" ng-click="hideDelete()" ng-swipe-right="hideDelete()">
+		<div class="time">{{ todate(m.get('created')).getHours() }}:{{ pad(todate(m.get('created')).getMinutes()) }}</div>
+		<div class="body">{{ m.get('contents') }}</div>
+		<div class="indicators">
+			<div ng-show="m.get('breathless')=='yes'" class="breathless">B</div><div ng-show="m.get('palpitations')=='yes'" class="palpitations">P</div>
+		</div>	 
+	</div>
+</div>

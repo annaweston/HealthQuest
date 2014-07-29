@@ -1,0 +1,18 @@
+<div>
+  <div class='library-meds-section' ng-show="showsection" ng-bind="m.section"></div>
+  <div class='library-meds-entry' ng-click='clickMed($event)' ng-touch='clickMed($event)'>
+    <div class='meds-title' ng-bind="m.name"></div>
+    <div class='meds-expanded' ng-show="expanded">
+        <div class='meds-add'>
+            <div class="meds-addbutton" ng-hide="showaddform" ng-click='clickAdd($event)' ng-touch='clickAdd($event)'>+</div>
+            <div class='meds-addform' ng-show='showaddform'>
+                <select ng-model='chosen_medoption' ng-options='dosage for dosage in m.dosages' name='medoptions'></select>
+                <select ng-model='chosen_medevery' ng-options='medevery for medevery in m.every' name='medevery'></select>
+                <button ng-click='clickAddedMed($event)' ng-touch='clickAddedMed($event)'>Add</button>
+            </div>
+        </div>
+      <div class='meds-desc' ng-bind="m.description"></div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>

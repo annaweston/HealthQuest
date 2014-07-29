@@ -1,0 +1,17 @@
+<div class="diary-calendar">
+	<!-- --> 
+	<div class="viewmode btn-group btn-group">
+		<div ng-class="{btn:true, 'btn-default':true, 'active':viewmode=='feel'}" ng-click="setView('feel')">Feel</div>
+		<div ng-class="{btn:true, 'btn-default':true, 'active':viewmode=='breathless'}" ng-click="setView('breathless')">Breathless</div>
+		<div ng-class="{btn:true, 'btn-default':true, 'active':viewmode=='palpitations'}" ng-click="setView('palpitations')">Palpitations</div>
+		<!--<div ng-class="{btn:true, 'btn-default':true, 'active':viewmode=='activities'}" ng-click="setView('activities')">Activities</div>-->
+	</div>	
+	<div class="chrontrols">
+		<a class="pressable arrowleft" ng-click="selectMonth(-1)">&lt;&lt;</a>
+		<div class="pressable middle">{{ months[month] }} {{ year }}</div>
+		<a class="pressable arrowright" ng-show="!isCurrentMonth(month)" ng-click="selectMonth(1)">&gt;&gt;</a>
+	</div>	
+	<div class="calendar">
+		<div ng-repeat="s in slots" ng-class="{day:true, content:hasContent(s), grey:s.grey}" ng-style="getColour(s,viewmode)" ng-click="selectDay(s.date)"><div class="date" ng-bind="s.dom"></div></div>
+	</div>	
+</div>

@@ -1,0 +1,84 @@
+<div class="profile transition-slideright">
+	<div class="toolbar">
+		<a class="back pressable glyphicon glyphicon-chevron-left" ui-sref="home"></a>
+		<div class="title">my profile</div>
+		<div class="pressable save" ng-click="save()">save</div>
+	</div>
+	<div class="main">
+		<div class="profilepic" ng-click="setExamplePic()">
+	        <div class="noimage">no photo</div>		
+			<img ng-show="profile.photo" ng-src="{{ profile.photo }}">
+		</div>				
+        <div class="profilepic-choose btn btn-default">choose image</div>
+		<div class="field">
+			<div class="lbl">first name:</div><input type="text" ng-model="profile.firstname"></input>
+			<div class="lbl">last name:</div><input type="text" ng-model="profile.lastname"></input>
+		</div>
+		<div class="field">
+			<div class="lbl">gender:</div><select ng-options="g for g in genders" ng-model="profile.gender"></select>
+		</div>
+
+		<div class="field">
+			<div class="lbl">birthdate:</div><input type="date" ng-model="profile.dob">
+		</div>
+		<div class="field">
+			<div class="lbl">AF type:</div><select ng-options="o for o in conditions" ng-model="profile.af"></select>
+		</div>
+		<div class="medications">
+			<h2>prescribed medications</h2>
+			<ul>
+                <li ng-repeat="m in profile.meds" ng-click=""><span ng-bind="m.med.name"></span> (<span ng-bind="m.dose.label"></span>)
+                
+                    <div class='meds-remove' ng-click='clickRemove($event, m)' ng-touch='clickRemove($event, m)'>
+                        <div class="meds-removebutton">-</div>
+                    </div>
+
+                </li>
+                <li><a ui-sref='medlibrary'><i class="glyphicon glyphicon-plus"></i> add new medication</a></li>
+			</ul>
+		</div>
+		<div class="medications">
+			<h2>risk calculators</h2>
+            <ul>
+                <li><a ui-sref='riskcalcs'>CHA<sub>2</sub>DS<sub>2</sub>-VASc Score for Atrial Fibrillation Stroke Risk</a>
+                    <div ng-show="profile['riskcalcs-chadsvasc']['score']>-1" class="riskscore">
+                        <div class="qlabel"><span class="resulttxt">Your score is: <span class="hasbledscore" ng-bind="profile['riskcalcs-chadsvasc']['score']"></span></span></div>
+                        <div class="clearfix"></div>
+                        <div class="findoutmore" ng-click="toggleChadsTxt()" ng-touch="toggleChadsTxt()">Find out more about this test.</div>
+                        <div class="exptxt" ng-show="chadsTxtShow" ng-click="toggleChadsTxt()" ng-touch="toggleChadsTxt()">
+                            <p>This score has been developed in the light of
+studies that have investigated factors associated with risk of stroke in
+patients with AF. AF patients suffer strokes because they develop blood
+clots in the heart (left atrium) which break off and go through the circulation
+to the brain. Advancing age, having impaired heart function,
+high blood pressure, blood vessel (vascular) disease or diabetes and being
+Female (birth gender) are risk factors for this. Studies have shown that
+this score system enables stroke prevention (anticoagulation) treatments to be targeted to
+individuals so that the small risk of the treatment itself is greatly
+outweighed by the (measured) greater risk of a blood clot.</p>
+                            <p>If you are uncertain ask your doctor which of these may be relevant to you.</p>
+
+                        </div>
+                        <div class="clearfix"></div>
+
+                    </div>
+                </li>
+                <li><a ui-sref='riskcalcs'>HAS-BLED Score for Major Bleeding Risk</a>
+                    <div ng-show="profile['riskcalcs-hasbled']['score']>-1" class="riskscore">
+                        <div class="qlabel"><span class="resulttxt">Your score is: <span class="hasbledscore" ng-bind="profile['riskcalcs-hasbled']['score']"></span></span></div>
+                        <div class="clearfix"></div>
+                        <div class="findoutmore" ng-click="toggleHasbledTxt()" ng-touch="toggleHasbledTxt()">Find out more about this test.</div>
+                        <div class="exptxt" ng-show="hasbledTxtShow" ng-click="toggleHasbledTxt()" ng-touch="toggleHasbledTxt()">
+                            <p>There are recommendations to use the HAS-BLED Score with the CHA2DS2-VASc Score to help determine if anticoagulation is in the best interest of a particular patient. "Major bleeding" was defined in the HAS-BLED study as "intracranial, [requiring] hospitalization, hemoglobin decrease &gt; 2 g/L, and/or transfusion."</p>
+                            <p>If you are uncertain ask your doctor which of these may be relevant to you.</p>
+
+                        </div>
+                        <div class="clearfix"></div>
+
+                    </div> 
+                </li>
+            </ul>
+		</div>
+	</div>
+	<add-medication ng-if="journey.showAddMedication" cancel="hideAdd" select="selectMedication" meds='meds'/>
+</div>

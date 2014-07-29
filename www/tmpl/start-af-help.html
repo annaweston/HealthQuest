@@ -1,0 +1,46 @@
+<div class="transition-slideup start-af-help">
+	<div class="toolbar">
+		<a class="back pressable glyphicon glyphicon-chevron-left" ng-click="cancel()"></a>
+		<div class="title">{{ section }}</div>
+	</div>
+	<div class="main">
+		<div ng-show="section=='paroxysmal'">
+			<h2><I>Paroxysmal</I> Atrial Fibrillation</h2>
+			<p>In this type of AF, the abnormal heart rhythm starts and stops spontaneously,
+				without any treatments (such as taking a drug or having a cardioversion).
+			</p>
+			<p>
+				In this situation, it may be best to try to keep your heart in normal rhythm and try to stop atrial fibrillation from occurring – called a “rhythm control strategy”.
+			</p>
+			<p> 
+				This may require medication, a <i>cardioversion</i>, and/or <i>atrial fibrillation ablation</i> treatments.
+			</p>
+		</div>
+		<div ng-show="section=='persistent'">
+			<h2><I>Persistent</I> atrial fibrillation</h2>
+			<p>
+				In this type of AF, once the abnormal heart rhythm has started it will not return to normal rhythm unless
+				the individual has some treatment – this could be a drug or a cardioversion.
+			</p>
+			<p>
+				In this situation, it may be best to try to keep your heart in normal rhythm and try to stop atrial fibrillation from occurring – called a “rhythm control strategy”.
+			</p>
+			<p> 
+				This may require medication, a <i>cardioversion</i>, and/or <i>atrial fibrillation ablation</i> treatments.
+			</p>
+		</div>
+		<div ng-show="section=='permanent'">
+			<h2>Permanent atrial fibrillation</h2>
+			<p>In this type of AF, the abnormal heart rhythm cannot be stopped and normal heart rhythm can never be achieved, 
+			because the electrical systems in the atrium have changed too much.</p>
+			<p>
+				In this situation, to control the symptoms that permanent AF causes, you may employ a “rate control strategy”. 
+			</p>
+			<p>
+				This may involve drugs and sometimes a “nodal” ablation and pacemaker implant.
+			</p>
+		</div>
+		<div class="btn btn-default" ng-click="cancel()">Ok</div>
+	</div>
+
+</div>

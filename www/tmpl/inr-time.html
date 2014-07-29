@@ -1,0 +1,23 @@
+<div class="inr-time transition-slideup">
+	<div class="toolbar">
+		<a class="back pressable glyphicon glyphicon-chevron-left" ng-click="cancel()"></a>
+		<div class="title">time in treatment</div>
+	</div>
+	<div class="main">
+		<inr-vis inrs="inrs"></inr-vis>
+		<div class="stat">
+			<h2>time in treatment</h2>
+			<div class="timeppct">
+				{{ timepct.toFixed(2) }}  %
+			</div>
+		</div>
+		<div class="stat">
+			<h2> days in zone </h2>
+			{{ daysin.toFixed(2) }} days
+		</div>
+		<div class="stat">
+			<h2> days total </h2>
+			{{ daystot.toFixed(2) }} days
+		</div>
+	</div>
+</div>

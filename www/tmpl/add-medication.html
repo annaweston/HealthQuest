@@ -1,0 +1,42 @@
+<div class="transition-slideright apppanel add-medication">
+	<div class="close glyphicon glyphicon-remove" ng-click="cancel()"></div>
+	<h1 class="title">Add medication</h1>
+	<div class="main">
+		<div class="filters btn-group">
+			<label ng-class="{'btn':true,'btn-default':true,active:(filterCategory=='all')}"><input type="radio" value="all" ng-model="filterCategory">show all</label>
+			<label ng-class="{'btn':true,'btn-default':true,active:(filterCategory=='ac')}"><input type="radio" value="ac" ng-model="filterCategory">anticoagulants</label>
+			<label ng-class="{'btn':true,'btn-default':true,active:(filterCategory=='rhythm')}"><input type="radio" value="rhythm" ng-model="filterCategory">heart rhythm</label>
+			<label ng-class="{'btn':true,'btn-default':true,active:(filterCategory=='ca')}"><input type="radio" value="ca" ng-model="filterCategory">calcium antagonists</label>
+			<label ng-class="{'btn':true,'btn-default':true,active:(filterCategory=='bb')}"><input type="radio" value="bb" ng-model="filterCategory">beta blockers</label>
+		</div>
+		<div class="medlist">
+			<table style="width:100%">
+				<tr ng-class="{ca:m.category=='ca',bb:m.category=='bb',rhythm:m.category=='rhythm',ac:m.category=='ac'}"
+					ng-repeat='m in filteredMeds' >
+					<td >
+						<a ng-bind="m.name" ng-click="setSelected(m)"></a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="search">
+			<input type="search" ng-model="searchstr" class="search" placeholder="search .. ">
+		</div>
+		<div class="selected" ng-if="selected">
+			<h4>selected medicine:</h4>
+			<span class="label">medicine:</span><div ng-bind='selected.name'></div>
+			<span class="label">category:</span><div ng-bind='selected.category'></div>
+			<span class="label">Category:</span><div ng-bind='selected.category'></div>
+			<span class="label">Dosage (in <span ng-bind="selected.dosageunits" />):</span>
+			<input type="range" ng-model="selected.dosage" 	min="2" max="4" step="1"></input>
+			<div ng-bind="selected.dosage/10.0"></div>
+			<span ng-bind="selected.mindose"></span>
+			<span ng-bind="selected.maxdose"></span>
+		</div>
+
+		<div class="buttons">
+			<div class="btn btn-cancel" ng-click="cancel()">Cancel</div>
+			<div class="btn btn-default" ng-click="addMedication(selected)">Add &gt;</div>
+		</div>
+	</div>
+</div>
