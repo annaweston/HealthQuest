@@ -8,21 +8,21 @@ angular.module('hq')
 			url:'/home',
 			templateUrl:'tmpl/home.html',
 			resolve : {
-				profile:function(storage)  { return storage.getProfile(); }
-				// questions : function(utils) { 
-		  //       	var u = utils, d = u.deferred();
-			 //        d3.csv('data/questions.csv').get(function(err, rows) { 
-			 //          	if (err) { 
-			 //          		d.reject();		
-			 //          		console.error('could not load ', err);
-			 //          		return;
-			 //          	}
-			 //          	d.resolve(rows);
-			 //        });
-			 //        return d.promise();
-				// }
+				profile:function(storage)  { return storage.getProfile(); },
+				questions : function(utils) { 
+		        	var u = utils, d = u.deferred();
+			        d3.csv('data/questions.csv').get(function(err, rows) { 
+			          	if (err) { 
+			          		d.reject();		
+			          		console.error('could not load ', err);
+			          		return;
+			          	}
+			          	d.resolve(rows);
+			        });
+			        return d.promise();
+				}
 			},			
-			controller:function($scope, $state, utils, $swipe, profile) {
+			controller:function($scope, $state, utils, $swipe, profile, questions) {
 				setUIViewTransition('transition-fade');
 				var u = utils, sa = function(f) { utils.safeApply($scope, f); };
 				$scope.home = {};
@@ -44,6 +44,7 @@ angular.module('hq')
 				$scope.profile = profile.attributes;
 				window.profile = profile;
 				window.$s = $scope;
+				console.log('questions ', questions);
 				// if you want to try cool swiping action with ngTouch
 				// $swipe.bind(angular.element('.home'), {
 				// 	move: function(evt) { 
