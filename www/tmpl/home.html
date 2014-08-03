@@ -1,7 +1,8 @@
 <div class="home" ng-click="unsetShowMenu($event)" ng-swipe-right="showMenu()" ng-swipe-left="hideMenu()">
    <div class="backmenu">
       <ul>
-         <li><a ui-sref="somestate">some state</a></li>
+      	<!--sets the initial questionid to 1-->
+         <li><a ui-sref="question({questionid:1})">Let's Play!</a></li>
       </ul>
    </div>
    <div ng-class="{front:true,showmenu:home.showmenu}">
@@ -11,6 +12,6 @@
          </a>
       </div> 
 
-      <h1> home! </h1>  
+      <h1>Home!</h1>  
    </div>
 </div>
