@@ -4,27 +4,18 @@
 angular.module('hq')
 	.config(function($stateProvider) {
 		$stateProvider.state('feedback', {
-			url:'/feedback/:status',
+			url:'/feedback',
 			templateUrl:'tmpl/feedback.html',
 			resolve : {
 				profile:function(storage)  { return storage.getProfile(); },
-				questions : function(utils) { 
-		        	var u = utils, d = u.deferred();
-			        d3.csv('data/questions.csv').get(function(err, rows) { 
-			          	if (err) { 
-			          		d.reject();		
-			          		console.error('could not load ', err);
-			          		return;
-			          	}
-			          	d.resolve(rows);
-			        });
-			        return d.promise();
-				}
+				
 			},			
 			controller:function($scope, $state, utils, $swipe, $stateParams, profile, questions) {
 				setUIViewTransition('transition-fade');
-				var u = utils, sa = function(f) { utils.safeApply($scope, f); };
-			/*	console.log('question initialised with qid ', $stateParams.questionid);
+				console.log($stateParams.status);
+				
+			/*	var u = utils, sa = function(f) { utils.safeApply($scope, f); };
+			console.log('question initialised with qid ', $stateParams.questionid);
 				// setting the questionid into our scope so we can display it (if we want to!)
 				$scope.questionid = $stateParams.questionid;
 				var matching_qs = questions.filter(function(x) { return x["Question ID"] == $stateParams.questionid; });

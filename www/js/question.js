@@ -37,7 +37,7 @@ angular.module('hq')
 				$scope.setResponse = function(response) {
 					//if correct go to home, if not go to start
 					if($scope.q.correctAnswer == response){
-						$state.go('home');
+						$state.go('feedback');
 						return;
 					}
 					else{
