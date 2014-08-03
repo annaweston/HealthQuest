@@ -35,10 +35,15 @@ angular.module('hq')
 				$scope.q = matching_qs[0];
 				$scope.q.AnswerSplit = $scope.q.Answer.split(';').map(function(x) { return x.trim(); });
 				$scope.setResponse = function(response) {
-					//console.log('anna clicked on ', response);
-					// show , then probably go to next question
-					$state.go('home');
-					return;
+					//if correct go to home, if not go to start
+					if($scope.q.correctAnswer == response){
+						$state.go('home');
+						return;
+					}
+					else{
+						$state.go('start');
+						return;
+					}
 				};
 				console.log('question is ', $scope.q);
 			}
