@@ -32,9 +32,9 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 				console.log('start was loaded > ');
 			}]
 		})
-		// home is defined in home.js so don't look for it here!
-
-	}).controller('main', ['$scope','$rootScope', function($scope, $rootScope) { 
+		// home is defined in home.js so don't look for it here!	
+	})
+	.controller('main', ['$scope','$rootScope', function($scope, $rootScope) { 
 		window.$s = $scope;
 		$scope.profile = {};
 		// $scope.$watch('profile', function(x) { console.log('profile change >> ', x); });
@@ -46,6 +46,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		});
 		$rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams){ 
 			console.log('stateChangeError', toState.name, event, toParams, fromState, fromParams);
+			console.log(arguments);
 		});
 		// console.log('backbone localstorage ', typeof Backbone.LocalStorage);
 	}]);

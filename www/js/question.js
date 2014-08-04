@@ -41,7 +41,7 @@ angular.module('hq')
 						return;
 					}
 					else{
-						$state.go('start');
+						$state.go('feedback');
 						return;
 					}
 				};
