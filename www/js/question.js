@@ -1,3 +1,5 @@
+
+
 /* jshint undef: true, strict:false, trailing:false, unused:false */
 /* global require, exports, console, process, module, L, angular, _, jQuery, d3, $ */
 
@@ -37,11 +39,11 @@ angular.module('hq')
 				$scope.setResponse = function(response) {
 					//if correct go to home, if not go to start
 					if($scope.q.correctAnswer == response){
-						$state.go('feedback.success');
+						$state.go('success');
 						return;
 					}
 					else{
-						$state.go('feedback.failure');
+						$state.go('failure');
 						return;
 					}
 				};

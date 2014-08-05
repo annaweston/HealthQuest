@@ -32,6 +32,24 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 				console.log('start was loaded > ');
 			}]
 		})
+		.state('success', {
+			url:'/feedback/success',
+			templateUrl:'tmpl/feedback.html',
+			controller:function($scope, $state, utils, $swipe, $stateParams) {
+				setUIViewTransition('transition-fade');
+				$scope.feedback = "Correct";
+				$scope.explanation = "correct";
+							
+				}
+		})
+		.state('failure', {
+			url:'/feedback/failure',
+			templateUrl:'tmpl/feedback.html',
+			controller:function($scope, $state, utils, $swipe, $stateParams) {
+				setUIViewTransition('transition-fade');
+				$scope.feedback = "Incorrect"			
+				}
+		})
 		// home is defined in home.js so don't look for it here!	
 	})
 	.controller('main', ['$scope','$rootScope', function($scope, $rootScope) { 
