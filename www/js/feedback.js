@@ -1,51 +1,32 @@
 /* jshint undef: true, strict:false, trailing:false, unused:false */
 /* global require, exports, console, process, module, L, angular, _, jQuery, d3, $ */
 
-angular.module('hq')
+angular.module('hq'  ['ui.router', 'ngAnimate', 'ngTouch'])
 	.config(function($stateProvider) {
-		$stateProvider.state('feedback', {
-			url:'/feedback/:feedback-result',
+		$stateProvider
+		.state('feedback', {
+			url:'/feedback',
+			templateUrl:'tmpl/feedback.html',
+			controller:function($scope, $state, utils, $swipe, $stateParams, profile) {
+				setUIViewTransition('transition-fade');
+				}
+		})
+		.state('feedback.success', {
+			url:'/feedback/success',
+			templateUrl:'tmpl/feedback.html',
+			controller:function($scope, $state, utils, $swipe, $stateParams, profile) {
+				setUIViewTransition('transition-fade');
+				$scope.feedback = "correct"			
+				}
+		})
+		.state('feedback.failure', {
+			url:'/feedback/failure',
 			templateUrl:'tmpl/feedback.html',
 			resolve : {
 				profile:function(storage)  { return storage.getProfile(); },
-				questions : function(utils) { 
-		        	var u = utils, d = u.deferred();
-			        d3.csv('data/questions.csv').get(function(err, rows) { 
-			          	if (err) { 
-			          		d.reject();		
-			          		console.error('could not load ', err);
-			          		return;
-			          	}
-			          	d.resolve(rows);
-			        });
-			        return d.promise();
-				}
-			},			
-			controller:function($scope, $state, utils, $swipe, $stateParams, profile, questions) {
+				},			
+			controller:function($scope, $state, utils, $swipe, $stateParams, profile) {
 				setUIViewTransition('transition-fade');
-				var u = utils, sa = function(f) { utils.safeApply($scope, f); };
-				console.log('question initialised with qid ', $stateParams.questionid);
-				// setting the questionid into our scope so we can display it (if we want to!)
-				$scope.questionid = $stateParams.questionid;
-				var matching_qs = questions.filter(function(x) { return x["Question ID"] == $stateParams.questionid; });
-				if (matching_qs.length < 1) {
-					$state.go('error');
-					return;
-				}
-				$scope.q = matching_qs[0];
-				$scope.q.AnswerSplit = $scope.q.Answer.split(';').map(function(x) { return x.trim(); });
-				$scope.setResponse = function(response) {
-					//if correct go to home, if not go to start
-					if($scope.q.correctAnswer == response){
-						$state.go('feedback');
-						return;
-					}
-					else{
-						$state.go('feedback');
-						return;
-					}
-				};
-				console.log('question is ', $scope.q);
 			}
 		});
 	});

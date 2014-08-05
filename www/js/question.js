@@ -37,15 +37,14 @@ angular.module('hq')
 				$scope.setResponse = function(response) {
 					//if correct go to home, if not go to start
 					if($scope.q.correctAnswer == response){
-						$state.go('feedback');
+						$state.go('feedback.success');
 						return;
 					}
 					else{
-						$state.go('feedback');
+						$state.go('feedback.failure');
 						return;
 					}
 				};
-				console.log('question is ', $scope.q);
 			}
 		});
 	});
