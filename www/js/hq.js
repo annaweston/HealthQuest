@@ -35,11 +35,17 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		.state('success', {
 			url:'/feedback/success',
 			templateUrl:'tmpl/feedback.html',
-			controller:function($scope, $state, utils, $swipe, $stateParams) {
+			 resolve:{
+					  comment: ['$stateParams', function($stateParams){
+						  console.log($stateParams);
+						  return $stateParams.comment;
+					  }]
+				   },
+			controller:function($scope, $state, utils, $swipe, $stateParams, explanation) {
 				setUIViewTransition('transition-fade');
 				$scope.feedback = "Correct";
-				$scope.explanation = "correct";
-							
+				//$scope.explanation = comment;
+				console.log($scope, $state, explanation);			
 				}
 		})
 		.state('failure', {
