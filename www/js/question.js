@@ -23,7 +23,7 @@ angular.module('hq')
 			        return d.promise();
 				}
 			},			
-			controller:function($scope, $state, utils, $swipe, $stateParams, profile, questions) {
+			controller:function($scope, $state, utils, $swipe, $stateParams, profile, questions, $rootScope) {
 				setUIViewTransition('transition-fade');
 				var u = utils, sa = function(f) { utils.safeApply($scope, f); };
 				console.log('question initialised with qid ', $stateParams.questionid);
@@ -37,6 +37,8 @@ angular.module('hq')
 				$scope.q = matching_qs[0];
 				$scope.q.AnswerSplit = $scope.q.Answer.split(';').map(function(x) { return x.trim(); });
 				$scope.setResponse = function(response) {
+					$rootScope.explanation = $scope.q.explanation;
+					
 					//if correct go to home, if not go to start
 					if($scope.q.correctAnswer == response){
 						$state.go('success');

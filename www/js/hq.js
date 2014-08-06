@@ -35,11 +35,10 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		.state('success', {
 			url:'/feedback/success',
 			templateUrl:'tmpl/feedback.html',
-			controller:function($scope, $state, utils, $swipe, $stateParams) {
+			controller:function($scope, $state, utils, $swipe, $stateParams, $rootScope) {
 				setUIViewTransition('transition-fade');
 				$scope.feedback = "Correct";
-				$scope.explanation = "correct";
-							
+				console.log($rootScope.explanation);	
 				}
 		})
 		.state('failure', {
@@ -52,6 +51,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		})
 		// home is defined in home.js so don't look for it here!	
 	})
+	
 	.controller('main', ['$scope','$rootScope', function($scope, $rootScope) { 
 		window.$s = $scope;
 		$scope.profile = {};
@@ -66,5 +66,9 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 			console.log('stateChangeError', toState.name, event, toParams, fromState, fromParams);
 			console.log(arguments);
 		});
+	
 		// console.log('backbone localstorage ', typeof Backbone.LocalStorage);
-	}]);
+	}])
+	.controller('explanationCtrl', ['$scope','$rootScope', function($scope, $feedback) {
+		$scope.msg = $feedback;
+	}])

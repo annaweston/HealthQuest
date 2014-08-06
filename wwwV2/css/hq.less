@@ -1,0 +1,357 @@
+* { 
+  box-sizing:border-box;
+  -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+  // transform: translate3d(0,0,0);  
+  // -webkit-font-smoothing:subpixel-antialiased;
+  -webkit-font-smoothing:antialiased;
+}
+
+@hqblue : rgb(63,225,255);
+@appheight: 568px;
+@appwidth: 320px;
+
+a, a:hover, a:active, a:visited { 
+  text-decoration:none !important; 
+  -webkit-transition:all 0.4s ease-in-out;
+  -moz-transition:all 0.4s ease-in-out;
+  -o-transition:all 0.4s ease-in-out;
+  transition:all 0.4s ease-in-out;  
+} 
+// shared across
+a:active {
+  -webkit-transform: scale3d(1.2, 1.2, 1);
+  // -webkit-transform-origin:0% 0%;
+}
+
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background:white;
+    /*overflow:hidden;
+    */
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding:0px;
+    margin:0px;
+    position:relative;
+    text-align:left;
+    font-size:12pt;
+    width:100%;
+    height:100%;
+}
+input {
+  box-shadow:none;
+  border:1px solid #eee;
+}
+h1 {
+  font-size:29pt;
+  font-weight:200;
+  color:#8cf;
+  margin:0px 0px 0.4em 0px;
+}
+h2,h3,h4,h5 {
+  font-weight:200;
+  color:#8cf;
+}
+h2 { font-size:15pt; }
+
+#splash {
+  width:@appwidth;
+  height:@appheight;
+}
+.start, .start2 {
+  text-align:left;
+  overflow:hidden;
+  .copy {
+    -moz-transition:all 0.1s ease-in-out;
+    -o-transition:all 0.1s ease-in-out;
+    transition:all 0.1s ease-in-out;    
+    position:absolute;    
+    top:30px;
+    left:30px;right:30px;
+    z-index:1;
+    // border:1px solid #eee;
+    .inner {
+      color:#88;
+      font-weight:200;
+      font-size:14pt;
+      margin:20px 0px 0px 0px;
+      position:relative;
+      right:0px;
+      .buttons {
+        position:absolute;
+        left:0px;
+        padding:20px 0px 0px 0px;;
+      }
+    }   
+    &.left {
+      margin-left:-500px; margin-right:500px;
+    }
+  }   
+  .cover {
+    position:absolute;
+    top:0px; left:0px; right:0px; bottom:0px;
+    z-index:0;
+    width:@appwidth;
+    height:500px;
+  }
+  .bgimg {
+    position:absolute;
+    top:340px;left:0px;right:0px; bottom:0px;
+    z-index:-1;
+    width:440px;
+  }
+}
+.start2 {
+  .bgimg {
+    position:absolute;
+    top:340px;left:0px;right:0px; bottom:0px;
+    z-index:-1;
+    width:345px;
+  }
+}
+.start-panel {
+  height:@appheight;
+  width:@appwidth;
+  text-align:left;
+  overflow:hidden;
+  .copy {
+      margin:30px;
+      >div { margin:20px 0px; }
+      label { font-weight:200; }      
+      label.question { font-weight: bold; }
+      input[type="text"] { width : 100%; }
+    }  
+   .buttons {
+        margin:20px 0px 0px 30px;
+    }     
+  .cover {
+    position:absolute;
+    top:0px; left:0px; right:0px; bottom:0px;
+    z-index:-1;
+    width:@appwidth;
+    height:500px;
+   }
+  .bgimg {
+    position:absolute;
+    top:@appwidth;left:0px;right:0px; bottom:0px;
+    z-index:-2;
+    width:440px;
+  }
+  ol {
+    font-size:14pt;
+    li { 
+      margin-top:4px;
+    }
+  }
+}
+
+
+[ui-view] {
+  height:@appheight;
+  width:@appwidth;
+  /* overflow:hidden;
+  */
+}
+/* generic transition stuff */
+[ui-view].transition-panright {
+  transform: translate3d(0,0,0); // force 3D accel
+  position:absolute;
+  -webkit-transition:all 0.4s ease-in-out;
+  -moz-transition:all 0.4s ease-in-out;
+  -o-transition:all 0.4s ease-in-out;
+   transition:all 0.4s ease-in-out;
+}
+
+[ui-view].transition-panright.ng-enter {
+  .toolbar { position:absolute; }
+   left:@appwidth;
+   right:-@appwidth;
+}
+[ui-view].transition-panright.ng-enter-active {
+  .toolbar { position:absolute; }
+  left:0px;
+  right:0px;
+}
+[ui-view].transition-panright.ng-leave {
+  .toolbar { position:absolute; }
+  left:0px;
+  right:0px;
+}
+[ui-view].transition-panright.ng-leave-active {
+  .toolbar { position:absolute; }  
+   left:-@appwidth;
+   right:@appwidth; 
+}
+
+.transition-popright {
+  position:absolute;
+  -webkit-transition:all 0.5s ease-in-out;
+  -moz-transition:all 0.5s ease-in-out;
+  -o-transition:all 0.5s ease-in-out;
+   transition:all 0.5s ease-in-out;
+}
+.transition-popright.ng-enter {
+   left:@appwidth;
+   right:-@appwidth;
+}
+.transition-popright.ng-enter-active {
+  left:0px;
+  right:0px;
+}
+.transition-popright.ng-leave {
+  left:0px;
+  right:0px;
+}
+.transition-popright.ng-leave-active {
+   left:@appwidth;
+   right:-@appwidth; 
+}
+
+/* generic transition stuff */
+.transition-slideup {
+  position:absolute;
+  -webkit-transition:all 0.4s ease-in-out;
+  -moz-transition:all 0.4s ease-in-out;
+  -o-transition:all 0.4s ease-in-out;
+   transition:all 0.4s ease-in-out;
+}
+
+.transition-slideup.ng-enter {
+   top:@appheight;
+   bottom:-@appheight;
+}
+.transition-slideup.ng-enter-active {
+  top:0px;
+  bottom:0px;
+}
+.transition-slideup.ng-leave {
+  left:0px;
+  right:0px;
+}
+.transition-slideup.ng-leave-active {
+   top:@appheight;
+   bottom:-@appheight;
+}
+
+.transition-slideright {
+  position:absolute;
+  -webkit-transition:all 0.5s ease-in-out;
+  -moz-transition:all 0.5s ease-in-out;
+  -o-transition:all 0.5s ease-in-out;
+   transition:all 0.5s ease-in-out;
+}
+.transition-slideright.ng-enter {
+   left:@appwidth;
+   right:-@appwidth;
+}
+.transition-slideright.ng-enter-active {
+  left:0px;
+  right:0px;
+}
+.transition-slideright.ng-leave {
+  left:0px;
+  right:0px;
+}
+.transition-slideright.ng-leave-active {
+   left:@appwidth;
+   right:-@appwidth; 
+}
+
+.transition-fade {
+  position:absolute;
+  -webkit-transition:all 0.4s ease-in-out;
+  -moz-transition:all 0.4s ease-in-out;
+  -o-transition:all 0.4s ease-in-out;
+   transition:all 0.4s ease-in-out;
+}
+.transition-fade.ng-enter {
+  opacity: 0;
+}
+.transition-fade.ng-enter-active {
+  opacity:1.0;
+}
+.transition-fade.ng-leave {
+  opacity:1.0;
+}
+.transition-fade.ng-leave-active {
+  opacity:0.0;
+}
+
+.toolbar {
+  overflow:hidden;
+  position:fixed;
+  margin:0px;   
+  padding:0px;
+  left:0px; right:0px; top:0px;   
+  background:#99ecec; // rgba(252,252,252,1.0);
+  z-index:30;
+  // border-bottom:1px solid #eee;
+  text-align:right;
+  .pressable, div.divider { 
+    display:inline-block;
+    margin:0px 15px;
+  }
+  .pressable {
+    -webkit-transition:all 0.1s ease-in-out;
+    -moz-transition:all 0.1s ease-in-out;
+    -o-transition:all 0.1s ease-in-out;
+    transition:all 0.1s ease-in-out;  
+    position:relative;
+    color:white; 
+    opacity:1.0;
+    font-size:18pt;
+    font-weight:100;
+    padding:27px 8px 11px 8px; margin:0px;
+    vertical-align:middle;      
+    // border:1px solid black;
+    &.back, &.save {
+      position:absolute;
+      left:0px;
+      top:0px;
+      &:active { 
+        background:#99ecec; // rgba(252,252,252,1.0);       
+      }
+    }
+    &.back:active {
+      left:-5px; 
+    }
+    &.save { 
+      font-size:15pt;
+      font-weight:400; left:auto; right:0px; 
+      padding-bottom:12px;
+    }
+    &:active {
+      background-color:#bbfcfc;
+    }
+    &.disabled {
+      color:#ccc;
+      font-weight:200;
+    }
+  }
+  .divider {
+    border-left:2px solid #888;
+    width:0px;
+    height:100%;
+    margin:0px 15px;
+  }
+  .title {
+    font-size:12pt;
+    font-weight:400;
+    top:0px;
+    left:10px; right:10px;
+    text-align:center;
+    font-size:18pt;
+    height:100%;
+    padding:20px 0px 7px 8px; 
+    margin:0px;
+    color:white;
+  }
+}
+
+
+@import "home.less";
+
+/* -- */
