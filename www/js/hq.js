@@ -54,7 +54,15 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 			templateUrl:'tmpl/categories.html',
 			controller:function($scope, $state, utils, $swipe, $stateParams) {
 				setUIViewTransition('transition-fade');
-				$scope.categoryList = ['Alcohol', 'Fitness', 'Food', 'Weight', 'Sleep', 'Smoking'];			
+				$scope.categoryList = ['alcohol', 'fitness', 'food', 'weight', 'sleep', 'smoking'];			
+				$scope.title = 'Choose your category';
+				}
+		})
+		.state('alcohol', {
+			url:'/categories',
+			templateUrl:'tmpl/questions.html',
+			controller:function($scope, $state, utils, $swipe, $stateParams) {
+				setUIViewTransition('transition-fade');
 				$scope.title = 'Choose your category';
 				}
 		})
