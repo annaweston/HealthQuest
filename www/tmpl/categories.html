@@ -1,8 +1,8 @@
-<div class="question">
-  <h1>{{category}}</h1>
+<div class="category">
+  <h1>{{title}}</h1>
 
   <ul>
-  	<li ng-repeat="x in category">
+  	<li ng-repeat="x in categoryList">
   		<div class="btn btn-default" ng-click="setResponse($index)">{{ x }}</div>
   	</li>
   </ul>
