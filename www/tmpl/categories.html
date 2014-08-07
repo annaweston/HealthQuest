@@ -3,8 +3,9 @@
 
   <ul>
   	<li ng-repeat="x in categoryList">
-  		<div class="btn btn-default" ui-sref="question({questionid:1})" >{{ x }}</div>
-  	</li>
+    <!--ui-sref="question({questionid:1})"-->
+  		<div class="btn btn-default"><img src="img/{{x}}.png" width="469" height="640" longdesc="http://alcohol_category" />{{ x }}</div>
+    	 </li>
   </ul>
 
 </div>

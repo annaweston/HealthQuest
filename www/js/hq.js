@@ -49,6 +49,14 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 				$scope.feedback = "Incorrect"			
 				}
 		})
+		.state('profile', {
+			url:'/setup',
+			templateUrl:'tmpl/profileform.html',
+			controller:function($scope, $state, utils, $swipe, $stateParams) {
+				setUIViewTransition('transition-fade');
+				$scope.title = 'Welcome';
+				}
+		})
 		.state('categories', {
 			url:'/categories',
 			templateUrl:'tmpl/categories.html',
