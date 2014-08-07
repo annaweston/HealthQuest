@@ -49,6 +49,15 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 				$scope.feedback = "Incorrect"			
 				}
 		})
+		.state('categories', {
+			url:'/categories',
+			templateUrl:'tmpl/categories.html',
+			controller:function($scope, $state, utils, $swipe, $stateParams) {
+				setUIViewTransition('transition-fade');
+				$scope.category = [Alcohol, Fitness, Food, Weight, Sleep, Smoking];			
+				
+				}
+		})
 		// home is defined in home.js so don't look for it here!	
 	})
 	

@@ -1,0 +1,10 @@
+<div class="question">
+  <h1>{{category}}</h1>
+
+  <ul>
+  	<li ng-repeat="x in category">
+  		<div class="btn btn-default" ng-click="setResponse($index)">{{ x }}</div>
+  	</li>
+  </ul>
+
+</div>
