@@ -74,7 +74,44 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 				$scope.title = 'Choose your category';
 				}
 		})
-		// home is defined in home.js so don't look for it here!	
+		// home is defined in home.js so don't look for it here!
+		// route to show our basic form (/form)
+		.state('healthassess', {
+			url: '/healthassess',
+			templateUrl: 'tmpl/healthassessment.html',
+			controller: 'formController'
+		})
+		
+		// nested states 
+		// each of these sections will have their own view
+		// url will be nested (/form/profile)
+		.state('healthassess.general', {
+			url: '/healthassess',
+			templateUrl: 'tmpl/healthassessment-general.html'
+		})
+		
+		// url will be /form/interests
+		.state('healthassess.smoking', {
+			url: '/healthassess',
+			templateUrl: 'tmpl/healthassessment-smoking.html'
+		})
+		
+		// url will be /form/payment
+		.state('healthassess.eating', {
+			url: '/healthassess',
+			templateUrl: 'tmpl/healthassessment-eating.html'
+		})
+		// url will be /form/payment
+		.state('healthassess.alcohol', {
+			url: '/healthassess',
+			templateUrl: 'tmpl/healthassessment-alcohol.html'
+		})
+		// url will be /form/payment
+		.state('healthassess.fitness', {
+			url: '/healthassess',
+			templateUrl: 'tmpl/healthassessment-fitness.html'
+		});
+			
 	})
 	
 	.controller('main', ['$scope','$rootScope', function($scope, $rootScope) { 
@@ -97,3 +134,14 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 	.controller('explanationCtrl', ['$scope','$rootScope', function($scope, $feedback) {
 		$scope.msg = $feedback;
 	}])
+	
+	.controller('formController', function($scope) {  
+		// we will store all of our form data in this object
+		$scope.formData = {};
+		
+		// function to process the form
+		$scope.processForm = function() {
+			alert('awesome!');  
+		};
+		
+	})
