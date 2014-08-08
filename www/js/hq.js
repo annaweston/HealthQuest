@@ -86,30 +86,25 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		// each of these sections will have their own view
 		// url will be nested (/form/profile)
 		.state('healthassess.general', {
-			url: '/healthassess',
 			templateUrl: 'tmpl/healthassessment-general.html'
 		})
 		
 		// url will be /form/interests
 		.state('healthassess.smoking', {
-			url: '/healthassess',
 			templateUrl: 'tmpl/healthassessment-smoking.html'
 		})
 		
 		// url will be /form/payment
 		.state('healthassess.eating', {
-			url: '/healthassess',
 			templateUrl: 'tmpl/healthassessment-eating.html'
 		})
 		// url will be /form/payment
 		.state('healthassess.alcohol', {
-			url: '/healthassess',
 			templateUrl: 'tmpl/healthassessment-alcohol.html'
 		})
 		// url will be /form/payment
 		.state('healthassess.fitness', {
-			url: '/healthassess',
-			templateUrl: 'tmpl/healthassessment-fitness.html'
+				templateUrl: 'tmpl/healthassessment-fitness.html'
 		});
 			
 	})
