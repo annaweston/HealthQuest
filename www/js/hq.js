@@ -19,6 +19,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		// anna: define your states here
 		// define default state:
 		$urlRouterProvider.otherwise('/start');
+		$urlRouterProvider.when('/healthassessment', '/healthassessment/1');
 		$stateProvider.state('start', {
 			url:'/start',
 			templateUrl:'tmpl/start.html',
@@ -77,34 +78,38 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		// home is defined in home.js so don't look for it here!
 		// route to show our basic form (/form)
 		.state('healthassess', {
-			url: '/healthassess',
+			url: '/healthassessment',
 			templateUrl: 'tmpl/healthassessment.html',
 			controller: 'formController'
 		})
-		
 		// nested states 
 		// each of these sections will have their own view
 		// url will be nested (/form/profile)
 		.state('healthassess.general', {
+			url: '/1',
 			templateUrl: 'tmpl/healthassessment-general.html'
 		})
 		
 		// url will be /form/interests
 		.state('healthassess.smoking', {
+			url: '/2',
 			templateUrl: 'tmpl/healthassessment-smoking.html'
 		})
 		
 		// url will be /form/payment
 		.state('healthassess.eating', {
+			url: '/3',
 			templateUrl: 'tmpl/healthassessment-eating.html'
 		})
 		// url will be /form/payment
 		.state('healthassess.alcohol', {
+			url: '/4',
 			templateUrl: 'tmpl/healthassessment-alcohol.html'
 		})
 		// url will be /form/payment
 		.state('healthassess.fitness', {
-				templateUrl: 'tmpl/healthassessment-fitness.html'
+			url: '/5',
+			templateUrl: 'tmpl/healthassessment-fitness.html'
 		});
 			
 	})
