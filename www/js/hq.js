@@ -79,8 +79,10 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		// route to show our basic form (/form)
 		.state('healthassess', {
 			url: '/healthassessment',
+			abstract: true,
 			templateUrl: 'tmpl/healthassessment.html',
-			controller: 'formController'
+			controller: 'formController',
+			
 		})
 		// nested states 
 		// each of these sections will have their own view
@@ -88,6 +90,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		.state('healthassess.general', {
 			url: '/1',
 			templateUrl: 'tmpl/healthassessment-general.html'
+	
 		})
 		
 		// url will be /form/interests

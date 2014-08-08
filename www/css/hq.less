@@ -122,7 +122,7 @@ h2 { font-size:15pt; }
       >div { margin:20px 0px; }
       label { font-weight:200; }      
       label.question { font-weight: bold; }
-      input[type="text"] { width : 100%; }
+      input[type='text'] { width : 100%; }
     }  
    .buttons {
         margin:20px 0px 0px 30px;
@@ -155,6 +155,12 @@ h2 { font-size:15pt; }
   /* overflow:hidden;
   */
 }
+
+#form-views{
+	height: auto;
+	width: auto;
+}
+
 /* generic transition stuff */
 [ui-view].transition-panright {
   transform: translate3d(0,0,0); // force 3D accel
@@ -352,10 +358,10 @@ h2 { font-size:15pt; }
 }
 
 
-@import "home.less";
+@import 'home.less';
 
 /* -- */
-@charset "UTF-8";
+@charset 'UTF-8';
 /* CSS Document */
 /* BASIC STYLINGS
 ============================================================================= */
@@ -370,8 +376,7 @@ pre                             { margin-bottom:20px; }
 #status-buttons                 {  }
 #status-buttons a               { color:#FFF; display:inline-block; font-size:12px; margin-right:10px; text-align:center; text-transform:uppercase; }
 #status-buttons a:hover         { text-decoration:none; }
-#status-buttons span            { background:#080808; display:block; height:30px; margin:0 auto 10px;  width:30px; 
-    border-radius:50%; }
+#status-buttons span            { color: #fff; background-color: #39b3d7; border-color: #269abc; display:block; height:30px; margin:0 auto 5px;  width:30px; border-radius:50%; padding-top: 20% }
 
 /* active buttons */
 #status-buttons a.active span   { background:#00BC8C; }
