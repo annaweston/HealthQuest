@@ -79,7 +79,6 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		// route to show our basic form (/form)
 		.state('healthassess', {
 			url: '/healthassessment',
-			abstract: true,
 			templateUrl: 'tmpl/healthassessment.html',
 			controller: 'formController',
 			
@@ -89,14 +88,16 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		// url will be nested (/form/profile)
 		.state('healthassess.general', {
 			url: '/1',
-			templateUrl: 'tmpl/healthassessment-general.html'
-	
+			templateUrl: 'tmpl/healthassessment-general.html',
 		})
 		
 		// url will be /form/interests
 		.state('healthassess.smoking', {
 			url: '/2',
-			templateUrl: 'tmpl/healthassessment-smoking.html'
+			templateUrl: 'tmpl/healthassessment-smoking.html',
+			directive: {
+				
+			},
 		})
 		
 		// url will be /form/payment
@@ -113,10 +114,10 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		.state('healthassess.fitness', {
 			url: '/5',
 			templateUrl: 'tmpl/healthassessment-fitness.html'
-		});
+		})
+		
+  })
 			
-	})
-	
 	.controller('main', ['$scope','$rootScope', function($scope, $rootScope) { 
 		window.$s = $scope;
 		$scope.profile = {};
