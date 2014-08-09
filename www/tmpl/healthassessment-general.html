@@ -1,14 +1,37 @@
    <div id="status-buttons" class="text-center">
-       <a id="span1" ui-sref-active="active"><span>1</span></a></div>
-<div class='form-group'>
-    <label for='name'>How is your health in general?</label>
-    <input type='text' class='form-control' name='name' ng-model='formData.name'>
+       <a id="span1" ui-sref-active="active"><span>1</span></a></div> <br />
+ 
+<!--     <fieldset data-role="controlgroup" >
+    	<legend>How is you health in general?</legend>
+         	<input type="radio" name="radio-choice-2" id="radio-choice-21" value="Very Good" checked="checked" />
+         	<label for="radio-choice-21">Very Good</label> <br />
+
+         	<input type="radio" name="radio-choice-2" id="radio-choice-22" value="Good"/>
+         	<label for="radio-choice-22">Good</label><br />
+
+         	<input type="radio" name="radio-choice-2" id="radio-choice-23" value="Fair"/>
+         	<label for="radio-choice-23">Fair</label><br />
+
+         	<input type="radio" name="radio-choice-2" id="radio-choice-24" value="Bad"/>
+         	<label for="radio-choice-24">Bad</label><br />
+            
+            <input type="radio" name="radio-choice-2" id="radio-choice-25" value="Very Bad"/>
+         	<label for="radio-choice-25">Very Bad</label><br />
+    </fieldset><br />
+-->
+<div class='form-group row'>
+<div class="size">
+	<input type="text" name="test" value="How is your health in general?" class="field" readonly="readonly" />
+	<ul class="list">
+		<li>Very Good<</li>
+		<li>Good</li>
+		<li>Fair</li>
+		<li>Bad</li>
+        <li>Very Bad</li>
+	</ul>
+</div> <br />
 </div>
 
-<div class='form-group'>
-    <label for='email'>Email</label>
-    <input type='text' class='form-control' name='email' ng-model='formData.email'>
-</div>
 
 <div class='form-group row'>
 <div class='col-xs-6 col-xs-offset-3'>
@@ -17,3 +40,40 @@
     </a>
 </div>
 </div>
+
+<script>
+(function($){
+	$.fn.styleddropdown = function(){
+		return this.each(function(){
+			var obj = $(this)
+			obj.find('.field').click(function() { //onclick event, 'list' fadein
+			obj.find('.list').fadeIn(400);
+			
+			$(document).keyup(function(event) { //keypress event, fadeout on 'escape'
+				if(event.keyCode == 27) {
+				obj.find('.list').fadeOut(400);
+				}
+			});
+			
+			obj.find('.list').hover(function(){ },
+				function(){
+					$(this).fadeOut(400);
+				});
+			});
+			
+			obj.find('.list li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
+			obj.find('.field')
+				.val($(this).html())
+				.css({
+					'background':'#fff',
+					'color':'#333'
+				});
+			obj.find('.list').fadeOut(400);
+			});
+		});
+	};
+})(jQuery);
+$(function(){
+	$('.size').styleddropdown();
+});
+</script>

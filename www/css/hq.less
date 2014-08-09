@@ -383,7 +383,7 @@ pre                             { margin-bottom:20px; }
 
 /* ANIMATION STYLINGS
 ============================================================================= */
-#signup-form            { position:relative; min-height:300px; overflow:hidden; padding:30px; }
+#signup-form            { position:relative; min-height:300px; overflow:hidden; padding:10px; }
 
 /* basic styling for entering and leaving */
 /* left and right added to ensure full width */
@@ -432,3 +432,33 @@ pre                             { margin-bottom:20px; }
 	from 	{ -webkit-transform:translateX(200%); }
 	to 		{ -webkit-transform: translateX(0); }
 }
+
+/* Menu - list */
+.size { position:relative }
+.size .field {
+	width:300px; background:#41899E; color:#fff; padding:5px; border:none; cursor:pointer;
+	font-family:'lucida sans unicode',sans-serif; font-size:1em;
+	border:solid 1px #27525E;
+	-webkit-transition: all .4s ease-in-out;
+	transition: all .4s ease-in-out;
+}
+.size .field:hover {
+	border:solid 1px #fff;
+	-moz-box-shadow:0 0 5px #999; -webkit-box-shadow:0 0 5px #999; box-shadow:0 0 5px #999
+}
+.size>ul.list { display:none;
+	position:absolute; left:30px; top:-30px; z-index:999;
+	width:233px;
+	margin:0; padding:10px; list-style:none;
+	background:#fff; color:#333;
+	-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;
+	-moz-box-shadow:0 0 5px #999; -webkit-box-shadow:0 0 5px #999; box-shadow:0 0 5px #999
+}
+.size>ul.list li {
+	padding:10px;
+	border-bottom: solid 1px #ccc;
+}
+.size>ul.list li:hover {
+	background:#27525E; color:#fff;
+}
+.size>ul.list li:last-child { border:none }
