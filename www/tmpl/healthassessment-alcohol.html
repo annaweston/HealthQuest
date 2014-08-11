@@ -1,13 +1,28 @@
    <div id="status-buttons" class="text-center">
-       <a id="span3" ui-sref-active="active"><span>3</span></a></div>
-<div class="form-group">
-    <label for="name">Thinking about all kinds of drinks, how often have you had an alcoholic drink of any kind during the last 12 months? PLEASE CHOOSE ONE</label>
-    <input type="text" class="form-control" name="name" ng-model="formData.name">
-</div>
+       <a id="span4" ui-sref-active="active"><span>4</span></a></div>
 
 <div class="form-group">
-    <label for="email">Email</label>
-    <input type="text" class="form-control" name="email" ng-model="formData.email">
+<div class="size">
+<label>How often have you had an alcoholic drink of any kind during the last 12 months?</label>
+<select name="genLife" class="field">
+    	<option>Almost every day</option>
+		<option>5/6 a week</option>
+		<option>3/4 a week</option>
+		<option>1/2 a week</option>
+		<option>1/2 a month</option>
+        <option>1 every couple of months</option>
+        <option>1/2 a year</option>
+        <option>Not at all</option>
+</select>
+</div>
+
+<div class='form-group'>
+<fieldset data-role="controlgroup" >
+	<label>Have you had an alcoholic drink in the last seven days ending yesterday?</label>
+    <input type="radio" name="radio" ng-model="formData.smoking" ng-value="yes" id="yes"><label for="yes">Yes</label> <br />
+    <input type="radio" name="radio" ng-model="formData.smoking" ng-value="no" id="no">
+    <label for="no">No</label>
+</fieldset>
 </div>
 
 <div class="form-group row">

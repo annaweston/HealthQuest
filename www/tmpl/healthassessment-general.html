@@ -1,92 +1,98 @@
-   <div id="status-buttons" class="text-center">
+<div id="status-buttons" class="text-center">
        <a id="span1" ui-sref-active="active"><span>1</span></a></div> <br />
  
-<!--     <fieldset data-role="controlgroup" >
-    	<legend>How is you health in general?</legend>
-         	<input type="radio" name="radio-choice-2" id="radio-choice-21" value="Very Good" checked="checked" />
-         	<label for="radio-choice-21">Very Good</label> <br />
 
-         	<input type="radio" name="radio-choice-2" id="radio-choice-22" value="Good"/>
-         	<label for="radio-choice-22">Good</label><br />
-
-         	<input type="radio" name="radio-choice-2" id="radio-choice-23" value="Fair"/>
-         	<label for="radio-choice-23">Fair</label><br />
-
-         	<input type="radio" name="radio-choice-2" id="radio-choice-24" value="Bad"/>
-         	<label for="radio-choice-24">Bad</label><br />
-            
-            <input type="radio" name="radio-choice-2" id="radio-choice-25" value="Very Bad"/>
-         	<label for="radio-choice-25">Very Bad</label><br />
-    </fieldset><br />
--->
-<div class='form-group row'>
+<div class='form-group'>
 <div class="size">
-<label>How is your health in general?</label>
-
-	<input type="text" name="test" value="Please select" class="field" readonly="readonly" />
-	<ul class="list" style="overflow: auto">
-		<li>Very Good</li>
-		<li>Good</li>
-		<li>Fair</li>
-		<li>Bad</li>
-        <li>Very Bad</li>
-	</ul>
-</div> <br />
+<label>How is your health in general?</label> <br />
+<select name="genHealth" class="field" readonly="readonly">
+		<option id="selected">Please select</option>
+		<option>Very Good</option>
+		<option>Good</option>
+		<option>Fair</option>
+		<option>Bad</option>
+        <option>Very Bad</option>
+</select>
 </div>
-<div class='form-group row'>
-<div class="size">
-<label>Overall, how satisfied are you with life nowadays?</label>
-	<input type="text" name="test" value="Please select" class="field" readonly="readonly" />
-	<ul class="list">
-    	<li>0 (Not at all satisfied)</li>
-		<li>1</li>
-		<li>2</li>
-		<li>3</li>
-		<li>4</li>
-        <li>5</li>
-        <li>6</li>
-        <li>7</li>
-        <li>8</li>
-        <li>9</li>
-        <li>10 (Completely satisfied)</li>
-	</ul>
-</div> <br />
+<div class="page-header">
+<label>Overall:</label>
 </div>
 
 <div class="size">
-<B>Select some fruit:</B> <BR>
-<SELECT NAME="Morefruit" class="field" readonly="readonly">
-<OPTION SELECTED> Apples</OPTION>
-<OPTION> Bananas</OPTION>
-<OPTION> Oranges</OPTION>
-<OPTION> Watermelon</OPTION>
-<OPTION> Kiwi</OPTION>
-<OPTION> Cantaloupe</OPTION>
-<OPTION> Strawberries</OPTION>
-</SELECT>
+<label>How satisfied are you with life nowadays?</label>
+<select name="genLife" class="field">
+    	<option value="0">0 (Not at all satisfied)</option>
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+		<option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option value="10">10 (Completely satisfied)</option>
+</select>
 </div>
 
 <div class="size">
-<B>Select some fruit:</B> <BR>
-<SELECT NAME="Morefruit" class="field" readonly="readonly">
-<OPTION SELECTED> Apples</OPTION>
-<OPTION> Bananas</OPTION>
-<OPTION> Oranges</OPTION>
-<OPTION> Watermelon</OPTION>
-<OPTION> Kiwi</OPTION>
-<OPTION> Cantaloupe</OPTION>
-<OPTION> Strawberries</OPTION>
-</SELECT>
+<label>How happy did you feel yesterday?</label>
+<select name="genLife" class="field">
+    	<option value="0">0 (Not at all happy)</option>
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+		<option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option value="10">10 (Completely happy)</option>
+</select>
 </div>
 
-<div class='form-group row'>
-<div class='col-xs-6 col-xs-offset-3'>
-    <a ui-sref='healthassess.eating' class='btn btn-block btn-info'>
-    Next Section <span class='glyphicon glyphicon-circle-arrow-right'></span>
+<div class="size">
+<label>Overall, how anxious did you feel yesterday?</label>
+<select name="genLife" class="field">
+    	<option value="0">0 (Not at all anxious)</option>
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+		<option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option value="10">10 (Completely anxious)</option>
+</select>
+</div>
+
+<div class="size">
+<label>Overall, to what extent do you feel the things you do in you life are worthwhile?</label>
+<select name="genLife" class="field">
+    	<option value="0">0 (Not at all worthwhile)</option>
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+		<option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option value="10">10 (Completely worthwhile)</option>
+</select>
+</div>
+
+<div class="form-group row">
+<div class="col-xs-6 col-xs-offset-3">
+    <a ui-sref="healthassess.eating" class="btn btn-block btn-info">
+    Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
     </a>
 </div>
-</div>
-
+</div></div>
 <script>
 (function($){
 	$.fn.styleddropdown = function(){
@@ -122,4 +128,5 @@
 $(function(){
 	$('.size').styleddropdown();
 });
+
 </script>

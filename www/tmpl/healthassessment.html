@@ -1,40 +1,16 @@
 <div class="start">
 <div class="copy">
-
-<div class="healthassessment">
-
   <div id="form-container">
   
       <div class="page-header text-center">
           <h1>Health Assessment</h1>
-          
-          <!-- the links to our nested states using relative paths -->
-          <!-- add the active class if the state matches our ui-sref -->
-         <!-- <div id="status-buttons" class="text-center">
-              <a id="span1" ui-sref-active="active"><span>1</span></a>
-              <a id="span2" ui-sref-active="active"><span>2</span></a>
-              <a id="span3" ui-sref-active="active"><span>3</span></a>
-              <a id="span4" ui-sref-active="active"><span>4</span></a>
-              <a id="span5" ui-sref-active="active"><span>5</span></a>
-			-->
-            <!--
-              <a id="span1" ui-sref-active="active" ui-sref="healthassess.general"><span>1</span></a>
-              <a id="span2" ui-sref-active="active" ui-sref="healthassess.eating"><span>2</span></a>
-              <a id="span3" ui-sref-active="active" ui-sref="healthassess.alcohol"><span>3</span></a>
-              <a id="span4" ui-sref-active="active" ui-sref="healthassess.smoking"><span>4</span></a>
-              <a id="span5" ui-sref-active="active" ui-sref="healthassess.fitness"><span>5</span></a>
-
-             -->
-
-              <!-- General Eating Alcohol Smoking Fitness -->
-          </div>
+      </div>
       <!-- use ng-submit to catch the form submission and use our Angular function -->
       <form id="signup-form" ng-submit="processForm()">
           <!-- our nested state views will be injected here -->
           <div id="form-views" ui-view></div>
       </form>
-  
-  </div>
+
 </div>
 </div>
 </div>

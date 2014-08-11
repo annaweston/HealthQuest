@@ -1,12 +1,27 @@
    <div id="status-buttons" class="text-center">
-       <a id="span4" ui-sref-active="active"><span>4</span></a></div>
-<div class='form-group'><label for="name">Have you ever smoked a cigarette, a cigar, or a pipe?</label>
-    <input type="text" class="form-control" name="name" ng-model="formData.name">
+       <a id="span2" ui-sref-active="active"><span>2</span></a></div>
+       
+<div class='form-group'>
+<fieldset data-role="controlgroup" ng-model="smoking" id="smoking" >
+	<label for="radio">Have you ever smoked a cigarette, a cigar, or a pipe?</label>
+    <input type="radio" name="radio" ng-model="formData.smoking" ng-value="yes" id="yes"><label for="yes">Yes</label> <br />
+    <input type="radio" name="radio" ng-model="formData.smoking" ng-value="no" id="no">
+    <label for="no">No</label>
+</fieldset>
 </div>
 
-<div class="form-group">
-    <label for="email">Email</label>
-    <input type="text" class="form-control" name="email" ng-model="formData.email">
+<div class='form-group'>
+<fieldset data-role="controlgroup" >
+	<label>Do you smoke at all nowadays?</label>
+    <input type="radio" name="radio2" ng-model="formData.smoking" ng-value="yes" id="yes2" ng-click="toggle()"><label for="yes2">Yes</label> <br />
+    <input type="radio" name="radio2" ng-model="formData.smoking" ng-value="no" id="no2">
+    <label for="no2">No</label>
+</fieldset>
+</div>
+
+<div class='form-group size'>
+<label>How many do you have in an average week?</label> <br />
+<input type="text" name="averagesmoke" ng-model="formData.smoking"><br />
 </div>
 
 <div class="form-group row">
