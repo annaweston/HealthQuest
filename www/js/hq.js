@@ -58,15 +58,32 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 				$scope.title = 'Welcome';
 				}
 		})
+			.state('profileReg', {
+			url:'/profile',
+			templateUrl:'tmpl/profile.html',
+			controller: 'formController'
+		})
 		.state('categories', {
 			url:'/categories',
 			templateUrl:'tmpl/categories.html',
-			controller:function($scope, $state, utils, $swipe, $stateParams) {
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+				},		
+			controller:function($scope, $state, utils, $swipe, $stateParams, profile, $rootScope) {
 				setUIViewTransition('transition-fade');
+				var u = utils, sa = function(f) { utils.safeApply($scope, f); };
 				$scope.categoryList = ['alcohol', 'fitness', 'food', 'weight', 'sleep', 'smoking'];			
 				$scope.title = 'Choose your category';
-				}
+
+				
+				$scope.addProfile = function(response) {
+					profile.category = response;
+					
+				};
+			}
 		})
+		
+	
 		.state('alcohol', {
 			url:'/categories',
 			templateUrl:'tmpl/questions.html',
@@ -89,6 +106,18 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		.state('healthassess.general', {
 			url: '/1',
 			templateUrl: 'tmpl/healthassessment-general.html',
+		})
+		// nested states 
+		// each of these sections will have their own view
+		// url will be nested (/form/profile)
+		.state('healthassess.general2', {
+			url: '/1b',
+			templateUrl: 'tmpl/healthassessment-general-2.html',
+		})
+		
+		.state('healthassess.general3', {
+			url: '/1c',
+			templateUrl: 'tmpl/healthassessment-general-3.html',
 		})
 		
 		// url will be /form/interests
@@ -115,7 +144,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 			url: '/5',
 			templateUrl: 'tmpl/healthassessment-fitness.html'
 		})
-		
+	
   })
 			
 	.controller('main', ['$scope','$rootScope', function($scope, $rootScope) { 
@@ -139,51 +168,9 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		$scope.msg = $feedback;
 	}])
 	
-	.controller('formController', function($scope) {  
-		// we will store all of our form data in this object
-		$scope.formData = {};
-		
-		// function to process the form
-		$scope.processForm = function() {
-			alert('awesome!');  
-		};
-		
+	.controller('formController', function($scope, $state, utils, $swipe, $stateParams, profile, $rootScope) {
+				setUIViewTransition('transition-fade');
+				var u = utils, sa = function(f) { utils.safeApply($scope, f); };
+				var formData = {};
+				console.log(formData);
 	})
-	
-	
-// DOM Ready
-$(function() {
- var el, newPoint, newPlace, offset;
- 
- // Select all range inputs, watch for change
- $("input[type='range']").change(function() {
- 
-   // Cache this for efficiency
-   el = $(this);
-   
-   // Measure width of range input
-   width = el.width();
-   
-   // Figure out placement percentage between left and right of input
-   newPoint = (el.val() - el.attr("min")) / (el.attr("max") - el.attr("min"));
-   
-   // Janky value to get pointer to line up better
-   offset = -1.3;
-   
-   // Prevent bubble from going beyond left or right (unsupported browsers)
-   if (newPoint < 0) { newPlace = 0; }
-   else if (newPoint > 1) { newPlace = width; }
-   else { newPlace = width * newPoint + offset; offset -= newPoint; }
-   
-   // Move bubble
-   el
-     .next("output")
-     .css({
-       left: newPlace,
-       marginLeft: offset + "%"
-     })
-     .text(el.val());
- })
- // Fake a change to position bubble at page load
- .trigger('change');
-});

@@ -36,10 +36,7 @@ angular.module('hq')
 				var qs_weight = questions.filter(function(x) { return x["Category"] == "weight"; });
 				var qs_sleep = questions.filter(function(x) { return x["Category"] == "sleep"; });
 				var qs_smoking = questions.filter(function(x) { return x["Category"] == "smoking"; });
-					
-				profile.category = "alcohol";	
-				console.log(profile.category);	
-					
+										
 				var matching_qs = questions.filter(function(x) { return x["Question ID"] == $stateParams.questionid; });
 				if (matching_qs.length < 1) {
 					$state.go('error');

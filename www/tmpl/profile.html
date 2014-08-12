@@ -6,7 +6,7 @@
           <h1>welcome</h1>
       </div>
       <!-- use ng-submit to catch the form submission and use our Angular function -->
-      <form id="signup-form">
+      <form id="signup-form"  ng-submit="processForm()">
           <!-- our nested state views will be injected here -->
           <div id="form-views" ui-view>
 
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group row next">
             <!-- ui-sref="healthassess.general" -->
-              <div class="col-xs-6 col-xs-offset-3 next"> <a class="btn btn-block btn-info" ng-submit="processForm()"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </a> </div>
+              <div class="col-xs-6 col-xs-offset-3 next"> <a class="btn btn-block btn-info"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </a> </div>
             </div>
             </div>
             </form></div></div></div>
