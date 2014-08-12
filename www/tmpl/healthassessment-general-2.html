@@ -1,7 +1,8 @@
 <div id="status-buttons" class="text-center"> <a id="span1" ui-sref-active="active"><span>1</span></a> </div>
+<form name="healthassessSection1b_form" ng-submit="addHealth1b()">
 <div class="size">
   <label>Overall, how happy did you feel yesterday?</label>
-  <select name="genLife" class="field">
+  <select name="genLife" class="field" ng-model="healthassessSection1c">
     <option value="0">0 (Not at all happy)</option>
     <option>1</option>
     <option>2</option>
@@ -17,7 +18,7 @@
 </div>
 <div class="size">
   <label>Overall, how anxious did you feel yesterday?</label>
-  <select name="genLife" class="field">
+  <select name="genLife" class="field" ng-model="healthassessSection1d">
     <option value="0">0 (Not at all anxious)</option>
     <option>1</option>
     <option>2</option>
@@ -33,7 +34,7 @@
 </div>
 <div class="size">
   <label>Overall, to what extent do you feel the things you do in you life are worthwhile?</label>
-  <select name="genLife" class="field">
+  <select name="genLife" class="field" ng-model="healthassessSection1e">
     <option value="0">0 (Not at all worthwhile)</option>
     <option>1</option>
     <option>2</option>
@@ -48,5 +49,9 @@
   </select>
 </div>
 <div class="form-group row">
-  <div class="col-xs-6 col-xs-offset-3 next"> <a ui-sref="healthassess.general3" class="btn btn-block btn-info"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </a> </div>
+      <div class="col-xs-6 col-xs-offset-3 next">
+      <button type="submit" class="btn btn-block btn-info" >
+      Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
+      </div>
 </div>
+</form>

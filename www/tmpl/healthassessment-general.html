@@ -1,9 +1,10 @@
 <div id="status-buttons" class="text-center"> <a id="span1" ui-sref-active="active"><span>1</span></a></div>
+<form name="healthassessSection1_form" ng-submit="addHealth1()">
 <div class="size">
   <label>How is your health in general?</label>
   <br />
-  <select name="genHealth" class="field" readonly="readonly">
-    <option id="selected">Please select</option>
+  <select name="genHealth" class="field" readonly="readonly" ng-model="healthassessSection1a">
+    <option selected="selected">Please select</option>
     <option>Very Good</option>
     <option>Good</option>
     <option>Fair</option>
@@ -13,7 +14,8 @@
 </div>
 <div class="size">
   <label>Overall, how satisfied are you with life nowadays?</label>
-  <select name="genLife" class="field">
+  <select name="genLife" class="field" ng-model="healthassessSection1b">
+    <option selected="selected">Please select</option>
     <option value="0">0 (Not at all satisfied)</option>
     <option>1</option>
     <option>2</option>
@@ -30,8 +32,13 @@
 <br />
 <br />
 <div class="form-group row">
-  <div class="col-xs-6 col-xs-offset-3 next"> <a ui-sref="healthassess.general2" class="btn btn-block btn-info"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </a> </div>
+      <div class="col-xs-6 col-xs-offset-3 next">
+      <button type="submit" class="btn btn-block btn-info" >
+      Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
+      </div>
 </div>
+</form>
+
 <!--/*<script>
 (function($){
 	$.fn.styleddropdown = function(){

@@ -36,6 +36,9 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		.state('success', {
 			url:'/feedback/success',
 			templateUrl:'tmpl/feedback.html',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},		
 			controller:function($scope, $state, utils, $swipe, $stateParams, $rootScope) {
 				setUIViewTransition('transition-fade');
 				$scope.feedback = "Correct";
@@ -50,9 +53,12 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 				$scope.feedback = "Incorrect"			
 				}
 		})
-		.state('profile', {
+		.state('profileSaved', {
 			url:'/setup',
 			templateUrl:'tmpl/profileform.html',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},		
 			controller:function($scope, $state, utils, $swipe, $stateParams) {
 				setUIViewTransition('transition-fade');
 				$scope.title = 'Welcome';
@@ -61,14 +67,18 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		.state('profileReg', {
 			url:'/profile',
 			templateUrl:'tmpl/profile.html',
-			controller: 'formController'
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},		
+			controller: 'formController',
 		})
+		
 		.state('categories', {
 			url:'/categories',
 			templateUrl:'tmpl/categories.html',
 			resolve : {
 				profile:function(storage)  { return storage.getProfile(); },
-				},		
+			},		
 			controller:function($scope, $state, utils, $swipe, $stateParams, profile, $rootScope) {
 
 				setUIViewTransition('transition-fade');
@@ -88,6 +98,9 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		.state('alcohol', {
 			url:'/categories',
 			templateUrl:'tmpl/questions.html',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},		
 			controller:function($scope, $state, utils, $swipe, $stateParams) {
 				setUIViewTransition('transition-fade');
 				$scope.title = 'Choose your category';
@@ -97,8 +110,11 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		// route to show our basic form (/form)
 		.state('healthassess', {
 			url: '/healthassessment',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},		
 			templateUrl: 'tmpl/healthassessment.html',
-			controller: 'formController',
+			controller: 'healthAssessController',
 			
 		})
 		// nested states 
@@ -107,6 +123,11 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		.state('healthassess.general', {
 			url: '/1',
 			templateUrl: 'tmpl/healthassessment-general.html',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},		
+			controller: 'healthAssessController',
+
 		})
 		// nested states 
 		// each of these sections will have their own view
@@ -114,11 +135,21 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		.state('healthassess.general2', {
 			url: '/1b',
 			templateUrl: 'tmpl/healthassessment-general-2.html',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},		
+
+
 		})
 		
 		.state('healthassess.general3', {
 			url: '/1c',
 			templateUrl: 'tmpl/healthassessment-general-3.html',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},		
+
+
 		})
 		
 		// url will be /form/interests
@@ -133,17 +164,32 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		// url will be /form/payment
 		.state('healthassess.eating', {
 			url: '/3',
-			templateUrl: 'tmpl/healthassessment-eating.html'
+			templateUrl: 'tmpl/healthassessment-eating.html',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},		
+
+
 		})
 		// url will be /form/payment
 		.state('healthassess.alcohol', {
 			url: '/4',
-			templateUrl: 'tmpl/healthassessment-alcohol.html'
+			templateUrl: 'tmpl/healthassessment-alcohol.html',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},		
+
+
 		})
 		// url will be /form/payment
 		.state('healthassess.fitness', {
 			url: '/5',
-			templateUrl: 'tmpl/healthassessment-fitness.html'
+			templateUrl: 'tmpl/healthassessment-fitness.html',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},		
+
+
 		})
 	
   })
@@ -169,14 +215,42 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		$scope.msg = $feedback;
 	}])
 	
-	.controller('formController', function($scope, $state, utils, $swipe, $stateParams, $rootScope) {
+	.controller('formController', function($scope, profile, $state) {
 				setUIViewTransition('transition-fade');
-				var u = utils, sa = function(f) { utils.safeApply($scope, f); };
-				var formData = {};
-				console.log(formData);
+				$scope.addProfile = function(){
+					
+					profile.name = $scope.input.nameText;
+					profile.email = $scope.input.emailText;
+					profile.age = $scope.input.ageText;
+					profile.gender = $scope.input.genderText;
+					profile.save();
+					$state.go('healthassess.general')
+				}
 	})
-	
-	function processForm(){
-		
-		
-		}
+	.controller('healthAssessController', function($scope, profile, $state) {
+				setUIViewTransition('transition-fade');
+				
+				$scope.addHealth1 = function(){
+					profile.healthAssess1a = $scope.healthassessSection1a;
+					profile.healthAssess1b = $scope.healthassessSection1b;
+					profile.save();
+					console.log(profile);
+					$state.go('healthassess.general2')
+				}
+				
+				$scope.addHealth1b = function(){
+					profile.healthAssess1c = $scope.healthassessSection1c;
+					profile.healthAssess1d = $scope.healthassessSection1d;
+					profile.healthAssess1e = $scope.healthassessSection1e;
+					profile.save();
+					console.log(profile);
+					$state.go('healthassess.general3')
+				}
+				
+				$scope.addHealth1c = function(){
+					profile.healthAssess1f = $scope.healthassessSection1f;
+					profile.save();
+					console.log(profile);
+					$state.go('healthassess.smoking')
+				}
+	})
