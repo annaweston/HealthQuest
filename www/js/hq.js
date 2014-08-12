@@ -58,7 +58,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 				$scope.title = 'Welcome';
 				}
 		})
-			.state('profileReg', {
+		.state('profileReg', {
 			url:'/profile',
 			templateUrl:'tmpl/profile.html',
 			controller: 'formController'
@@ -168,7 +168,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		$scope.msg = $feedback;
 	}])
 	
-	.controller('formController', function($scope, $state, utils, $swipe, $stateParams, profile, $rootScope) {
+	.controller('formController', function($scope, $state, utils, $swipe, $stateParams, $rootScope) {
 				setUIViewTransition('transition-fade');
 				var u = utils, sa = function(f) { utils.safeApply($scope, f); };
 				var formData = {};
