@@ -70,6 +70,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 				profile:function(storage)  { return storage.getProfile(); },
 				},		
 			controller:function($scope, $state, utils, $swipe, $stateParams, profile, $rootScope) {
+
 				setUIViewTransition('transition-fade');
 				var u = utils, sa = function(f) { utils.safeApply($scope, f); };
 				$scope.categoryList = ['alcohol', 'fitness', 'food', 'weight', 'sleep', 'smoking'];			

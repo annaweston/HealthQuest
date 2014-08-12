@@ -8,20 +8,10 @@ angular.module('hq')
 			templateUrl:'tmpl/home.html',
 			resolve : {
 				profile:function(storage)  { return storage.getProfile(); },
-				questions : function(utils) { 
-		        	var u = utils, d = u.deferred();
-			        d3.csv('data/questions.csv').get(function(err, rows) { 
-			          	if (err) { 
-			          		d.reject();		
-			          		console.error('could not load ', err);
-			          		return;
-			          	}
-			          	d.resolve(rows);
-			        });
-			        return d.promise();
-				}
+				questions : function(qFactory) { return qFactory.load(); }
 			},			
 			controller:function($scope, $state, utils, $swipe, profile, questions) {
+				console.log('yolo');
 				setUIViewTransition('transition-fade');
 				var u = utils, sa = function(f) { utils.safeApply($scope, f); };
 				$scope.home = {};
@@ -40,10 +30,17 @@ angular.module('hq')
 			    $scope.goCalendar = function() { 
 			    	$state.go('diary', { openCalendar: true });
 			    };
-				$scope.profile = profile.attributes;
-				window.profile = profile;
+
+
+				// $scope.profile = profile.attributes;
+
+				// comment these out, dawg. who puts things on window anyway?! barbarians.
+				// window.profile = profile;
 				window.$s = $scope;
-				console.log('questions ', questions);
+				window.p = profile;
+				window.questions = questions;
+				console.info('got profile! ', profile);
+				// console.log('questions ', questions);
 				// if you want to try cool swiping action with ngTouch
 				// $swipe.bind(angular.element('.home'), {
 				// 	move: function(evt) { 
