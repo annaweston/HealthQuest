@@ -2,26 +2,25 @@
        <a id="span2" ui-sref-active="active"><span>2</span></a></div>
 <form name="healthassessSectionSmoking_form" ng-submit="addHealthSmoking()">       
 <div class='form-group'>
-<fieldset data-role="controlgroup" ng-model="smoking" id="smoking" ng-model="healthassessSection2a">
+<fieldset>
 	<label for="radio">Have you ever smoked a cigarette, a cigar, or a pipe?</label>
-    <input type="radio" name="radio" ng-model="formData.smoking" ng-value="yes" id="yes"><label for="yes">Yes</label> <br />
-    <input type="radio" name="radio" ng-model="formData.smoking" ng-value="no" id="no">
-    <label for="no">No</label>
+    <input type="radio" name="radio" ng-model="healthassessSection2a" ng-value="yes" id="yes"><label for="yes">Yes</label> <br />
+    <input type="radio" name="radio" ng-model="healthassessSection2a" ng-value="no" id="no"><label for="no">No</label>
 </fieldset>
 </div>
 
 <div class='form-group'>
-<fieldset data-role="controlgroup" ng-model="healthassessSection2b" >
+<fieldset>
 	<label>Do you smoke at all nowadays?</label>
-    <input type="radio" name="radio2" ng-model="formData.smoking" ng-value="yes" id="yes2" ng-click="toggle()"><label for="yes2">Yes</label> <br />
-    <input type="radio" name="radio2" ng-model="formData.smoking" ng-value="no" id="no2">
+    <input type="radio" name="radio2" ng-model="healthassessSection2b" ng-value="yes" id="yes2" ng-click="toggle()"><label for="yes2">Yes</label> <br />
+    <input type="radio" name="radio2" ng-model="healthassessSection2b" ng-value="no" id="no2">
     <label for="no2">No</label>
 </fieldset>
 </div>
 
 <div class='form-group size'>
 <label>How many do you have in an average week?</label> <br />
-<input type="text" name="averagesmoke" ng-model="formData.smoking"><br />
+<input type="text" name="averagesmoke" ng-model="healthassessSection2c"><br />
 </div>
 
 <div class="form-group row">
