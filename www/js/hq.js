@@ -72,7 +72,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 			},		
 			controller: 'formController',
 		})
-		
+
 		.state('categories', {
 			url:'/categories',
 			templateUrl:'tmpl/categories.html',
@@ -93,7 +93,11 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 								
 				$scope.addCategory = function() {
 					var this_ = this;
-					profile.category = this_.slide.name;
+					profile.set({ category : this_.slide.name});
+
+					profile.save();
+					//console.log(profile);
+					$state.go('question');
 				};
 			}
 		})
@@ -128,6 +132,9 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 			url: '/1',
 			templateUrl: 'tmpl/healthassessment-general.html',
 			controller: 'healthAssessController',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},	
 
 		})
 		// nested states 
@@ -171,6 +178,21 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 			templateUrl: 'tmpl/healthassessment-fitness.html',
 			controller: 'healthAssessController',
 		})
+		
+		.state('welcome', {
+			url:'/welcome',
+			templateUrl:'tmpl/welcome.html',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},	
+			controller:function($scope, $state, $stateParams, profile) {
+				setUIViewTransition('transition-fade');				
+				console.log(profile);
+			}
+	
+		})
+		
+
 	
   })
 			
@@ -198,42 +220,50 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 	.controller('formController', function($scope, profile, $state) {
 				setUIViewTransition('transition-fade');
 				console.log(profile);
-				
 				$scope.addProfile = function(){				
-					profile.name = $scope.input.nameText;
-					profile.email = $scope.input.emailText;
-					profile.age = $scope.input.ageText;
-					profile.gender = $scope.input.genderText;
-					console.log(profile);
+					profile.set({ name : $scope.input.nameText});
+					profile.set({ email : $scope.input.emailText});
+					profile.set({ age : $scope.input.ageText});
+					profile.set({ gender : $scope.input.genderText});
+
+					//profile.email = $scope.input.emailText;
+//					profile.age = $scope.input.ageText;
+//					profile.gender = $scope.input.genderText;
 					profile.save();
 					$state.go('healthassess.general');
 				}
 	})
 	.controller('healthAssessController', function($scope, profile, $state) {
 				setUIViewTransition('transition-fade');
-				console.log(profile);
-
+				
 				$scope.addHealthGen1 = function(){
-						profile.healthAssess1a = $scope.healthassessSection1a;
-						profile.healthAssess1b = $scope.healthassessSection1b;
-						console.log(profile);
+						profile.set({ healthAssess1a : $scope.healthassessSection1a});
+						profile.set({ healthAssess1b : $scope.healthassessSection1b});
+
+//						profile.healthAssess1a = $scope.healthassessSection1a;
+//						profile.healthAssess1b = $scope.healthassessSection1b;
 						profile.save();
-						console.log(profile);
 						$state.go('healthassess.general2');
 				}
 
 				$scope.addHealthGen2 = function(){
-					profile.healthAssess1c = $scope.healthassessSection1c;
-					profile.healthAssess1d = $scope.healthassessSection1d;
-					profile.healthAssess1e = $scope.healthassessSection1e;
+					profile.set({ healthAssess1c : $scope.healthassessSection1c});
+					profile.set({ healthAssess1d : $scope.healthassessSection1d});
+					profile.set({ healthAssess1e : $scope.healthassessSection1e});
+
+
+//					profile.healthAssess1c = $scope.healthassessSection1c;
+//					profile.healthAssess1d = $scope.healthassessSection1d;
+//					profile.healthAssess1e = $scope.healthassessSection1e;
 					//console.log($scope.healthassessSection1c);
-					console.log(profile);
 					profile.save();
 					$state.go('healthassess.general3');
 				}
 				
 				$scope.addHealthGen3 = function(){
-					$scope.profile.healthAssess1f = $scope.healthassessSection1f;
+					profile.set({ healthAssess1f : $scope.healthassessSection1f});
+
+//					$scope.profile.healthAssess1f = $scope.healthassessSection1f;
 					profile.save();
 					console.log(profile);
 					$state.go('healthassess.smoking');
@@ -241,35 +271,44 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 				
 				
 				$scope.addHealthSmoking = function(){
-					profile.healthAssess2a = $scope.healthassessSection2a;
-					profile.healthAssess2b = $scope.healthassessSection2b;
-					profile.healthAssess2c = $scope.healthassessSection2c;
+					profile.set({ healthAssess2a : $scope.healthassessSection2a});
+					profile.set({ healthAssess2b : $scope.healthassessSection2b});
+					profile.set({ healthAssess2c : $scope.healthassessSection2c});
+
+//					profile.healthAssess2a = $scope.healthassessSection2a;
+//					profile.healthAssess2b = $scope.healthassessSection2b;
+//					profile.healthAssess2c = $scope.healthassessSection2c;
 					profile.save();
-					console.log(profile);
 					$state.go('healthassess.eating');
 				}
 				
 								
 				$scope.addHealthEating = function(){
-					profile.healthAssess3a = $scope.healthassessSection3a;
-					profile.healthAssess3b = $scope.healthassessSection3b;
+					profile.set({ healthAssess3a : $scope.healthassessSection3a});
+					profile.set({ healthAssess3b : $scope.healthassessSection3b});
+
+					
+//					profile.healthAssess3a = $scope.healthassessSection3a;
+//					profile.healthAssess3b = $scope.healthassessSection3b;
 					profile.save();
-					console.log(profile);
 					$state.go('healthassess.alcohol');
 				}
 				
 				$scope.addHealthAlcohol = function(){
-					profile.healthAssess4a = $scope.healthassessSection4a;
-					profile.healthAssess4b = $scope.healthassessSection4b;
+					profile.set({ healthAssess4a : $scope.healthassessSection4a});
+					profile.set({ healthAssess4b : $scope.healthassessSection4b});
+
+//					profile.healthAssess4a = $scope.healthassessSection4a;
+//					profile.healthAssess4b = $scope.healthassessSection4b;
 					profile.save();
-					console.log(profile);
 					$state.go('healthassess.fitness');
 				}
 				
 				$scope.addHealthFitness = function(){
-					profile.healthAssess5a = $scope.healthassessSection5a;
+					profile.set({ healthAssess5a : $scope.healthassessSection5a});
+
+//					profile.healthAssess5a = $scope.healthassessSection5a;
 					profile.save();
-					console.log(profile);
 					$state.go('categories');
 				}
 
