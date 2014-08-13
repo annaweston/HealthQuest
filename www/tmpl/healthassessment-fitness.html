@@ -1,5 +1,6 @@
    <div id="status-buttons" class="text-center">
        <a id="span5" ui-sref-active="active"><span>5</span></a></div>
+<form ng-submit="addHealthFitness()">
 <div class='form-group'>
 <div class="size">
 <label>In the past week, on how many days have you done a total of 30 minutes or more of moderate or intensive physical activity?</label>
@@ -20,9 +21,9 @@
 </div>
 
 <div class="form-group row">
-<div class="col-xs-6 col-xs-offset-3 next">
-    <a ui-sref="categories" class="btn btn-block btn-info">
-    Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
-    </a>
+      <div class="col-xs-6 col-xs-offset-3 next">
+      <button type="submit" class="btn btn-block btn-info" >
+      Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
 </div>
 </div>
+</form>

@@ -1,8 +1,8 @@
    <div id="status-buttons" class="text-center">
        <a id="span2" ui-sref-active="active"><span>2</span></a></div>
-       
+<form name="healthassessSectionSmoking_form" ng-submit="addHealthSmoking()">       
 <div class='form-group'>
-<fieldset data-role="controlgroup" ng-model="smoking" id="smoking" >
+<fieldset data-role="controlgroup" ng-model="smoking" id="smoking" ng-model="healthassessSection2a">
 	<label for="radio">Have you ever smoked a cigarette, a cigar, or a pipe?</label>
     <input type="radio" name="radio" ng-model="formData.smoking" ng-value="yes" id="yes"><label for="yes">Yes</label> <br />
     <input type="radio" name="radio" ng-model="formData.smoking" ng-value="no" id="no">
@@ -11,7 +11,7 @@
 </div>
 
 <div class='form-group'>
-<fieldset data-role="controlgroup" >
+<fieldset data-role="controlgroup" ng-model="healthassessSection2b" >
 	<label>Do you smoke at all nowadays?</label>
     <input type="radio" name="radio2" ng-model="formData.smoking" ng-value="yes" id="yes2" ng-click="toggle()"><label for="yes2">Yes</label> <br />
     <input type="radio" name="radio2" ng-model="formData.smoking" ng-value="no" id="no2">
@@ -25,9 +25,9 @@
 </div>
 
 <div class="form-group row">
-<div class="col-xs-6 col-xs-offset-3 next">
-    <a ui-sref="healthassess.fitness" class="btn btn-block btn-info">
-    Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
-    </a>
+      <div class="col-xs-6 col-xs-offset-3 next">
+      <button type="submit" class="btn btn-block btn-info" >
+      Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
 </div>
 </div>
+</form>
