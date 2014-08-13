@@ -35,7 +35,7 @@ angular.module('hq')
           		chooseRandomButNotThese:function(c, forbidden_ids) { 
           			var qs = this.getCategory(c),
           				qfiltered = qs.filter(function(q) { 
-          					return forbidden_ids.indexOf(q['Question ID']) < 0;
+          					return forbidden_ids.indexOf(q['questionID']) < 0;
           				});
 
           			if (qfiltered.length === 0) {
@@ -55,26 +55,17 @@ angular.module('hq')
         		return d.promise();
         	}
         }
-	}).config(function($stateProvider) {
+	})
+	
+	.config(function($stateProvider) {
 		$stateProvider.state('question', {
 			url:'/question/:questionid',
 			templateUrl:'tmpl/question.html',
 			resolve : {
 				profile:function(storage)  { return storage.getProfile(); },
-				questions : function(utils) { 
-		        	var u = utils, d = u.deferred();
-			        d3.csv('data/questions.csv').get(function(err, rows) { 
-			          	if (err) { 
-			          		d.reject();		
-			          		console.error('could not load ', err);
-			          		return;
-			          	}
-			          	d.resolve(rows);
-			        });
-			        return d.promise();
-				}
-			},			
-			controller:function(profile, questions, $scope, $stateParams) {
+				questions : function(qFactory) { return qFactory.load(); }
+			},		
+			controller:function(profile, questions, $scope, $stateParams, qFactory) {
 				setUIViewTransition('transition-fade');
 								
 				// setting the questionid into our scope so we can display it (if we want to!)
@@ -89,20 +80,27 @@ angular.module('hq')
 */					
 			
 				var category = profile.get("category");
-				console.log(category);
 
-				var matching_qs;
-/*				var matching_qs = questions.filter(function(x) { return x["Question ID"] == $stateParams.questionid; });
+				var qs = questions.chooseRandom(category);
+				
+				
+				$scope.questionid = qs.questionID;
+				console.log(qs);
+				var id = "questionID";
+				
+				$scope.question = qs.Question;
+
+/*				var matching_qs = questions.filter(function(x) { return x["questionID"] == qs; });
 				if (matching_qs.length < 1) {
 					$state.go('error');
 					return;
 				}
+*/				
 				
+				console.log(qs.Question);
 				
+				$scope.answerSplit = qs.Answer.split(';').map(function(x) { return x.trim(); });
 				
-				$scope.q = matching_qs[0];
-				$scope.q.AnswerSplit = $scope.q.Answer.split(';').map(function(x) { return x.trim(); });
-				*/
 				$scope.setResponse = function(response) {
 					$rootScope.explanation = $scope.q.explanation;	
 					//if correct go to home, if not go to start

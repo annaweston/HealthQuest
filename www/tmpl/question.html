@@ -3,10 +3,10 @@
 <div class="question">
   omg question {{ questionid }} 
 
-  <h1>{{q.Question}}</h1>
+  <h1>{{question}}</h1>
 
   <ul>
-  	<li ng-repeat="x in q.AnswerSplit">
+  	<li ng-repeat="x in answerSplit">
   		<div class="btn btn-default" ng-click="setResponse($index)">{{ x }}</div>
   	</li>
   </ul>
