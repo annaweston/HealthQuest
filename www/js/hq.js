@@ -79,17 +79,21 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 			resolve : {
 				profile:function(storage)  { return storage.getProfile(); },
 			},		
-			controller:function($scope, $state, utils, $swipe, $stateParams, profile, $rootScope) {
-
+			controller:function($scope, $state, $stateParams, profile) {
 				setUIViewTransition('transition-fade');
-				var u = utils, sa = function(f) { utils.safeApply($scope, f); };
-				$scope.categoryList = ['alcohol', 'fitness', 'food', 'weight', 'sleep', 'smoking'];			
+				$scope.categoryList = [
+					{name : 'alcohol'},
+					{name : 'fitness'},
+					{name : 'food'},
+					{name : 'weight'},
+					{name : 'sleep'},
+					{name : 'smoking'}
+				];			
 				$scope.title = 'Choose your category';
-
-				
-				$scope.addProfile = function(response) {
-					profile.category = response;
-					
+								
+				$scope.addCategory = function() {
+					var this_ = this;
+					profile.category = this_.slide.name;
 				};
 			}
 		})

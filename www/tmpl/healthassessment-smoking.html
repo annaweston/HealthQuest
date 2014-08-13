@@ -1,29 +1,23 @@
    <div id="status-buttons" class="text-center">
        <a id="span2" ui-sref-active="active"><span>2</span></a></div>
 <form name="healthassessSectionSmoking_form" ng-submit="addHealthSmoking()">       
-<div class='form-group'>
-<fieldset>
+<div class='radio_indent'>
 	<label for="radio">Have you ever smoked a cigarette, a cigar, or a pipe?</label>
-    <input type="radio" name="radio" ng-model="healthassessSection2a" ng-value="yes" id="yes"><label for="yes">Yes</label> <br />
-    <input type="radio" name="radio" ng-model="healthassessSection2a" ng-value="no" id="no"><label for="no">No</label>
-</fieldset>
+    <input type="radio" name="radio" ng-model="healthassessSection2a" id="yes"><label for="yes">Yes</label> <br />
+    <input type="radio" name="radio" ng-model="healthassessSection2a" id="no"><label for="no">No</label>
 </div>
 
-<div class='form-group'>
-<fieldset>
+<div class='radio_indent'>
 	<label>Do you smoke at all nowadays?</label>
-    <input type="radio" name="radio2" ng-model="healthassessSection2b" ng-value="yes" id="yes2" ng-click="toggle()"><label for="yes2">Yes</label> <br />
-    <input type="radio" name="radio2" ng-model="healthassessSection2b" ng-value="no" id="no2">
+    <input type="radio" name="radio2" ng-model="healthassessSection2b" id="yes2" ng-click="toggle()"><label for="yes2">Yes</label> <br />
+    <input type="radio" name="radio2" ng-model="healthassessSection2b" id="no2">
     <label for="no2">No</label>
-</fieldset>
 </div>
 
-<div class='form-group size'>
 <label>How many do you have in an average week?</label> <br />
-<input type="text" name="averagesmoke" ng-model="healthassessSection2c"><br />
-</div>
+<input class="form-control" type="text" ng-model="healthassessSection2c" /><br />
 
-<div class="form-group row">
+<div class="form-group row next">
       <div class="col-xs-6 col-xs-offset-3 next">
       <button type="submit" class="btn btn-block btn-info" >
       Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>

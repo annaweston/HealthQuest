@@ -1,10 +1,10 @@
    <div id="status-buttons" class="text-center">
        <a id="span3" ui-sref-active="active"><span>3</span></a></div>
-<form ng-model="addHealthEating()">       
+<form ng-submit="addHealthEating()">       
 <label><b>On a typical day:</b></label>       
 <div class='form-group'>
     <label for="fruit">How many portions* of fruit do you eat?</label>
-    <input type="text" class="form-control" name="fruit" ng-model="formData.name">
+    <input type="number" class="form-control" name="fruit" ng-model="healthassessSection3a">
     <h6>*Approx a tablespoon of dried fruit, 
 1 medium sized (eg apples), 
 2 small pieces (eg apricot) or 
@@ -14,7 +14,7 @@
 
 <div class="form-group">
     <label for="veg">How many portions** of vegetables, excluding potatoes, do you eat?</label>
-    <input type="text" class="form-control" name="veg" ng-model="formData.email">
+    <input type="number" class="form-control" name="veg" ng-model="healthassessSection3b">
     <h6>
 **Approximately 1 handful veg or 3 serving spoons of salad. 
 </h6>

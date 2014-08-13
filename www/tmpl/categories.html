@@ -1,17 +1,11 @@
 <div class="start">
-    <div class="category">
-      <div class="text-center">
-        <h1 style="padding: 10px">{{title}}</h1>
-      </div>
-      <div ng-repeat="slide in categoryList" active="slide.active" class="floatleft"> 
-      <!-- ui-sref="question" -->
-      <a ng-click="addProfile(slide)"><img class="caption" id="{{slide}}" ng-src="img/categoryImg/{{slide}}.jpg" alt="{{slide}}" height="110px" width="110px">
-      <figcaption class="text-center">{{slide}}</figcaption>
-      </figure>
-      </a> 
-      </div>
-
-      </div>
+  <div class="category">
+    <div class="text-center">
+      <h1 style="padding: 10px">{{title}}</h1>
     </div>
+    <div ng-repeat="slide in categoryList" class="floatleft" > 
+    	<a ng-click="addCategory()"> <img class="caption" ng-model="categoryList.name" ng-src="img/categoryImg/{{slide.name}}.jpg" alt="{{slide}}" height="110px" width="110px"> </a> 
+        <a ng-click="addCategory()"><figcaption class="text-center" ng-model="slide.name">{{slide.name}}</figcaption></a> 
   </div>
+</div>
 </div>

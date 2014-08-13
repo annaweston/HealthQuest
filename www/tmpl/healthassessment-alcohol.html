@@ -1,10 +1,10 @@
    <div id="status-buttons" class="text-center">
        <a id="span4" ui-sref-active="active"><span>4</span></a></div>
-<form ng-model="addHealthAlcohol()">
+<form ng-submit="addHealthAlcohol()">
 <div class="form-group">
 <div class="size">
 <label>How often have you had an alcoholic drink of any kind during the last 12 months?</label>
-<select name="genLife" class="field">
+<select class="field" ng-model="healthassessSection4a">
     	<option>Almost every day</option>
 		<option>5/6 a week</option>
 		<option>3/4 a week</option>
@@ -17,12 +17,9 @@
 </div>
 
 <div class='form-group'>
-<fieldset data-role="controlgroup" >
 	<label>Have you had an alcoholic drink in the last seven days ending yesterday?</label>
-    <input type="radio" name="radio" ng-model="formData.smoking" ng-value="yes" id="yes"><label for="yes">Yes</label> <br />
-    <input type="radio" name="radio" ng-model="formData.smoking" ng-value="no" id="no">
-    <label for="no">No</label>
-</fieldset>
+    <input type="radio" name="radio" ng-model="healthassessSection4b" value="yes" id="yes"><label for="yes">Yes</label> <br />
+    <input type="radio" name="radio" ng-model="healthassessSection4b" value="no" id="no"><label for="no">No</label>
 </div>
 
 <div class="form-group row">
