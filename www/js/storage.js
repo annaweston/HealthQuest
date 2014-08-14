@@ -77,6 +77,23 @@ angular.module('hq')
 				// 
 				c.fetch().then(function() { d.resolve(c); }).fail(d.reject);
 				return d.promise();
+			},
+			
+			getQsAns: function() {
+				// store for everything but diary
+				var d = utils.deferred(),
+					C = Backbone.Collection.extend({ 
+						model:PersistentModel,
+						localStorage:new Backbone.LocalStorage('question') 
+					}),
+					c = new C();
+
+				// comment me out, barbarians!
+				window.Collection = C; 
+				
+				// 
+				c.fetch().then(function() { d.resolve(c); }).fail(d.reject);
+				return d.promise();
 			}
 		};
 	});

@@ -35,7 +35,6 @@ angular.module('hq')
 				// $scope.profile = profile.attributes;
 
 				// comment these out, dawg. who puts things on window anyway?! barbarians.
-				// window.profile = profile;
 				window.$s = $scope;
 				window.p = profile;
 				window.questions = questions;

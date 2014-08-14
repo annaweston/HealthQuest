@@ -38,11 +38,17 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 			templateUrl:'tmpl/feedback.html',
 			resolve : {
 				profile:function(storage)  { return storage.getProfile(); },
+				questionsAnswered : function(storage) { return storage.getQsAns(); },
+				questions : function(qFactory) { return qFactory.load(); }
+
 			},		
-			controller:function($scope, $state, utils, $swipe, $stateParams, $rootScope) {
+			controller:function($scope, $state, utils, $swipe, $stateParams, profile, questionsAnswered, questions) {
 				setUIViewTransition('transition-fade');
-				$scope.feedback = "Correct";
-				console.log($rootScope.explanation);	
+					
+					window.p = profile;
+					window.qa = questionsAnswered;
+					window.q = questions;
+				
 				}
 		})
 		.state('failure', {
@@ -76,7 +82,8 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		.state('categories', {
 			url:'/categories',
 			templateUrl:'tmpl/categories.html',
-			resolve : {
+			resolve : 
+			{
 				profile:function(storage)  { return storage.getProfile(); },
 			},		
 			controller:function($scope, $state, $stateParams, profile) {
@@ -208,9 +215,11 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 		});
 		$rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams){ 
 			console.log('stateChangeError', toState.name, event, toParams, fromState, fromParams);
-			console.log(arguments);
+			//console.log(arguments);
+			window.rootScope = arguments;
 		});
-	
+		
+		
 		// console.log('backbone localstorage ', typeof Backbone.LocalStorage);
 	}])
 	.controller('explanationCtrl', ['$scope','$rootScope', function($scope, $feedback) {

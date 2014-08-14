@@ -59,57 +59,63 @@ angular.module('hq')
 	
 	.config(function($stateProvider) {
 		$stateProvider.state('question', {
-			url:'/question/:questionid',
+			url:'/question/',
 			templateUrl:'tmpl/question.html',
 			resolve : {
 				profile:function(storage)  { return storage.getProfile(); },
+				questionsAnswered : function(storage) { return storage.getQsAns(); },
 				questions : function(qFactory) { return qFactory.load(); }
 			},		
-			controller:function(profile, questions, $scope, $stateParams, qFactory) {
+			controller:function(profile, questions, $scope, $stateParams, qFactory, $state, questionsAnswered) {
 				setUIViewTransition('transition-fade');
-								
-				// setting the questionid into our scope so we can display it (if we want to!)
-				$scope.questionid = $stateParams.questionid;
-				
-/*				var qs_alcohol = questions.filter(function(x) { return x["Category"] == "alcohol"; });
-				var qs_fitness = questions.filter(function(x) { return x["Category"] == "fitness"; });
-				var qs_food = questions.filter(function(x) { return x["Category"] == "food"; });
-				var qs_weight = questions.filter(function(x) { return x["Category"] == "weight"; });
-				var qs_sleep = questions.filter(function(x) { return x["Category"] == "sleep"; });
-				var qs_smoking = questions.filter(function(x) { return x["Category"] == "smoking"; });
-*/					
-			
+				var timeStart = new Date().getTime();				
 				var category = profile.get("category");
-
 				var qs = questions.chooseRandom(category);
 				
-				
-				$scope.questionid = qs.questionID;
-				console.log(qs);
-				var id = "questionID";
-				
+				$scope.questionid = qs.questionID;				
 				$scope.question = qs.Question;
-
-/*				var matching_qs = questions.filter(function(x) { return x["questionID"] == qs; });
-				if (matching_qs.length < 1) {
-					$state.go('error');
-					return;
-				}
-*/				
-				
-				console.log(qs.Question);
-				
+				$scope.category = qs.Category;				
 				$scope.answerSplit = qs.Answer.split(';').map(function(x) { return x.trim(); });
+				$scope.correctAnswer = qs.correctAnswer;
 				
-				$scope.setResponse = function(response) {
-					$rootScope.explanation = $scope.q.explanation;	
-					//if correct go to home, if not go to start
-					if($scope.q.correctAnswer == response){
+				//questionsAnswered = new Backbone.Collection;
+								
+			$scope.setResponse = function(response) {
+				var timeStop= new Date().getTime();				
+				var timetoAns = ((timeStop - timeStart)/1000);
+				var qsAnswered = {};
+				
+				var qs_completed = profile.get("qsNumber");
+				
+				if(!qs_completed)
+				{
+					qs_completed = 1;
+				}
+				else{
+					qs_completed = qs_completed + 1;
+				}
+				
+				questionsAnswered.create({
+					qNumberCompleted: qs_completed,
+					questionID : $scope.questionid,
+					qUserAns : response,
+					qCorrectAns : $scope.correctAnswer,
+					qTimetoAns : timetoAns,
+					qTimeofDay: timeStop});
+					
+				//questionsAnswered.save();
+				
+				profile.set({ qsNumber: qs_completed });
+				profile.save();
+
+				//if correct go to home, if not go to start
+				if($scope.correctAnswer == response){
 						$state.go('success');
 						return;
 					}
-					else{
-						$state.go('failure');
+				else{
+						//$state.go('failure');
+						console.log(questionsAnswered);
 						return;
 					}
 				};
