@@ -14,7 +14,7 @@ var setUIViewTransition = function(transitionclass) {
 	jQuery('[ui-view].app').addClass(transitionclass);
 };
 
-angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
+angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 	.config(function($stateProvider, $urlRouterProvider) {
 		// anna: define your states here
 		// define default state:
@@ -42,22 +42,19 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 				questions : function(qFactory) { return qFactory.load(); }
 
 			},		
-			controller:function($scope, $state, utils, $swipe, $stateParams, profile, questionsAnswered, questions) {
-				setUIViewTransition('transition-fade');
-					
-					window.p = profile;
-					window.qa = questionsAnswered;
-					window.q = questions;
-				
-				}
+			controller: 'feedbackController',
 		})
 		.state('failure', {
 			url:'/feedback/failure',
-			templateUrl:'tmpl/feedback.html',
-			controller:function($scope, $state, utils, $swipe, $stateParams) {
-				setUIViewTransition('transition-fade');
-				$scope.feedback = "Incorrect"			
-				}
+			templateUrl:'tmpl/feedbackwrong.html',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+				questionsAnswered : function(storage) { return storage.getQsAns(); },
+				questions : function(qFactory) { return qFactory.load(); }
+
+			},		
+			controller: 'feedbackController',
+				
 		})
 		.state('profileSaved', {
 			url:'/setup',
@@ -242,6 +239,21 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch'])
 					$state.go('healthassess.general');
 				}
 	})
+		.controller('feedbackController', function($scope, $state, utils, $swipe, questionsAnswered, profile, questions) {
+				setUIViewTransition('transition-fade');
+				$scope.feedbackWrong = "Sorry, that was incorrect!";
+				$scope.feedbackCorrect = "Well Done!";
+
+				var explanationNumber = questionsAnswered.models[questionsAnswered.models.length-1].get('questionID');	
+								
+				explanationNumber = (explanationNumber - 1);
+				
+				var explanation = questions.questions[explanationNumber].explanation;
+				$scope.explanation = explanation;
+				var question = questions.questions[explanationNumber].Question;
+				$scope.question = question;
+	})
+
 	.controller('healthAssessController', function($scope, profile, $state) {
 				setUIViewTransition('transition-fade');
 				

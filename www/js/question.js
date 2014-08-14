@@ -31,6 +31,21 @@ angular.module('hq')
           			return qrand;
           		},
 				
+
+								
+/*          		returnExplanation : function() { 
+					var ex = this.questions;
+					console.log(ex);
+          			/*var q = this.getCategory(c);
+          			if (!q) { 
+          				console.error('no questions of that category');
+          				return;
+          			}
+          			var i = Math.floor(q.length*Math.random()),
+          				qrand = q[i];
+          			return qrand;
+          		}
+*/				
 				
           		chooseRandomButNotThese:function(c, forbidden_ids) { 
           			var qs = this.getCategory(c),
@@ -71,8 +86,8 @@ angular.module('hq')
 				var timeStart = new Date().getTime();				
 				var category = profile.get("category");
 				var qs = questions.chooseRandom(category);
-				
-				$scope.questionid = qs.questionID;				
+								
+				$scope.questionid = qs.questionID;		
 				$scope.question = qs.Question;
 				$scope.category = qs.Category;				
 				$scope.answerSplit = qs.Answer.split(';').map(function(x) { return x.trim(); });
@@ -95,6 +110,11 @@ angular.module('hq')
 					qs_completed = qs_completed + 1;
 				}
 				
+				if(!response)
+				{
+					response = "timedOut";
+					}
+				
 				questionsAnswered.create({
 					qNumberCompleted: qs_completed,
 					questionID : $scope.questionid,
@@ -104,6 +124,9 @@ angular.module('hq')
 					qTimeofDay: timeStop});
 					
 				//questionsAnswered.save();
+				console.log('questionsAns', questionsAnswered);
+				console.log('questions',questions);
+				console.log('profile', profile);
 				
 				profile.set({ qsNumber: qs_completed });
 				profile.save();
@@ -114,11 +137,15 @@ angular.module('hq')
 						return;
 					}
 				else{
-						//$state.go('failure');
-						console.log(questionsAnswered);
+						$state.go('failure');
 						return;
 					}
 				};
+			
+			$scope.finishedTimer = function(){
+					$state.go('failure');
+					$scope.setResponse();
+				}
 			}
 		});
 	});
