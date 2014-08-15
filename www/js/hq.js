@@ -14,7 +14,7 @@ var setUIViewTransition = function(transitionclass) {
 	jQuery('[ui-view].app').addClass(transitionclass);
 };
 
-angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
+angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer', 'growlNotifications'])
 	.config(function($stateProvider, $urlRouterProvider) {
 		// anna: define your states here
 		// define default state:
@@ -244,10 +244,6 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 					profile.set({ email : $scope.input.emailText});
 					profile.set({ age : $scope.input.ageText});
 					profile.set({ gender : $scope.input.genderText});
-
-					//profile.email = $scope.input.emailText;
-//					profile.age = $scope.input.ageText;
-//					profile.gender = $scope.input.genderText;
 					profile.save();
 					$state.go('healthassess.general');
 				}
@@ -256,25 +252,18 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 	.controller('statController', function($scope, profile, $state, questionsAnswered, questions) {
 				setUIViewTransition('transition-fade');
 				
-				$scope.title = "your latest stats";
 				
-				//var number = profile;
 				
+				$scope.title = "your stats";
+												
 				console.log(profile);
-				
-				var explanationNumber = questionsAnswered.models[questionsAnswered.models.length-1].get('questionID');	
-								
-				explanationNumber = (explanationNumber - 1);
-				
-				var explanation = questions.questions[explanationNumber].explanation;
-				$scope.percentage = explanation;
-				var question = questions.questions[explanationNumber].Question;
-				$scope.number = question;
 
-				$scope.percentage = "your latest stats";
-				$scope.number = "your latest stats";
-				$scope.timeTaken = "your latest stats";
-				$scope.correctstreak = "your latest stats";
+				$scope.percentage = Math.round((profile.get('qsCorrect') / profile.get('qsNumber')) * 100);
+
+				$scope.timeTaken = profile.get('qsfastestTime');
+
+				$scope.number = profile.get('qsNumber');
+				$scope.correctstreak = profile.get('longestStreak');
 			
 	})
 	.controller('feedbackController', function($scope, $state, utils, $swipe, questionsAnswered, profile, questions) {
@@ -290,9 +279,6 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				$scope.explanation = explanation;
 				var question = questions.questions[explanationNumber].Question;
 				$scope.question = question;
-				//console.log(question);
-				console.log(profile);
-				window.p = profile;
 	})
 
 	.controller('healthAssessController', function($scope, profile, $state) {

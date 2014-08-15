@@ -103,6 +103,8 @@ angular.module('hq')
 				
 				var qs_completed = profile.get("qsNumber");
 				var qs_streak = profile.get("qsStreak");
+				var qs_correct = profile.get("qsCorrect");
+				var qs_fastest = profile.get("qsfastestTime");
 				var longest_streak = profile.get("longestStreak");
 				
 				console.log('longest-streak', longest_streak);
@@ -122,10 +124,26 @@ angular.module('hq')
 				if(!longest_streak){
 					longest_streak = 0;
 				}
+				if(!qs_correct){
+					qs_correct = 0;
+				}
 
 				
 				if(response == $scope.correctAnswer)
 				{
+					//set the fastest time for answering correctly
+					if(!qs_fastest){
+							qs_fastest = timetoAns;
+					}
+						else
+						{
+							if(timetoAns < qs_fastest)
+							{
+								qs_fastest = timetoAns;
+							}
+						}
+
+					qs_correct = qs_correct + 1;
 					if(qs_streak >= longest_streak)
 					{
 						qs_streak = qs_streak + 1;
@@ -163,7 +181,7 @@ angular.module('hq')
 				console.log('questions',questions);
 				console.log('profile', profile);
 				
-				profile.set({ qsNumber: qs_completed, qsStreak : qs_streak, longestStreak: longest_streak  });
+				profile.set({ qsNumber: qs_completed, qsStreak : qs_streak, longestStreak: longest_streak, qsCorrect : qs_correct, qsfastestTime: qs_fastest });
 				profile.save();
 
 				//if correct go to home, if not go to start
