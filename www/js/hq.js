@@ -14,7 +14,8 @@ var setUIViewTransition = function(transitionclass) {
 	jQuery('[ui-view].app').addClass(transitionclass);
 };
 
-angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer', 'growlNotifications'])
+angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
+	
 	.config(function($stateProvider, $urlRouterProvider) {
 		// anna: define your states here
 		// define default state:
@@ -23,15 +24,43 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer', 'growlNotifi
 		$stateProvider.state('start', {
 			url:'/start',
 			templateUrl:'tmpl/start.html',
-			resolve: {	profile:function(storage)  { return storage.getProfile(); }	},			
-			controller:['$scope', '$state', 'utils', 'profile', function($scope, $state, utils, profile) {
-				if (profile.get('onboarded')) { 
-					console.log('already onboarded - go home!');
-					
-				}				
-				var u = utils, sa = function(f) { utils.safeApply($scope, f); };
-				//console.log('start was loaded > ');
-			}]
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+				questionsAnswered : function(storage) { return storage.getQsAns(); },
+				questions : function(qFactory) { return qFactory.load(); }
+			},		
+			controller: function($scope, $state, utils, profile) 
+			{
+				
+				switch(profile.get('stage')) {
+					case 'profileform':
+						$state.go('healthassess.general');
+						break;
+					case 'healthgen1':
+						$state.go('healthassess.general2');
+						break;
+					case 'healthgen2':
+						$state.go('healthassess.general3');
+						break;
+					case 'healthgen3':
+						$state.go('healthassess.smoking');
+						break;
+					case 'healthsmoke':
+						$state.go('healthassess.eating');
+						break;
+					case 'healtheat':
+						$state.go('healthassess.alcohol');
+						break;	
+					case 'healthalco':
+						$state.go('healthassess.category');
+						break;	
+					case 'category':
+						$state.go('question');
+						break;	
+					default:
+						$state.go('profileReg');				
+				}
+			}
 		})
 		.state('success', {
 			url:'/feedback/success',
@@ -99,28 +128,15 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer', 'growlNotifi
 				$scope.addCategory = function() {
 					var this_ = this;
 					profile.set({ category : this_.slide.name});
-
+					profile.set({ stage : 'category'});
 					profile.save();
-					//console.log(profile);
 					$state.go('question');
 				};
+				
+				window.prof = profile;
 			}
 		})
 		
-	
-/*		.state('alcohol', {
-			url:'/categories',
-			templateUrl:'tmpl/questions.html',
-			resolve : {
-				profile:function(storage)  { return storage.getProfile(); },
-			},		
-			controller:function($scope, $state, utils, $swipe, $stateParams) {
-				setUIViewTransition('transition-fade');
-				$scope.title = 'Choose your category';
-				}
-		})
-*/		// home is defined in home.js so don't look for it here!
-		// route to show our basic form (/form)
 		.state('healthassess', {
 			url: '/healthassessment',
 			templateUrl: 'tmpl/healthassessment.html',	
@@ -130,9 +146,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer', 'growlNotifi
 
 	
 		})
-		// nested states 
-		// each of these sections will have their own view
-		// url will be nested (/form/profile)
+
 		.state('healthassess.general', {
 			url: '/1',
 			templateUrl: 'tmpl/healthassessment-general.html',
@@ -142,9 +156,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer', 'growlNotifi
 			},	
 
 		})
-		// nested states 
-		// each of these sections will have their own view
-		// url will be nested (/form/profile)
+
 		.state('healthassess.general2', {
 			url: '/1b',
 			templateUrl: 'tmpl/healthassessment-general-2.html',
@@ -158,26 +170,24 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer', 'growlNotifi
 			controller: 'healthAssessController',
 		})
 		
-		// url will be /form/interests
 		.state('healthassess.smoking', {
 			url: '/2',
 			templateUrl: 'tmpl/healthassessment-smoking.html',
 			controller: 'healthAssessController',
 		})
 		
-		// url will be /form/payment
 		.state('healthassess.eating', {
 			url: '/3',
 			templateUrl: 'tmpl/healthassessment-eating.html',
 			controller: 'healthAssessController',	
 		})
-		// url will be /form/payment
+
 		.state('healthassess.alcohol', {
 			url: '/4',
 			templateUrl: 'tmpl/healthassessment-alcohol.html',
 			controller: 'healthAssessController',
 		})
-		// url will be /form/payment
+
 		.state('healthassess.fitness', {
 			url: '/5',
 			templateUrl: 'tmpl/healthassessment-fitness.html',
@@ -192,7 +202,6 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer', 'growlNotifi
 			},	
 			controller:function($scope, $state, $stateParams, profile) {
 				setUIViewTransition('transition-fade');				
-				console.log(profile);
 			}
 	
 		})
@@ -225,8 +234,8 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer', 'growlNotifi
 		});
 		$rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams){ 
 			console.log('stateChangeError', toState.name, event, toParams, fromState, fromParams);
-			//console.log(arguments);
-			window.rootScope = arguments;
+			console.log(arguments);
+			//window.rootScope = arguments;
 		});
 		
 		
@@ -244,6 +253,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer', 'growlNotifi
 					profile.set({ email : $scope.input.emailText});
 					profile.set({ age : $scope.input.ageText});
 					profile.set({ gender : $scope.input.genderText});
+					profile.set({ stage : 'profileform'});
 					profile.save();
 					$state.go('healthassess.general');
 				}
@@ -287,9 +297,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer', 'growlNotifi
 				$scope.addHealthGen1 = function(){
 						profile.set({ healthAssess1a : $scope.healthassessSection1a});
 						profile.set({ healthAssess1b : $scope.healthassessSection1b});
-
-//						profile.healthAssess1a = $scope.healthassessSection1a;
-//						profile.healthAssess1b = $scope.healthassessSection1b;
+						profile.set({ stage : 'healthgen1'});
 						profile.save();
 						$state.go('healthassess.general2');
 				}
@@ -299,19 +307,14 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer', 'growlNotifi
 					profile.set({ healthAssess1d : $scope.healthassessSection1d});
 					profile.set({ healthAssess1e : $scope.healthassessSection1e});
 
-
-//					profile.healthAssess1c = $scope.healthassessSection1c;
-//					profile.healthAssess1d = $scope.healthassessSection1d;
-//					profile.healthAssess1e = $scope.healthassessSection1e;
-					//console.log($scope.healthassessSection1c);
+					profile.set({ stage : 'healthgen2'});
 					profile.save();
 					$state.go('healthassess.general3');
 				}
 				
 				$scope.addHealthGen3 = function(){
 					profile.set({ healthAssess1f : $scope.healthassessSection1f});
-
-//					$scope.profile.healthAssess1f = $scope.healthassessSection1f;
+					profile.set({ stage : 'healthgen3'});
 					profile.save();
 					console.log(profile);
 					$state.go('healthassess.smoking');
@@ -322,10 +325,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer', 'growlNotifi
 					profile.set({ healthAssess2a : $scope.healthassessSection2a});
 					profile.set({ healthAssess2b : $scope.healthassessSection2b});
 					profile.set({ healthAssess2c : $scope.healthassessSection2c});
-
-//					profile.healthAssess2a = $scope.healthassessSection2a;
-//					profile.healthAssess2b = $scope.healthassessSection2b;
-//					profile.healthAssess2c = $scope.healthassessSection2c;
+					profile.set({ stage : 'healthsmoke'});
 					profile.save();
 					$state.go('healthassess.eating');
 				}
@@ -334,10 +334,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer', 'growlNotifi
 				$scope.addHealthEating = function(){
 					profile.set({ healthAssess3a : $scope.healthassessSection3a});
 					profile.set({ healthAssess3b : $scope.healthassessSection3b});
-
-					
-//					profile.healthAssess3a = $scope.healthassessSection3a;
-//					profile.healthAssess3b = $scope.healthassessSection3b;
+					profile.set({ stage : 'healtheat'});
 					profile.save();
 					$state.go('healthassess.alcohol');
 				}
@@ -345,17 +342,14 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer', 'growlNotifi
 				$scope.addHealthAlcohol = function(){
 					profile.set({ healthAssess4a : $scope.healthassessSection4a});
 					profile.set({ healthAssess4b : $scope.healthassessSection4b});
-
-//					profile.healthAssess4a = $scope.healthassessSection4a;
-//					profile.healthAssess4b = $scope.healthassessSection4b;
+					profile.set({ stage : 'healthalco'});
 					profile.save();
 					$state.go('healthassess.fitness');
 				}
 				
 				$scope.addHealthFitness = function(){
 					profile.set({ healthAssess5a : $scope.healthassessSection5a});
-
-//					profile.healthAssess5a = $scope.healthassessSection5a;
+					profile.set({ stage : 'healthfit'});
 					profile.save();
 					$state.go('categories');
 				}

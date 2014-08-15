@@ -3,7 +3,7 @@
 <div class="size">
   <label>How is your health in general?</label>
   <br />
-  <select name="genHealth" class="field" ng-model="healthassessSection1a">
+  <select name="genHealth" class="field" ng-model="healthassessSection1a"  required>
     <option selected="selected">Please select</option>
     <option>Very Good</option>
     <option>Good</option>
@@ -14,8 +14,7 @@
 </div>
 <div class="size">
   <label>Overall, how satisfied are you with life nowadays?</label>
-  <select name="genLife" class="field" ng-model="healthassessSection1b">
-    <option selected="selected">Please select</option>
+  <select name="genLife" class="field" ng-model="healthassessSection1b"  required="required">
     <option value="0">0 (Not at all satisfied)</option>
     <option>1</option>
     <option>2</option>

@@ -173,6 +173,8 @@ angular.module('hq')
 					questionID : $scope.questionid,
 					qUserAns : response,
 					qCorrectAns : $scope.correctAnswer,
+					qTimeStart : timeStart,
+					qTimeStop : timeStop,
 					qTimetoAns : timetoAns,
 					qTimeofDay: timeStop});
 					

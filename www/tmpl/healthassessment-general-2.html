@@ -2,7 +2,7 @@
 <form name="healthassessSection1b_form" ng-submit="addHealthGen2()">
   <div class="size">
     <label>Overall, how happy did you feel yesterday?</label>
-    <select name="genLife" class="field" ng-model="healthassessSection1c">
+    <select name="genLife" class="field" ng-model="healthassessSection1c"  required="required">
       <option ng-value="0">0 (Not at all happy)</option>
       <option ng-value="1">1</option>
       <option ng-value="2">2</option>
@@ -18,7 +18,7 @@
   </div>
   <div class="size">
     <label>Overall, how anxious did you feel yesterday?</label>
-    <select class="field" ng-model="healthassessSection1d">
+    <select class="field" ng-model="healthassessSection1d"  required="required">
       <option ng-value="0">0 (Not at all anxious)</option>
       <option ng-value="1">1</option>
       <option ng-value="2">2</option>

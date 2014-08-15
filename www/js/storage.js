@@ -2,8 +2,10 @@
 /* global require, exports, console, process, module, L, angular, _, jQuery, Backbone, $ */
 
 angular.module('hq')
-	.factory('storage', function(utils) {
 
+	.factory('storage', function(utils) {
+		
+		
 		var PersistentModel = Backbone.Model.extend({
 			// shizzles that you are going to override here
 
@@ -20,21 +22,44 @@ angular.module('hq')
 
 					// comment me out later when the ajax stuff is implemented
 					return_deferred.resolve();
-
+					
+					$.parse.init({
+						app_id : "NM5AvT58phnsTjnKwOmdRgKgK3ndfociFAMncCBq", // mine
+						rest_key : "lGu5IM5PduzO6PwlguFu2EBrTspxKFSDllwTUtno" // mine   
+					});
+										
 					// server bit goes here > 
 					// $.ajax({url:'/omg', type:'PUT', data:this_.attributes})
-					// 	.then(function(response) { 
-					// 		console.info('we succeeded at the ajax call ', response);
-					// 		return_deferred.resolve(); // "i succeded"
-					// 	}).fail(function(error) {
-					// 		console.error('we failed at the ajax :( ', error);
-					// 		return_deferred.reject(); // "i failed"
-					// 	});
+					
+					console.log(this_.get('id'));
+
+					var objectIdData = this_.get('name');
+				
+					if(this_.get('id') == 'profile')
+					{
+						$.parse.post('profile',{ data : this_.attributes }, function(response) { 
+								console.info('we succeeded at the ajax call ', response);
+								return_deferred.resolve(); // "i succeded"
+							}, function(error) {
+								console.error('we failed at the ajax :( ', error);
+								return_deferred.reject(); // "i failed"
+							})	
+					}
+					else
+					{
+						$.parse.post('question',{ data : this_.attributes }, function(response) { 
+								console.info('we succeeded at the ajax call ', response);
+								return_deferred.resolve(); // "i suceeded"
+							}, function(error) {
+								console.error('we failed at the ajax :( ', error);
+								return_deferred.reject(); // "i failed"
+							})				
+					}
+					
 				}).fail(function(err) { 
 					console.error('failed to save locally', err);
 					return_deferred.reject();
 				});
-
 
 				return return_deferred.promise();
 			}
