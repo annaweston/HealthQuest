@@ -73,7 +73,8 @@ angular.module('hq')
 	})
 	
 	.config(function($stateProvider) {
-		$stateProvider.state('question', {
+		$stateProvider
+		.state('question', {
 			url:'/question/',
 			templateUrl:'tmpl/question.html',
 			resolve : {
@@ -101,6 +102,10 @@ angular.module('hq')
 				var qsAnswered = {};
 				
 				var qs_completed = profile.get("qsNumber");
+				var qs_streak = profile.get("qsStreak");
+				var longest_streak = profile.get("longestStreak");
+				
+				console.log('longest-streak', longest_streak);
 				
 				if(!qs_completed)
 				{
@@ -113,7 +118,37 @@ angular.module('hq')
 				if(!response)
 				{
 					response = "timedOut";
+				}
+				if(!longest_streak){
+					longest_streak = 0;
+				}
+
+				
+				if(response == $scope.correctAnswer)
+				{
+					if(qs_streak >= longest_streak)
+					{
+						qs_streak = qs_streak + 1;
+						longest_streak = qs_streak;
 					}
+					else
+					{
+						qs_streak = qs_streak + 1;
+					}
+				}
+				else 
+				{
+					if(qs_streak > longest_streak)
+					{
+						longest_streak = qs_streak;
+						qs_streak = 0;
+					}
+					else
+					{
+						qs_streak = 0;
+					}
+					
+				}
 				
 				questionsAnswered.create({
 					qNumberCompleted: qs_completed,
@@ -128,7 +163,7 @@ angular.module('hq')
 				console.log('questions',questions);
 				console.log('profile', profile);
 				
-				profile.set({ qsNumber: qs_completed });
+				profile.set({ qsNumber: qs_completed, qsStreak : qs_streak, longestStreak: longest_streak  });
 				profile.save();
 
 				//if correct go to home, if not go to start

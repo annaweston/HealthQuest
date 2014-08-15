@@ -27,10 +27,10 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 			controller:['$scope', '$state', 'utils', 'profile', function($scope, $state, utils, profile) {
 				if (profile.get('onboarded')) { 
 					console.log('already onboarded - go home!');
-					$state.go('home');
+					
 				}				
 				var u = utils, sa = function(f) { utils.safeApply($scope, f); };
-				console.log('start was loaded > ');
+				//console.log('start was loaded > ');
 			}]
 		})
 		.state('success', {
@@ -75,6 +75,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 			},		
 			controller: 'formController',
 		})
+
 
 		.state('categories', {
 			url:'/categories',
@@ -196,6 +197,18 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 	
 		})
 		
+		
+		.state('stats', {
+			url:'/statistics',
+			templateUrl:'tmpl/stats.html',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+				questionsAnswered : function(storage) { return storage.getQsAns(); },
+				questions : function(qFactory) { return qFactory.load(); }
+
+			},		
+			controller: 'statController',
+		})
 
 	
   })
@@ -239,7 +252,32 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 					$state.go('healthassess.general');
 				}
 	})
-		.controller('feedbackController', function($scope, $state, utils, $swipe, questionsAnswered, profile, questions) {
+	
+	.controller('statController', function($scope, profile, $state, questionsAnswered, questions) {
+				setUIViewTransition('transition-fade');
+				
+				$scope.title = "your latest stats";
+				
+				//var number = profile;
+				
+				console.log(profile);
+				
+				var explanationNumber = questionsAnswered.models[questionsAnswered.models.length-1].get('questionID');	
+								
+				explanationNumber = (explanationNumber - 1);
+				
+				var explanation = questions.questions[explanationNumber].explanation;
+				$scope.percentage = explanation;
+				var question = questions.questions[explanationNumber].Question;
+				$scope.number = question;
+
+				$scope.percentage = "your latest stats";
+				$scope.number = "your latest stats";
+				$scope.timeTaken = "your latest stats";
+				$scope.correctstreak = "your latest stats";
+			
+	})
+	.controller('feedbackController', function($scope, $state, utils, $swipe, questionsAnswered, profile, questions) {
 				setUIViewTransition('transition-fade');
 				$scope.feedbackWrong = "Sorry, that was incorrect!";
 				$scope.feedbackCorrect = "Well Done!";
@@ -252,6 +290,9 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				$scope.explanation = explanation;
 				var question = questions.questions[explanationNumber].Question;
 				$scope.question = question;
+				//console.log(question);
+				console.log(profile);
+				window.p = profile;
 	})
 
 	.controller('healthAssessController', function($scope, profile, $state) {
