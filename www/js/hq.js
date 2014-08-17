@@ -34,25 +34,25 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				
 				switch(profile.get('stage')) {
 					case 'profileform':
-						$state.go('healthassess.general');
+						$state.go('healthassessGeneral');
 						break;
 					case 'healthgen1':
-						$state.go('healthassess.general2');
+						$state.go('healthassessGeneral2');
 						break;
 					case 'healthgen2':
-						$state.go('healthassess.general3');
+						$state.go('healthassessGeneral3');
 						break;
 					case 'healthgen3':
-						$state.go('healthassess.smoking');
+						$state.go('healthassessSmoking');
 						break;
 					case 'healthsmoke':
-						$state.go('healthassess.eating');
+						$state.go('healthassessEating');
 						break;
 					case 'healtheat':
-						$state.go('healthassess.alcohol');
+						$state.go('healthassessAlcohol');
 						break;	
 					case 'healthalco':
-						$state.go('healthassess.category');
+						$state.go('categories');
 						break;	
 					case 'category':
 						$state.go('question');
@@ -137,18 +137,8 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 			}
 		})
 		
-		.state('healthassess', {
-			url: '/healthassessment',
-			templateUrl: 'tmpl/healthassessment.html',	
-			resolve : {
-				profile:function(storage)  { return storage.getProfile(); },
-			},		
-
-	
-		})
-
-		.state('healthassess.general', {
-			url: '/1',
+		.state('healthassessGeneral', {
+			url: '/healthassessment1',
 			templateUrl: 'tmpl/healthassessment-general.html',
 			controller: 'healthAssessController',
 			resolve : {
@@ -157,41 +147,59 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 
 		})
 
-		.state('healthassess.general2', {
-			url: '/1b',
+		.state('healthassessGeneral2', {
+			url: '/healthassessment1b',
 			templateUrl: 'tmpl/healthassessment-general-2.html',
 			controller: 'healthAssessController',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},	
 
 		})
 		
-		.state('healthassess.general3', {
-			url: '/1c',
+		.state('healthassessGeneral3', {
+			url: '/healthassessment1c',
 			templateUrl: 'tmpl/healthassessment-general-3.html',
 			controller: 'healthAssessController',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},	
 		})
 		
-		.state('healthassess.smoking', {
-			url: '/2',
+		.state('healthassessSmoking', {
+			url: '/healthassessment2',
 			templateUrl: 'tmpl/healthassessment-smoking.html',
 			controller: 'healthAssessController',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},	
 		})
 		
-		.state('healthassess.eating', {
-			url: '/3',
+		.state('healthassessEating', {
+			url: '/healthassessment3',
 			templateUrl: 'tmpl/healthassessment-eating.html',
-			controller: 'healthAssessController',	
+			controller: 'healthAssessController',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},	
 		})
 
-		.state('healthassess.alcohol', {
-			url: '/4',
+		.state('healthassessAlcohol', {
+			url: '/healthassessment4',
 			templateUrl: 'tmpl/healthassessment-alcohol.html',
 			controller: 'healthAssessController',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},	
 		})
 
-		.state('healthassess.fitness', {
-			url: '/5',
+		.state('healthassessFitness', {
+			url: '/healthassessment5',
 			templateUrl: 'tmpl/healthassessment-fitness.html',
 			controller: 'healthAssessController',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+			},	
 		})
 		
 		.state('welcome', {
@@ -248,6 +256,13 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 	.controller('formController', function($scope, profile, $state) {
 				setUIViewTransition('transition-fade');
 				console.log(profile);
+				
+				
+				$scope.ProfileGender = [
+					{gender: 'male', Value1: 'male'},
+					{gender: 'female', Value1: 'female'},
+					]
+
 				$scope.addProfile = function(){				
 					profile.set({ name : $scope.input.nameText});
 					profile.set({ email : $scope.input.emailText});
@@ -255,14 +270,12 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 					profile.set({ gender : $scope.input.genderText});
 					profile.set({ stage : 'profileform'});
 					profile.save();
-					$state.go('healthassess.general');
+					$state.go('healthassessGeneral');
 				}
 	})
 	
 	.controller('statController', function($scope, profile, $state, questionsAnswered, questions) {
 				setUIViewTransition('transition-fade');
-				
-				
 				
 				$scope.title = "your stats";
 												
@@ -294,64 +307,182 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 	.controller('healthAssessController', function($scope, profile, $state) {
 				setUIViewTransition('transition-fade');
 				
-				$scope.addHealthGen1 = function(){
+				$scope.HealthGen1 = [
+					{healthassessSection1a: 'Very Good', Value1: 'Very Good'},
+					{healthassessSection1a: 'Good', Value1: 'Good'},
+					{healthassessSection1a: 'Fair', Value1: 'Fair'},
+					{healthassessSection1a: 'Bad', Value1: 'Bad'},
+					{healthassessSection1a: 'Very Bad', Value1: 'Very Bad'},
+				  ];
+				  
+				  				
+				$scope.HealthGen1b = [
+					{healthassessSection1b: '0', Value1: '0 (Not at all satisfied)'},
+					{healthassessSection1b: '1', Value1: '1'},
+					{healthassessSection1b: '2', Value1: '2'},
+					{healthassessSection1b: '3', Value1: '3'},
+					{healthassessSection1b: '4', Value1: '4'},
+					{healthassessSection1b: '5', Value1: '5'},
+					{healthassessSection1b: '6', Value1: '6'},
+					{healthassessSection1b: '7', Value1: '7'},
+					{healthassessSection1b: '8', Value1: '8'},
+					{healthassessSection1b: '9', Value1: '9'},
+					{healthassessSection1b: '10', Value1: '10 (Completely satisfied)'},
+				  ];
+
+				$scope.HealthGen1c = [
+					{healthassessSection1c: '0', Value1: '0 (Not at all happy)'},
+					{healthassessSection1c: '1', Value1: '1'},
+					{healthassessSection1c: '2', Value1: '2'},
+					{healthassessSection1c: '3', Value1: '3'},
+					{healthassessSection1c: '4', Value1: '4'},
+					{healthassessSection1c: '5', Value1: '5'},
+					{healthassessSection1c: '6', Value1: '6'},
+					{healthassessSection1c: '7', Value1: '7'},
+					{healthassessSection1c: '8', Value1: '8'},
+					{healthassessSection1c: '9', Value1: '9'},
+					{healthassessSection1c: '10', Value1: '10 (Completely happy)'},
+				  ];
+				  
+				$scope.HealthGen1d = [
+					{healthassessSection1d: '0', Value1: '0 (Not at all anxious)'},
+					{healthassessSection1d: '1', Value1: '1'},
+					{healthassessSection1d: '2', Value1: '2'},
+					{healthassessSection1d: '3', Value1: '3'},
+					{healthassessSection1d: '4', Value1: '4'},
+					{healthassessSection1d: '5', Value1: '5'},
+					{healthassessSection1d: '6', Value1: '6'},
+					{healthassessSection1d: '7', Value1: '7'},
+					{healthassessSection1d: '8', Value1: '8'},
+					{healthassessSection1d: '9', Value1: '9'},
+					{healthassessSection1d: '10', Value1: '10 (Completely anxious)'},
+				  ];
+
+				$scope.HealthGen1e = [
+					{healthassessSection1e: '0', Value1: '0 (Not at all worthwhile)'},
+					{healthassessSection1e: '1', Value1: '1'},
+					{healthassessSection1e: '2', Value1: '2'},
+					{healthassessSection1e: '3', Value1: '3'},
+					{healthassessSection1e: '4', Value1: '4'},
+					{healthassessSection1e: '5', Value1: '5'},
+					{healthassessSection1e: '6', Value1: '6'},
+					{healthassessSection1e: '7', Value1: '7'},
+					{healthassessSection1e: '8', Value1: '8'},
+					{healthassessSection1e: '9', Value1: '9'},
+					{healthassessSection1e: '10', Value1: '10 (Completely worthwhile)'},
+				  ];
+
+				$scope.HealthGen2a = [
+					{healthassessSection2a: 'yes', Value1: 'yes'},
+					{healthassessSection2a: 'no', Value1: 'no'},
+				  ];
+
+				$scope.HealthGen2b = [
+					{healthassessSection2b: 'yes', Value1: 'yes'},
+					{healthassessSection2b: 'no', Value1: 'no'},
+				  ];
+
+				$scope.HealthGen4a = [
+					{healthassessSection4a: '1-2 a week', Value1: '1-2 a week'},
+					{healthassessSection4a: '3-4 a week', Value1: '3-4 a week'},
+					{healthassessSection4a: '5-6 a week', Value1: '5-6 a week'},
+					{healthassessSection4a: '1-2 a month', Value1: '1-2 a month'},
+					{healthassessSection4a: '1 every couple of months', Value1: '1 every couple of months'},
+					{healthassessSection4a: '1/2 a year', Value1: '1/2 a year'},
+					{healthassessSection4a: 'Not at all', Value1: 'Not at all'},
+				  ];
+	
+				$scope.HealthGen5a = [
+					{healthassessSection5a: '0', Value1: '0'},
+					{healthassessSection5a: '1', Value1: '1'},
+					{healthassessSection5a: '2', Value1: '2'},
+					{healthassessSection5a: '3', Value1: '3'},
+					{healthassessSection5a: '4', Value1: '4'},
+					{healthassessSection5a: '5', Value1: '5'},
+					{healthassessSection5a: '6', Value1: '6'},
+					{healthassessSection5a: '7', Value1: '7'}
+				  ];
+				  
+
+
+
+				$scope.addHealthGen1 = function(response){
+					if(response != false)
+					{
 						profile.set({ healthAssess1a : $scope.healthassessSection1a});
 						profile.set({ healthAssess1b : $scope.healthassessSection1b});
 						profile.set({ stage : 'healthgen1'});
 						profile.save();
-						$state.go('healthassess.general2');
+						$state.go('healthassessGeneral2');
+					}
 				}
-
-				$scope.addHealthGen2 = function(){
-					profile.set({ healthAssess1c : $scope.healthassessSection1c});
-					profile.set({ healthAssess1d : $scope.healthassessSection1d});
-					profile.set({ healthAssess1e : $scope.healthassessSection1e});
-
-					profile.set({ stage : 'healthgen2'});
-					profile.save();
-					$state.go('healthassess.general3');
+								
+				$scope.addHealthGen2 = function(response){
+				if(response != false)
+					{
+						profile.set({ healthAssess1c : $scope.healthassessSection1c});
+						profile.set({ healthAssess1d : $scope.healthassessSection1d});
+						profile.set({ stage : 'healthgen2'});
+						profile.save();
+						$state.go('healthassessGeneral3');
+					}
 				}
 				
-				$scope.addHealthGen3 = function(){
-					profile.set({ healthAssess1f : $scope.healthassessSection1f});
+				$scope.addHealthGen3 = function(response){
+				if(response != false)
+					{
+
+					profile.set({ healthAssess1e : $scope.healthassessSection1e});
 					profile.set({ stage : 'healthgen3'});
 					profile.save();
 					console.log(profile);
-					$state.go('healthassess.smoking');
+					$state.go('healthassessSmoking');
+					}
 				}
 				
-				
-				$scope.addHealthSmoking = function(){
-					profile.set({ healthAssess2a : $scope.healthassessSection2a});
-					profile.set({ healthAssess2b : $scope.healthassessSection2b});
-					profile.set({ healthAssess2c : $scope.healthassessSection2c});
-					profile.set({ stage : 'healthsmoke'});
-					profile.save();
-					$state.go('healthassess.eating');
+				$scope.addHealthSmoking = function(response){
+					if(response != false)
+					{
+						profile.set({ healthAssess2a : $scope.healthassessSection2a});
+						profile.set({ healthAssess2b : $scope.healthassessSection2b});
+						profile.set({ healthAssess2c : $scope.healthassessSection2c});
+						profile.set({ stage : 'healthsmoke'});
+						profile.save();
+						$state.go('healthassessEating');
+					}
 				}
 				
 								
-				$scope.addHealthEating = function(){
-					profile.set({ healthAssess3a : $scope.healthassessSection3a});
-					profile.set({ healthAssess3b : $scope.healthassessSection3b});
-					profile.set({ stage : 'healtheat'});
-					profile.save();
-					$state.go('healthassess.alcohol');
+				$scope.addHealthEating = function(response){
+					if(response != false)
+					{
+						profile.set({ healthAssess3a : $scope.healthassessSection3a});
+						profile.set({ healthAssess3b : $scope.healthassessSection3b});
+						profile.set({ stage : 'healtheat'});
+						profile.save();
+						$state.go('healthassessAlcohol');
+					}
 				}
 				
-				$scope.addHealthAlcohol = function(){
-					profile.set({ healthAssess4a : $scope.healthassessSection4a});
-					profile.set({ healthAssess4b : $scope.healthassessSection4b});
-					profile.set({ stage : 'healthalco'});
-					profile.save();
-					$state.go('healthassess.fitness');
+				$scope.addHealthAlcohol = function(response){
+					if(response != false)
+					{
+						profile.set({ healthAssess4a : $scope.healthassessSection4a});
+						profile.set({ healthAssess4b : $scope.healthassessSection4b});
+						profile.set({ stage : 'healthalco'});
+						profile.save();
+						$state.go('healthassessFitness');
+					}
 				}
 				
-				$scope.addHealthFitness = function(){
-					profile.set({ healthAssess5a : $scope.healthassessSection5a});
-					profile.set({ stage : 'healthfit'});
-					profile.save();
-					$state.go('categories');
+				$scope.addHealthFitness = function(response){					
+				if(response != false)
+					{
+						profile.set({ healthAssess5a : $scope.healthassessSection5a});
+						profile.set({ stage : 'healthfit'});
+						profile.save();
+						$state.go('categories');
+					}
 				}
 
 	})

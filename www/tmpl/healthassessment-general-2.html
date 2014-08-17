@@ -1,56 +1,39 @@
-<div id="status-buttons" class="text-center"> <a id="span1" ui-sref-active="active"><span>1</span></a> </div>
-<form name="healthassessSection1b_form" ng-submit="addHealthGen2()">
-  <div class="size">
-    <label>Overall, how happy did you feel yesterday?</label>
-    <select name="genLife" class="field" ng-model="healthassessSection1c"  required="required">
-      <option ng-value="0">0 (Not at all happy)</option>
-      <option ng-value="1">1</option>
-      <option ng-value="2">2</option>
-      <option ng-value="3">3</option>
-      <option ng-value="4">4</option>
-      <option ng-value="5">5</option>
-      <option ng-value="6">6</option>
-      <option ng-value="7">7</option>
-      <option ng-value="8">8</option>
-      <option ng-value="9">9</option>
-      <option ng-value="10">10 (Completely happy)</option>
-    </select>
-  </div>
-  <div class="size">
-    <label>Overall, how anxious did you feel yesterday?</label>
-    <select class="field" ng-model="healthassessSection1d"  required="required">
-      <option ng-value="0">0 (Not at all anxious)</option>
-      <option ng-value="1">1</option>
-      <option ng-value="2">2</option>
-      <option ng-value="3">3</option>
-      <option ng-value="4">4</option>
-      <option ng-value="5">5</option>
-      <option ng-value="6">6</option>
-      <option ng-value="7">7</option>
-      <option ng-value="8">8</option>
-      <option ng-value="9">9</option>
-      <option ng-value="10">10 (Completely anxious)</option>
-    </select>
-  </div>
-  <div class="size">
-    <label>Overall, to what extent do you feel the things you do in you life are worthwhile?</label>
-    <select class="field" ng-model="healthassessSection1e">
-      <option ng-value="0">0 (Not at all worthwhile)</option>
-      <option ng-value="1">1</option>
-      <option ng-value="2">2</option>
-      <option ng-value="3">3</option>
-      <option ng-value="4">4</option>
-      <option ng-value="5">5</option>
-      <option ng-value="6">6</option>
-      <option ng-value="7">7</option>
-      <option ng-value="8">8</option>
-      <option ng-value="9">9</option>
-      <option ng-value="10">10 (Completely worthwhile)</option>
-    </select>
-  </div>
-  <div class="form-group row">
-    <div class="col-xs-6 col-xs-offset-3 next">
-      <button type="submit" class="btn btn-block btn-info" > Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
+<div class="start">
+  <div class="copy">
+    <div id="form-container">
+      <div class=" text-center">
+        <h1>health assessment</h1>
+      </div>
+      <!-- use ng-submit to catch the form submission and use our Angular function --> 
+      <!-- our nested state views will be injected here -->
+      <div id="form-views">
+        <div id="status-buttons" class="text-center"> <a id="span1" ui-sref-active="active"><span>1</span></a> </div>
+        <form name="userform" ng-submit="addHealthGen2(userform.$valid)" novalidate >
+          <div class="size">
+            <label>Overall, how happy did you feel yesterday?</label>
+            <select name="genHappy" class="field" ng-model="healthassessSection1c" ng-options="x.healthassessSection1c as x.Value1 for x in HealthGen1c"
+            required>
+              <option value="">--please choose--</option>
+            </select>
+            <small class="error" 
+             ng-show="userform.genHappy.$invalid && userform.genHappy.$dirty"> Please make a selection </small> </div>
+          <hr />
+          <div class="size">
+            <label>Overall, how anxious did you feel yesterday?</label>
+            <select name="genAnx" class="field" ng-model="healthassessSection1d" ng-options="x.healthassessSection1d as x.Value1 for x in HealthGen1d"
+            required>
+              <option value="">--please choose--</option>
+            </select>
+            <small class="error" 
+             ng-show="userform.genAnx.$invalid && userform.genAnx.$dirty"> Please make a selection </small> </div>
+          <hr />
+          <div class="form-group row">
+            <div class="col-xs-6 col-xs-offset-3 next">
+              <button class="btn btn-block btn-info" > Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</form>
+</div>

@@ -1,22 +1,36 @@
-<div class="start">
-  <div class="copy">
-    <div id="form-container" >
-      <div class="page-header text-center question_buffer">
-        <h1>{{title}}</h1>
-      </div>
-    </div>
-    	<div>you have a success rate of: <h3 class="stats">{{percentage}} %</h3></div>
-         <br />
-        <div>so far, you've answered: 
-        <h3 class="stats">{{number}} questions</h3></div>
-         <br />
-		 <div>your fastest correct answer took: 
-        <h3 class="stats">{{timeTaken}} seconds</h3></div>
-         <br />
-		<div>your longest correct answer streak:
-        <h3 class="stats">{{correctstreak}} questions</h3></div>
-         <br />
-
-  </div>
+<div class="home" ng-click="unsetShowMenu($event)" ng-swipe-right="showMenu()" ng-swipe-left="hideMenu()">
+<div class="backmenu">
+  <ul>
+    <!--sets the initial questionid to 1-->
+    <li><a ui-sref="question">Let's Play!</a></li>
+    <li><a ui-sref="stats">Your Stats!</a></li>
+    <li><a ui-sref="categories">Category Options</a></li>
+  </ul>
 </div>
+<div ng-class="{front:true,showmenu:home.showmenu}">
+  <div class="button menu"> <a class="image" ng-click="home.showmenu=!home.showmenu" target="_blank"> <img src="img/menuburger-thin.png"> </a> </div>
+  <div class="start">
+    <div class="copy">
+      <div class="text-center question_buffer">
+        <h1>{{title}}</h1>
+        <hr />
+       
+    </div>
+    <div>you have a success rate of:
+      <h3 class="stats">{{percentage}} %</h3>
+    </div>
+    <br />
+    <div>so far, you've answered:
+      <h3 class="stats">{{number}} questions</h3>
+    </div>
+    <br />
+    <div>your fastest correct answer took:
+      <h3 class="stats">{{timeTaken}} seconds</h3>
+    </div>
+    <br />
+    <div>your longest correct answer streak:
+      <h3 class="stats">{{correctstreak}} questions</h3>
+    </div>
+    <br />
+  </div>
 </div>

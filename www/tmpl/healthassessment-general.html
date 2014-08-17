@@ -1,77 +1,48 @@
+<div class="start">
+<div class="copy">
+  <div id="form-container">
+  
+      <div class=" text-center">
+          <h1>health assessment</h1>
+      </div>
+      <!-- use ng-submit to catch the form submission and use our Angular function -->
+          <!-- our nested state views will be injected here -->
+          <div id="form-views">
+
 <div id="status-buttons" class="text-center"> <a id="span1" ui-sref-active="active"><span>1</span></a></div>
-<form name="healthassessSection1_form" ng-submit="addHealthGen1()">
+<form name="userform" ng-submit="addHealthGen1(userform.$valid)" novalidate >
 <div class="size">
   <label>How is your health in general?</label>
-  <br />
-  <select name="genHealth" class="field" ng-model="healthassessSection1a"  required>
-    <option selected="selected">Please select</option>
-    <option>Very Good</option>
-    <option>Good</option>
-    <option>Fair</option>
-    <option>Bad</option>
-    <option>Very Bad</option>
-  </select>
+   	<select name="genHealth" class="field" ng-model="healthassessSection1a" ng-options="x.healthassessSection1a as x.Value1 for x in HealthGen1"
+            required> 
+      <option value="">--please choose--</option> 
+    </select> 
+    <small class="error" 
+             ng-show="userform.genHealth.$invalid && userform.genHealth.$dirty">
+              Please make a selection
+   </small>
 </div>
+<hr />
+
 <div class="size">
-  <label>Overall, how satisfied are you with life nowadays?</label>
-  <select name="genLife" class="field" ng-model="healthassessSection1b"  required="required">
-    <option value="0">0 (Not at all satisfied)</option>
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-    <option>9</option>
-    <option value="10">10 (Completely satisfied)</option>
-  </select>
+  <label>How is your health in general?</label>
+   	<select name="genLife" class="field" ng-model="healthassessSection1b" ng-options="x.healthassessSection1b as x.Value1 for x in HealthGen1b"
+            required> 
+      <option value="">--please choose--</option> 
+    </select> 
+    <small class="error" 
+             ng-show="userform.genLife.$invalid && userform.genLife.$dirty">
+              Please make a selection
+   </small>
 </div>
-<br />
-<br />
+<hr />
+
 <div class="form-group row">
       <div class="col-xs-6 col-xs-offset-3 next">
-      <button type="submit" class="btn btn-block btn-info" >
+      <button class="btn btn-block btn-info" >
       Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
       </div>
 </div>
+
 </form>
-
-<!--/*<script>
-(function($){
-	$.fn.styleddropdown = function(){
-		return this.each(function(){
-			var obj = $(this)
-			obj.find('.field').click(function() { //onclick event, 'list' fadein
-			obj.find('.list').fadeIn(400);
-			
-			$(document).keyup(function(event) { //keypress event, fadeout on 'escape'
-				if(event.keyCode == 27) {
-				obj.find('.list').fadeOut(400);
-				}
-			});
-			
-			obj.find('.list').hover(function(){ },
-				function(){
-					$(this).fadeOut(400);
-				});
-			});
-			
-			obj.find('.list li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
-			obj.find('.field')
-				.val($(this).html())
-				.css({
-					'background':'#fff',
-					'color':'#333'
-				});
-			obj.find('.list').fadeOut(400);
-			});
-		});
-	};
-})(jQuery);
-$(function(){
-	$('.size').styleddropdown();
-});
-
-</script>*/-->
+</div></div></div></div>

@@ -120,7 +120,7 @@ h2 { font-size:15pt; }
   .copy {
       margin:30px;
       >div { margin:20px 0px; }
-      label { font-weight:200; margin-left: 10px; }      
+      label { font-weight:200;}      
       label.question { font-weight: bold; }
       input[type='text'] { width : 100%; }
     }  
@@ -437,7 +437,7 @@ pre                             { margin-bottom:20px; }
 .size { position:relative; padding-bottom: 10px; padding-top: 10px; }
 .next{ padding-top: 10px}
 .size .field {
-	 background:#41899E; color:#fff; padding:10px; cursor:pointer;
+	 background:#41899E; color:#fff; cursor:pointer;
 	font-family:'lucida sans unicode',sans-serif; font-size:1em;
 	border:solid 1px #27525E;
 	-webkit-transition: all .4s ease-in-out;
@@ -586,4 +586,22 @@ p { margin-top: 0; }
 .stats{
   text-align: center;
   
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #ffffff;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #ffffff;
+    opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #ffffff;
+    opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #ffffff;
+}
+.burgerPadding{
+	margin-top: 10%;
 }

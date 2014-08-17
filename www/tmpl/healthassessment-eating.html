@@ -1,29 +1,33 @@
-   <div id="status-buttons" class="text-center">
-       <a id="span3" ui-sref-active="active"><span>3</span></a></div>
-<form ng-submit="addHealthEating()">       
-<label><b>On a typical day:</b></label>       
-<div class='form-group'>
-    <label for="fruit">How many portions* of fruit do you eat?</label>
-    <input type="number" class="form-control" name="fruit" ng-model="healthassessSection3a" required="required">
-    <h6>*Approx a tablespoon of dried fruit, 
-1 medium sized (eg apples), 
-2 small pieces (eg apricot) or 
-125ml pure fruit juice. </h6>
-
+<div class="start">
+  <div class="copy">
+    <div id="form-container">
+      <div class="text-center">
+        <h1>health assessment</h1>
+      </div>
+      <!-- use ng-submit to catch the form submission and use our Angular function --> 
+      <!-- our nested state views will be injected here -->
+        <div id="status-buttons" class="text-center"> <a id="span3" ui-sref-active="active"><span>3</span></a></div>
+        <form name="userform" ng-submit="addHealthEating(userform.$valid)">
+          <label><b>On a typical day:</b></label>
+          <div class='size'>
+            <label for="fruit">How many portions* of fruit do you eat?</label>
+            <input type="number" class="field" name="fruit" ng-model="healthassessSection3a" required />
+            <h6>*Approx a tablespoon of dried fruit, 
+              1 medium sized (eg apples), 
+              2 small pieces (eg apricot) or 
+              125ml pure fruit juice. </h6>
+          </div>
+          <div class="size">
+            <label for="veg">How many portions** of vegetables, excluding potatoes, do you eat?</label>
+            <input type="number" class="field" name="veg" ng-model="healthassessSection3b"  required />
+            <h6> **Approximately 1 handful veg or 3 serving spoons of salad. </h6>
+          </div>
+          <div class="form-group row">
+          <div class="col-xs-6 col-xs-offset-3 next">
+            <button  class="btn btn-block btn-info" > Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
-
-<div class="form-group">
-    <label for="veg">How many portions** of vegetables, excluding potatoes, do you eat?</label>
-    <input type="number" class="form-control" name="veg" ng-model="healthassessSection3b"  required="required">
-    <h6>
-**Approximately 1 handful veg or 3 serving spoons of salad. 
-</h6>
-
-</div>
-
-<div class="form-group row">
-      <div class="col-xs-6 col-xs-offset-3 next">
-      <button type="submit" class="btn btn-block btn-info" >
-      Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
-</div>
-</form>

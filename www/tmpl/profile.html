@@ -1,44 +1,38 @@
 <div class="start">
   <div class="copy">
     <div id="form-container">
-    <div class="page-header text-center">
-      <h1>welcome</h1>
-    </div>
-    <!-- use ng-submit to catch the form submission and use our Angular function  ng-submit="processForm()"-->
-    <form name="profile_form" ng-submit="addProfile()">
-      <!-- our nested state views will be injected here -->
-      <div class="size">
-        <label>hey, what should I call you?</label>
-        <input type="text" placeholder="name" class="form-control" ng-model="input.nameText" required/>
+      <div class=" text-center">
+        <h1>welcome</h1>
       </div>
-      <div class="size">
-        <label>how do I contact you?</label>
-        <input type="email" placeholder="email" class="form-control" ng-model="input.emailText" required/>
-      </div>
-      <div class="size">
-        <label>you are old enough, right?</label>
-        <input type="number" placeholder="age" class="form-control" ng-model="input.ageText" min="18" required/>
-      </div>
-      <div class="size">
-        <label>are you male or female?</label>
-        <br />
-        <div class="radio_indent">
-          <input type="radio" name="gender" ng-model="input.genderText" id="male" required="required" value="m" />
-          <label for="male">male</label>
-          <br />
-          <input type="radio" name="gender" ng-model="input.genderText" id="female" required="required" value="f" />
-          <label for="female">female</label>
+      <!-- use ng-submit to catch the form submission and use our Angular function  ng-submit="processForm()"-->
+      <form name="profileForm" ng-submit="addProfile(profileForm.$valid)">
+        <!-- our nested state views will be injected here -->
+        <div class="size">
+          <label>hey, what should I call you?</label>
+          <input type="text" placeholder="game name" class="field" ng-model="input.nameText" required/>
         </div>
-      </div>
-      <div class="form-group row next">
-      <!-- ui-sref="healthassess.general" -->
-      <div class="col-xs-6 col-xs-offset-3 next">
-      <button type="submit" class="btn btn-block btn-info" >
-      Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
-      </div>
-      </div>
-      </div>
-    </form>
+        <div class="size">
+          <label>how do I contact you?</label>
+          <input type="email" placeholder="email" class="field" ng-model="input.emailText" required/>
+        </div>
+        <div class="size">
+          <label>you are old enough, right?</label>
+          <input type="number" placeholder="age" class="field" ng-model="input.ageText" min="18" required/>
+        </div>
+        <div class="size">
+          <label>are you male or female?</label>
+          <select name="gender" class="field" ng-model="input.genderText" ng-options="x.gender as x.Value1 for x in ProfileGender"
+            required>
+            <option value="">--please choose--</option>
+          </select>
+        </div>
+        <div class="form-group row next"> 
+          <!-- ui-sref="healthassess.general" -->
+          <div class="col-xs-6 col-xs-offset-3 next">
+            <button type="submit" class="btn btn-block btn-info" > Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
 </div>

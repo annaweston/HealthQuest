@@ -1,31 +1,36 @@
-   <div id="status-buttons" class="text-center">
-       <a id="span4" ui-sref-active="active"><span>4</span></a></div>
-<form ng-submit="addHealthAlcohol()">
-<div class="form-group">
-<div class="size">
-<label>How often have you had an alcoholic drink of any kind during the last 12 months?</label>
-<select class="field" ng-model="healthassessSection4a">
-    	<option>Almost every day</option>
-		<option>5/6 a week</option>
-		<option>3/4 a week</option>
-		<option>1/2 a week</option>
-		<option>1/2 a month</option>
-        <option>1 every couple of months</option>
-        <option>1/2 a year</option>
-        <option>Not at all</option>
-</select>
+<div class="start">
+  <div class="copy">
+    <div id="form-container">
+      <div class="text-center">
+        <h1>health assessment</h1>
+      </div>
+      <!-- use ng-submit to catch the form submission and use our Angular function --> 
+      <!-- our nested state views will be injected here -->
+      <div id="form-views">
+      <div id="status-buttons" class="text-center"> <a id="span4" ui-sref-active="active"><span>4</span></a></div>
+      <form name="userform" ng-submit="addHealthAlcohol(userform.$valid)">
+        <div class="size">
+          <label>How often have you had an alcoholic drink of any kind during the last 12 months?</label>
+          <select name="genSmokeEver" class="field" ng-model="healthassessSection4a" ng-options="x.healthassessSection4a as x.Value1 for x in HealthGen4a"
+                required>
+            <option value="">--please choose--</option>
+          </select>
+        </div>
+        <div class='size'>
+          <label>Have you had an alcoholic drink in the last seven days ending yesterday?</label>
+          <select name="genSmokeEver" class="field" ng-model="healthassessSection4b" ng-options="x.healthassessSection2a as x.Value1 for x in HealthGen2a"
+                required>
+            <option value="">--please choose--</option>
+          </select>
+          <hr/>
+        </div>
+        <div class="form-group row">
+          <div class="col-xs-6 col-xs-offset-3 next">
+            <button  class="next btn btn-block btn-info" > Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
+          </div>
+        </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
-
-<div class='form-group'>
-	<label>Have you had an alcoholic drink in the last seven days ending yesterday?</label>
-    <input type="radio" name="radio" ng-model="healthassessSection4b" value="yes" id="yes"><label for="yes">Yes</label> <br />
-    <input type="radio" name="radio" ng-model="healthassessSection4b" value="no" id="no"><label for="no">No</label>
-</div>
-
-<div class="form-group row">
-      <div class="col-xs-6 col-xs-offset-3 next">
-      <button type="submit" class="btn btn-block btn-info" >
-      Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
-</div>
-</div></div>
-</form>
