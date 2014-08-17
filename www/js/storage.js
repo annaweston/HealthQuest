@@ -29,12 +29,15 @@ angular.module('hq')
 					});
 										
 					// server bit goes here > 
-					// $.ajax({url:'/omg', type:'PUT', data:this_.attributes})
-					
 					console.log(this_.get('id'));
+					
+					var getname = this_.get('profName');
+					var getemail = this_.get('profEmail');
+					var classname = getname + getemail;
+					console.log(this_);
+					console.log(getemail);
+					console.log(classname);
 
-					var objectIdData = this_.get('name');
-				
 					if(this_.get('id') == 'profile')
 					{
 						$.parse.post('profile',{ data : this_.attributes }, function(response) { 
@@ -108,7 +111,7 @@ angular.module('hq')
 				// store for everything but diary
 				var d = utils.deferred(),
 					C = Backbone.Collection.extend({ 
-						model:PersistentModel,
+						model: PersistentModel,
 						localStorage:new Backbone.LocalStorage('question') 
 					}),
 					c = new C();

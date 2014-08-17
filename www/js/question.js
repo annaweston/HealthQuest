@@ -83,6 +83,7 @@ angular.module('hq')
 				questions : function(qFactory) { return qFactory.load(); }
 			},		
 			controller:function(profile, questions, $scope, $stateParams, qFactory, $state, questionsAnswered) {
+				
 				setUIViewTransition('transition-fade');
 				var timeStart = new Date().getTime();				
 				var category = profile.get("category");
@@ -106,6 +107,9 @@ angular.module('hq')
 				var qs_correct = profile.get("qsCorrect");
 				var qs_fastest = profile.get("qsfastestTime");
 				var longest_streak = profile.get("longestStreak");
+				var profile_name = profile.get("name");
+				var profile_email = profile.get("email");
+
 				
 				console.log('longest-streak', longest_streak);
 				
@@ -169,6 +173,9 @@ angular.module('hq')
 				}
 				
 				questionsAnswered.create({
+					id: timeStart,
+					pName: profile_name,
+					pEmail: profile_email,
 					qNumberCompleted: qs_completed,
 					questionID : $scope.questionid,
 					qUserAns : response,
@@ -178,12 +185,9 @@ angular.module('hq')
 					qTimetoAns : timetoAns,
 					qTimeofDay: timeStop});
 					
-				//questionsAnswered.save();
-				console.log('questionsAns', questionsAnswered);
-				console.log('questions',questions);
-				console.log('profile', profile);
-				
-				profile.set({ qsNumber: qs_completed, qsStreak : qs_streak, longestStreak: longest_streak, qsCorrect : qs_correct, qsfastestTime: qs_fastest });
+				//questionsAnswered.save();				
+				profile.set({ profName: profile_name,
+					profEmail: profile_email, qsNumber: qs_completed, qsStreak : qs_streak, longestStreak: longest_streak, qsCorrect : qs_correct, qsfastestTime: qs_fastest });
 				profile.save();
 
 				//if correct go to home, if not go to start

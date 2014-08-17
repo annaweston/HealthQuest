@@ -31,8 +31,30 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 			},		
 			controller: function($scope, $state, utils, profile) 
 			{
-				
-				switch(profile.get('stage')) {
+									
+/*					$.parse.init({
+						app_id : "NM5AvT58phnsTjnKwOmdRgKgK3ndfociFAMncCBq", // mine
+						rest_key : "lGu5IM5PduzO6PwlguFu2EBrTspxKFSDllwTUtno" // mine   
+					});
+										
+						$.parse.get('counter', function(response, $scope) { 
+								console.info('we succeeded at the ajax call ', response);
+								return_deferred.resolve(); // "i succeded"
+								console.log(response.get('countNum'));
+								$scope.number = response;
+							}, function(error) {
+								console.error('we failed at the ajax :( ', error);
+								return_deferred.reject(); // "i failed"
+							})	
+			
+			console.log($scope.number);
+*/				
+			
+			
+			
+			
+				switch(profile.get('stage')) 
+				{
 					case 'profileform':
 						$state.go('healthassessGeneral');
 						break;
@@ -261,7 +283,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				$scope.ProfileGender = [
 					{gender: 'male', Value1: 'male'},
 					{gender: 'female', Value1: 'female'},
-					]
+					];
 
 				$scope.addProfile = function(){				
 					profile.set({ name : $scope.input.nameText});
@@ -276,6 +298,9 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 	
 	.controller('statController', function($scope, profile, $state, questionsAnswered, questions) {
 				setUIViewTransition('transition-fade');
+				
+				window.prof = profile; 
+
 				
 				$scope.title = "your stats";
 												
@@ -300,8 +325,19 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				
 				var explanation = questions.questions[explanationNumber].explanation;
 				$scope.explanation = explanation;
+				
+				
 				var question = questions.questions[explanationNumber].Question;
 				$scope.question = question;
+				
+				var correctAns = questions.questions[explanationNumber].correctAnswer;
+				console.log('correctAns', correctAns);
+				
+				var answerSplit = questions.questions[explanationNumber].Answer.split(';');
+				var answer = answerSplit[correctAns];
+				$scope.answer = answer;
+
+				console.log('answer', answer);
 	})
 
 	.controller('healthAssessController', function($scope, profile, $state) {
