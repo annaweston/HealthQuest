@@ -1,0 +1,35 @@
+<div class="start">
+  <div class="copy">
+      <div class=" text-center">
+        <h1>health assessment</h1>
+      </div>
+      <!-- use ng-submit to catch the form submission and use our Angular function --> 
+      <!-- our nested state views will be injected here -->
+      <form name="userform" ng-submit="addFinal(userform.$valid)">
+        <div class="size">
+          <label>Has your behaviour changed over the last 10 days?</label>
+          <h6>Have you learnt any new facts about healthy living which have led you to a change in food choices or behaviour?</h6>
+          <textarea type="text" name="behavChange" class="field" ng-model="behavChange" required>
+          </textarea>
+        <hr />
+        </div>
+        
+         <div class='size'>
+          <label>Would you play this quiz if it was built into a health-based app?</label>
+          <select name="behavQuiz" class="field" ng-model="behavQuiz" ng-options="x.healthassessSection2a as x.Value1 for x in HealthGen2a"
+                required>
+            <option value="">--please choose--</option>
+          </select>
+          <hr/>
+        </div>
+
+        
+        <div class="form-group row">
+          <div class="col-xs-6 col-xs-offset-3 next">
+            <button  class="btn btn-block btn-info" >Thank you<span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

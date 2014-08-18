@@ -29,18 +29,34 @@ angular.module('hq')
 					});
 										
 					// server bit goes here > 
-					console.log(this_.get('id'));
 					
 					var getname = this_.get('profName');
 					var getemail = this_.get('profEmail');
 					var classname = getname + getemail;
-					console.log(this_);
-					console.log(getemail);
-					console.log(classname);
 
 					if(this_.get('id') == 'profile')
 					{
 						$.parse.post('profile',{ data : this_.attributes }, function(response) { 
+								console.info('we succeeded at the ajax call ', response);
+								return_deferred.resolve(); // "i succeded"
+							}, function(error) {
+								console.error('we failed at the ajax :( ', error);
+								return_deferred.reject(); // "i failed"
+							})	
+					}
+					else if(this_.get('id') == 'test')
+					{
+						$.parse.post('test',{ data : this_.attributes }, function(response) { 
+								console.info('we succeeded at the ajax call ', response);
+								return_deferred.resolve(); // "i succeded"
+							}, function(error) {
+								console.error('we failed at the ajax :( ', error);
+								return_deferred.reject(); // "i failed"
+							})	
+					}
+					else if(this_.get('id') == 'control')
+					{
+						$.parse.post('control',{ data : this_.attributes }, function(response) { 
 								console.info('we succeeded at the ajax call ', response);
 								return_deferred.resolve(); // "i succeded"
 							}, function(error) {

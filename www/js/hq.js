@@ -29,61 +29,80 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				questionsAnswered : function(storage) { return storage.getQsAns(); },
 				questions : function(qFactory) { return qFactory.load(); }
 			},		
-			controller: function($scope, $state, utils, profile) 
+			controller: function($scope, $state, utils, profile, questionsAnswered, questions) 
 			{
+					timeOut = profile.get('startOfExp');
+					
+					if(!timeOut)
+					{
+						timeOut= new Date().getTime();
+					}
+					console.log(timeOut);
+					$scope.now= new Date().getTime();				
+					console.log($scope.now);
 									
-/*					$.parse.init({
-						app_id : "NM5AvT58phnsTjnKwOmdRgKgK3ndfociFAMncCBq", // mine
-						rest_key : "lGu5IM5PduzO6PwlguFu2EBrTspxKFSDllwTUtno" // mine   
-					});
-										
-						$.parse.get('counter', function(response, $scope) { 
-								console.info('we succeeded at the ajax call ', response);
-								return_deferred.resolve(); // "i succeded"
-								console.log(response.get('countNum'));
-								$scope.number = response;
-							}, function(error) {
-								console.error('we failed at the ajax :( ', error);
-								return_deferred.reject(); // "i failed"
-							})	
-			
-			console.log($scope.number);
-*/				
-			
-			
-			
-			
-				switch(profile.get('stage')) 
-				{
-					case 'profileform':
-						$state.go('healthassessGeneral');
-						break;
-					case 'healthgen1':
-						$state.go('healthassessGeneral2');
-						break;
-					case 'healthgen2':
-						$state.go('healthassessGeneral3');
-						break;
-					case 'healthgen3':
-						$state.go('healthassessSmoking');
-						break;
-					case 'healthsmoke':
-						$state.go('healthassessEating');
-						break;
-					case 'healtheat':
-						$state.go('healthassessAlcohol');
-						break;	
-					case 'healthalco':
-						$state.go('categories');
-						break;	
-					case 'category':
-						$state.go('question');
-						break;	
-					default:
-						$state.go('profileReg');				
-				}
+					var diffDays = ($scope.now - timeOut);
+						
+					if(diffDays >= 864000000)
+					{
+						profile.set({complete :'complete'});
+						profile.save();
+						$state.go('test');
+					}
+					else
+					{
+						switch(profile.get('stage')) 
+						{
+							case 'profileform':
+								$state.go('healthassessGeneral');
+								break;
+							case 'healthgen1':
+								$state.go('healthassessGeneral2');
+								break;
+							case 'healthgen2':
+								$state.go('healthassessGeneral3');
+								break;
+							case 'healthgen3':
+								$state.go('healthassessSmoking');
+								break;
+							case 'healthsmoke':
+								$state.go('healthassessEating');
+								break;
+							case 'healtheat':
+								$state.go('healthassessAlcohol');
+								break;	
+							case 'healthalco':
+								$state.go('categories');
+								break;	
+							case 'category':
+								$state.go('question');
+								break;	
+							default:
+								$state.go('profileReg');				
+						}
+					}
+				
 			}
 		})
+		
+		.state('last', {
+			url:'/last',
+			templateUrl:'tmpl/last.html',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+				questionsAnswered : function(storage) { return storage.getQsAns(); },
+				questions : function(qFactory) { return qFactory.load(); }
+
+			},		
+			controller: 'healthAssessController',
+		})
+		
+		.state('final', {
+			url:'/final',
+			templateUrl:'tmpl/final.html',
+		})
+
+
 		.state('success', {
 			url:'/feedback/success',
 			templateUrl:'tmpl/feedback.html',
@@ -106,17 +125,6 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 			},		
 			controller: 'feedbackController',
 				
-		})
-		.state('profileSaved', {
-			url:'/setup',
-			templateUrl:'tmpl/profileform.html',
-			resolve : {
-				profile:function(storage)  { return storage.getProfile(); },
-			},		
-			controller:function($scope, $state, utils, $swipe, $stateParams) {
-				setUIViewTransition('transition-fade');
-				$scope.title = 'Welcome';
-				}
 		})
 		.state('profileReg', {
 			url:'/profile',
@@ -154,10 +162,15 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 					profile.save();
 					$state.go('question');
 				};
-				
-				window.prof = profile;
 			}
 		})
+		
+		.state('reload', {
+			controller:function($state) {
+					$state.go('test');
+			}
+		})
+
 		
 		.state('healthassessGeneral', {
 			url: '/healthassessment1',
@@ -224,16 +237,28 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 			},	
 		})
 		
-		.state('welcome', {
-			url:'/welcome',
+		.state('control', {
+			url:'/thankyou',
 			templateUrl:'tmpl/welcome.html',
 			resolve : {
 				profile:function(storage)  { return storage.getProfile(); },
 			},	
 			controller:function($scope, $state, $stateParams, profile) {
-				setUIViewTransition('transition-fade');				
+				setUIViewTransition('transition-fade');	
+				
+				$scope.addControl = function(response){				
+					profile.set({ id : "control" , expGroup : $scope.emailText });
+					profile.save();
+					$state.go('thankyou');
+				}
+							
 			}
 	
+		})
+
+		.state('thankyou', {
+			url:'/thankyou',
+			templateUrl:'tmpl/thankyou.html',							
 		})
 		
 		
@@ -277,30 +302,47 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 	
 	.controller('formController', function($scope, profile, $state) {
 				setUIViewTransition('transition-fade');
+				
+				
 				console.log(profile);
 				
 				
+				var randCategory = (Math.random());
+				randCategory = Math.round(randCategory);
+				if(randCategory % 2 == 0) 
+				{
+					$scope.profgroup = 'experiment';
+				}
+				else{
+					$scope.profgroup = 'control' ;
+				}
+				
+				$scope.startExp= new Date().getTime();				
+
 				$scope.ProfileGender = [
-					{gender: 'male', Value1: 'male'},
-					{gender: 'female', Value1: 'female'},
+					{gender: 'm', Value1: 'Male'},
+					{gender: 'f', Value1: 'Female'},
 					];
 
-				$scope.addProfile = function(){				
-					profile.set({ name : $scope.input.nameText});
-					profile.set({ email : $scope.input.emailText});
-					profile.set({ age : $scope.input.ageText});
-					profile.set({ gender : $scope.input.genderText});
+				$scope.addProfile = function(response){	
+				if(response != false)
+				{
+					profile.set({ expGroup : $scope.profgroup});
+					profile.set({ name : $scope.nameText});
+					profile.set({ email : $scope.emailText});
+					profile.set({ age : $scope.ageText});
+					profile.set({ gender : $scope.genderText});
 					profile.set({ stage : 'profileform'});
+					profile.set({ startOfExp : $scope.startExp});
+
 					profile.save();
 					$state.go('healthassessGeneral');
+				}
 				}
 	})
 	
 	.controller('statController', function($scope, profile, $state, questionsAnswered, questions) {
 				setUIViewTransition('transition-fade');
-				
-				window.prof = profile; 
-
 				
 				$scope.title = "your stats";
 												
@@ -338,8 +380,10 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				$scope.answer = answer;
 
 				console.log('answer', answer);
+				
+				
 	})
-
+	
 	.controller('healthAssessController', function($scope, profile, $state) {
 				setUIViewTransition('transition-fade');
 				
@@ -517,7 +561,37 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 						profile.set({ healthAssess5a : $scope.healthassessSection5a});
 						profile.set({ stage : 'healthfit'});
 						profile.save();
-						$state.go('categories');
+						
+						var complete = profile.get('complete');
+
+						var group = profile.get('expGroup');
+						if(complete == 'complete')
+						{
+							$state.go('last');
+						}
+						else
+						{
+							if(group == 'control')
+							{
+								$state.go('control');
+							}
+							else
+							{
+								$state.go('categories');
+							}
+						}
+					}
+				}
+				
+							
+				$scope.addFinal = function(response){
+					if(response != false)
+					{
+						profile.set({ behavChange : $scope.behavChange});
+						profile.set({ behavQuiz : $scope.behavQuiz});
+						
+						profile.save();
+						$state.go('final');
 					}
 				}
 

@@ -1,0 +1,18 @@
+<div class="test">
+  <div class="start">
+    <div class="copy">
+    <h1 class="text-center"><strong>Test</strong></h1>
+      <h1>{{question}}</h1>
+    <hr />
+    <span>
+    <h1 class="text-center">
+      <timer interval="1000" countdown="30" finish-callback="finishedTimer()">{{countdown}}</timer>
+    </h1>
+    </span> 
+      <div ng-repeat="x in answerSplit">
+        <div class="hideButton btn btn-block btn-info next" ng-click="setResponse($index)">{{ x }}</div>
+        <br />
+      </div>
+    </div>
+  </div>
+</div>
