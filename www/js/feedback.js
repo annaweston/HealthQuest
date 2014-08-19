@@ -17,7 +17,7 @@ angular.module('hq')
 			controller:function($scope, $state, utils, $swipe, $stateParams, profile,  $rootScope) {
 				setUIViewTransition('transition-fade');
 				$scope.feedback = "correct";
-				console.log($rootScope);
+				//console.log($rootScope);
 				}
 		})
 		.state('feedback.failure', {

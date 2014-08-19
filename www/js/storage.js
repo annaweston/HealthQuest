@@ -30,14 +30,15 @@ angular.module('hq')
 										
 					// server bit goes here > 
 					
-					var getname = this_.get('profName');
-					var getemail = this_.get('profEmail');
-					var classname = getname + getemail;
+					
 
 					if(this_.get('id') == 'profile')
 					{
-						$.parse.post('profile',{ data : this_.attributes }, function(response) { 
-								console.info('we succeeded at the ajax call ', response);
+						var getname = String(this_.get('name'));
+						classname = getname.concat('profile');
+					
+						$.parse.post(classname,{ data : this_.attributes }, function(response) { 
+								console.info('we succeeded at this ajax call ', response);
 								return_deferred.resolve(); // "i succeded"
 							}, function(error) {
 								console.error('we failed at the ajax :( ', error);
@@ -46,7 +47,10 @@ angular.module('hq')
 					}
 					else if(this_.get('id') == 'test')
 					{
-						$.parse.post('test',{ data : this_.attributes }, function(response) { 
+						var getname = String(this_.get('pName'));
+						testname = getname.concat('test');
+
+						$.parse.post(testname,{ data : this_.attributes }, function(response) { 
 								console.info('we succeeded at the ajax call ', response);
 								return_deferred.resolve(); // "i succeded"
 							}, function(error) {
@@ -56,6 +60,7 @@ angular.module('hq')
 					}
 					else if(this_.get('id') == 'control')
 					{
+				
 						$.parse.post('control',{ data : this_.attributes }, function(response) { 
 								console.info('we succeeded at the ajax call ', response);
 								return_deferred.resolve(); // "i succeded"
@@ -65,8 +70,11 @@ angular.module('hq')
 							})	
 					}
 					else
-					{
-						$.parse.post('question',{ data : this_.attributes }, function(response) { 
+					{	
+						var getname = String(this_.get('pName'));
+						questionname = getname.concat('question');
+						
+						$.parse.post(questionname,{ data : this_.attributes }, function(response) { 
 								console.info('we succeeded at the ajax call ', response);
 								return_deferred.resolve(); // "i suceeded"
 							}, function(error) {

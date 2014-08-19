@@ -11,7 +11,7 @@ angular.module('hq')
 				questions : function(qFactory) { return qFactory.load(); }
 			},			
 			controller:function($scope, $state, utils, $swipe, profile, questions) {
-				console.log('yolo');
+				//console.log('yolo');
 				setUIViewTransition('transition-fade');
 				var u = utils, sa = function(f) { utils.safeApply($scope, f); };
 				$scope.home = {};
@@ -32,22 +32,8 @@ angular.module('hq')
 			    };
 
 
-				// $scope.profile = profile.attributes;
-
-				// comment these out, dawg. who puts things on window anyway?! barbarians.
-				window.$s = $scope;
-				window.p = profile;
-				window.questions = questions;
-				console.info('got profile! ', profile);
-				// console.log('questions ', questions);
-				// if you want to try cool swiping action with ngTouch
-				// $swipe.bind(angular.element('.home'), {
-				// 	move: function(evt) { 
-				// 		console.log('event >> ', evt);
-				// 		sa(function() { $scope.home.showmenu = !$scope.home.showmenu; });
-				// 	}
-				// });
-				console.log('home initialised');
+				
+				//console.log('home initialised');
 			}
 		});
 	});

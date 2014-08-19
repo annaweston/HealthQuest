@@ -37,9 +37,9 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 					{
 						timeOut= new Date().getTime();
 					}
-					console.log(timeOut);
+					//console.log(timeOut);
 					$scope.now= new Date().getTime();				
-					console.log($scope.now);
+					//console.log($scope.now);
 									
 					var diffDays = ($scope.now - timeOut);
 						
@@ -54,6 +54,9 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 						switch(profile.get('stage')) 
 						{
 							case 'profileform':
+								$state.go('test');
+								break;
+							case 'test':
 								$state.go('healthassessGeneral');
 								break;
 							case 'healthgen1':
@@ -304,7 +307,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				setUIViewTransition('transition-fade');
 				
 				
-				console.log(profile);
+				//console.log(profile);
 				
 				
 				var randCategory = (Math.random());
@@ -336,7 +339,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 					profile.set({ startOfExp : $scope.startExp});
 
 					profile.save();
-					$state.go('healthassessGeneral');
+					$state.go('test');
 				}
 				}
 	})
@@ -346,7 +349,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				
 				$scope.title = "your stats";
 												
-				console.log(profile);
+				//console.log(profile);
 
 				$scope.percentage = Math.round((profile.get('qsCorrect') / profile.get('qsNumber')) * 100);
 
@@ -373,13 +376,13 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				$scope.question = question;
 				
 				var correctAns = questions.questions[explanationNumber].correctAnswer;
-				console.log('correctAns', correctAns);
+				//console.log('correctAns', correctAns);
 				
 				var answerSplit = questions.questions[explanationNumber].Answer.split(';');
 				var answer = answerSplit[correctAns];
 				$scope.answer = answer;
 
-				console.log('answer', answer);
+				//console.log('answer', answer);
 				
 				
 	})
@@ -515,7 +518,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 					profile.set({ healthAssess1e : $scope.healthassessSection1e});
 					profile.set({ stage : 'healthgen3'});
 					profile.save();
-					console.log(profile);
+					//console.log(profile);
 					$state.go('healthassessSmoking');
 					}
 				}

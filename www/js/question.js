@@ -15,7 +15,7 @@ angular.module('hq')
           	d.resolve({
           		questions: rows,
           		getCategory: function(c) { 
-          			console.log('get category ', c);
+          			//console.log('get category ', c);
           			return rows.filter(function(r) { return r.Category == c; }); 
           		},
 				
@@ -220,9 +220,9 @@ angular.module('hq')
 					{
 						timeOut= new Date().getTime();
 					}
-					console.log(timeOut);
+					//console.log(timeOut);
 					$scope.now= new Date().getTime();				
-					console.log($scope.now);
+					//console.log($scope.now);
 									
 					var diffDays = ($scope.now - timeOut);
 
@@ -289,15 +289,6 @@ angular.module('hq')
 				$scope.answerSplit = qs.Answer.split(';').map(function(x) { return x.trim(); });
 				$scope.correctAnswer = qs.correctAnswer;
 				
-/*				var profile_name = profile.get("name");
-				var profile_email = profile.get("email");
-	
-*/				//$scope.questionid = qs.questionID;		
-
-				$scope.question = qs.Question;
-				//$scope.category = qs.Category;				
-				$scope.answerSplit = qs.Answer.split(';').map(function(x) { return x.trim(); });
-				//$scope.correctAnswer = qs.correctAnswer;
 				
 				
 			$scope.setResponse = function(response) {
@@ -306,7 +297,7 @@ angular.module('hq')
 				
 				var profile_name = profile.get("name");
 				var profile_email = profile.get("email");
-				var qs_completed = 0 ; //profile.get("qNumberCompleted");
+				var qs_completed = profile.get("qNumberCompleted");
 
 
 				console.log(qs_completed);

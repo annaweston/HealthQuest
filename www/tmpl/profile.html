@@ -9,14 +9,15 @@
         <!-- our nested state views will be injected here -->
         <div class="size">
           <label>hey, what should I call you?</label>
-          <input type="text" placeholder="game name" class="field" ng-model="nameText" required/>
-        </div>
+          <input type="text" name="text2" placeholder="game name" class="field" ng-model="nameText" ng-pattern="/^[a-zA-Z0-9]*$/" required/>
+           <p style="font:italic; font-size:10pt">Please only use letters or numbers</p> 
+      </div>
         <div class="size">
           <label>how do I contact you?</label>
           <input type="email" placeholder="email" class="field" ng-model="emailText" required/>
         </div>
         <div class="size">
-          <label>you are old enough, right?</label>
+          <label>how old are you?</label>
           <input type="number" placeholder="age" class="field" ng-model="ageText" min="18" required/>
         </div>
         <div class="size">
@@ -28,7 +29,7 @@
         </div>
         <div>
         <small class="error" 
-             ng-show="profileForm.$invalid && profileForm.$dirty"> Please complete the form or check inputs are valid</small> 
+             ng-show="profileForm.$invalid && profileForm.$dirty">Please complete the form or check inputs are valid. </small> 
         </div>
 
         <div class="form-group row next"> 
