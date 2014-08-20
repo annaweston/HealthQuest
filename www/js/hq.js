@@ -32,8 +32,8 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 			controller: function($scope, $state, utils, profile, questionsAnswered, questions) 
 			{
 					timeOut = profile.get('startOfExp');
-					
-					if(!timeOut)
+
+					if(typeof timeOut === "undefined" )
 					{
 						timeOut= new Date().getTime();
 					}
@@ -45,46 +45,90 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 						
 					if(diffDays >= 864000000)
 					{
-						profile.set({complete :'complete'});
+						profile.set({complete :'completeExperiment'});
 						profile.save();
 						$state.go('test');
 					}
 					else
 					{
-						switch(profile.get('stage')) 
+							
+						if(profile.get('expGroup') == 'control') 
 						{
-							case 'profileform':
-								$state.go('test');
-								break;
-							case 'test':
-								$state.go('healthassessGeneral');
-								break;
-							case 'healthgen1':
-								$state.go('healthassessGeneral2');
-								break;
-							case 'healthgen2':
-								$state.go('healthassessGeneral3');
-								break;
-							case 'healthgen3':
-								$state.go('healthassessSmoking');
-								break;
-							case 'healthsmoke':
-								$state.go('healthassessEating');
-								break;
-							case 'healtheat':
-								$state.go('healthassessAlcohol');
-								break;	
-							case 'healthalco':
-								$state.go('categories');
-								break;	
-							case 'category':
-								$state.go('question');
-								break;	
-							default:
-								$state.go('profileReg');				
+							
+								switch(profile.get('stage')) 
+								{
+									case 'profileform':
+										$state.go('test');
+										break;
+									case 'test':
+										$state.go('healthassessGeneral');
+										break;
+									case 'healthgen1':
+										$state.go('healthassessGeneral2');
+										break;
+									case 'healthgen2':
+										$state.go('healthassessGeneral3');
+										break;
+									case 'healthgen3':
+										$state.go('healthassessSmoking');
+										break;
+									case 'healthsmoke':
+										$state.go('healthassessEating');
+										break;
+									case 'healtheat':
+										$state.go('healthassessAlcohol');
+										break;	
+									case 'healthalco':
+										$state.go('healthassessFitness');
+										break;
+									case 'healthfit':
+										$state.go('categories');
+										break;		
+									case 'category':
+										$state.go('last');
+										break;	
+								}
+						}
+						else
+						{
+							switch(profile.get('stage')) 
+								{
+									case 'profileform':
+										$state.go('test');
+										break;
+									case 'test':
+										$state.go('healthassessGeneral');
+										break;
+									case 'healthgen1':
+										$state.go('healthassessGeneral2');
+										break;
+									case 'healthgen2':
+										$state.go('healthassessGeneral3');
+										break;
+									case 'healthgen3':
+										$state.go('healthassessSmoking');
+										break;
+									case 'healthsmoke':
+										$state.go('healthassessEating');
+										break;
+									case 'healtheat':
+										$state.go('healthassessAlcohol');
+										break;	
+									case 'healthalco':
+										$state.go('healthassessFitness');
+										break;
+									case 'healthfit':
+										$state.go('categories');
+										break;		
+									case 'category':
+										$state.go('question');
+										break;	
+									default:
+										$state.go('profileReg');
+
+								}		
 						}
 					}
-				
 			}
 		})
 		
@@ -104,21 +148,21 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 			url:'/final',
 			templateUrl:'tmpl/final.html',
 		})
-
+	
 
 		.state('success', {
-			url:'/feedback/success',
+			url:'/correct',
 			templateUrl:'tmpl/feedback.html',
 			resolve : {
 				profile:function(storage)  { return storage.getProfile(); },
 				questionsAnswered : function(storage) { return storage.getQsAns(); },
 				questions : function(qFactory) { return qFactory.load(); }
-
 			},		
-			controller: 'feedbackController',
+			controller: 'feedbackControllerSuccess',
 		})
+		
 		.state('failure', {
-			url:'/feedback/failure',
+			url:'/wrong',
 			templateUrl:'tmpl/feedbackwrong.html',
 			resolve : {
 				profile:function(storage)  { return storage.getProfile(); },
@@ -126,7 +170,20 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				questions : function(qFactory) { return qFactory.load(); }
 
 			},		
-			controller: 'feedbackController',
+			controller: 'feedbackControllerFailure',
+				
+		})
+		
+		.state('timeOut', {
+			url:'/timeOut',
+			templateUrl:'tmpl/feedbacktimeup.html',
+			resolve : {
+				profile:function(storage)  { return storage.getProfile(); },
+				questionsAnswered : function(storage) { return storage.getQsAns(); },
+				questions : function(qFactory) { return qFactory.load(); }
+
+			},		
+			controller: 'feedbackControllerTimeUp',
 				
 		})
 		.state('profileReg', {
@@ -250,7 +307,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				setUIViewTransition('transition-fade');	
 				
 				$scope.addControl = function(response){				
-					profile.set({ id : "control" , expGroup : $scope.emailText });
+					profile.set({ id : "control" , controlGroup : $scope.emailText });
 					profile.save();
 					$state.go('thankyou');
 				}
@@ -299,17 +356,14 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 		
 		// console.log('backbone localstorage ', typeof Backbone.LocalStorage);
 	}])
-	.controller('explanationCtrl', ['$scope','$rootScope', function($scope, $feedback) {
+/*	.controller('explanationCtrl', ['$scope','$rootScope', function($scope, $feedback) {
 		$scope.msg = $feedback;
 	}])
 	
-	.controller('formController', function($scope, profile, $state) {
+*/	.controller('formController', function($scope, profile, $state) {
 				setUIViewTransition('transition-fade');
 				
-				
-				//console.log(profile);
-				
-				
+							
 				var randCategory = (Math.random());
 				randCategory = Math.round(randCategory);
 				if(randCategory % 2 == 0) 
@@ -337,47 +391,46 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 					profile.set({ gender : $scope.genderText});
 					profile.set({ stage : 'profileform'});
 					profile.set({ startOfExp : $scope.startExp});
+					//profile.set({ startOfExp : $scope.startExp});
 
 					profile.save();
 					$state.go('test');
 				}
-				}
+			}
 	})
 	
 	.controller('statController', function($scope, profile, $state, questionsAnswered, questions) {
 				setUIViewTransition('transition-fade');
-				
 				$scope.title = "your stats";
-												
-				//console.log(profile);
-
 				$scope.percentage = Math.round((profile.get('qsCorrect') / profile.get('qsNumber')) * 100);
-
 				$scope.timeTaken = profile.get('qsfastestTime');
-
 				$scope.number = profile.get('qsNumber');
 				$scope.correctstreak = profile.get('longestStreak');
 			
 	})
-	.controller('feedbackController', function($scope, $state, utils, $swipe, questionsAnswered, profile, questions) {
+	.controller('feedbackControllerSuccess', function($scope, $state, utils, $swipe, questionsAnswered, profile, questions) {
 				setUIViewTransition('transition-fade');
-				$scope.feedbackWrong = "Sorry, that was incorrect!";
 				$scope.feedbackCorrect = "Well Done!";
 
 				var explanationNumber = questionsAnswered.models[questionsAnswered.models.length-1].get('questionID');	
-								
 				explanationNumber = (explanationNumber - 1);
-				
-				var explanation = questions.questions[explanationNumber].explanation;
-				$scope.explanation = explanation;
-				
+				console.log(explanationNumber);
+				//var explanation = questions.questions[explanationNumber].get('explanation');
+				console.log('1', questions.questions);
+				//console.log('1',explanation)
 				
 				var question = questions.questions[explanationNumber].Question;
 				$scope.question = question;
 				
 				var correctAns = questions.questions[explanationNumber].correctAnswer;
-				//console.log('correctAns', correctAns);
+				console.log('correctAns', correctAns);
 				
+				console.log('user', questionsAnswered);
+				
+				
+				var explanation = questions.questions[explanationNumber].explanation;
+				$scope.explanation = explanation;
+
 				var answerSplit = questions.questions[explanationNumber].Answer.split(';');
 				var answer = answerSplit[correctAns];
 				$scope.answer = answer;
@@ -386,6 +439,42 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				
 				
 	})
+	.controller('feedbackControllerFailure', function($scope, $state, utils, $swipe, questionsAnswered, profile, questions) {
+				setUIViewTransition('transition-fade');
+				$scope.feedbackWrong = "Sorry, that was incorrect!";
+
+				var explanationNumber = questionsAnswered.models[questionsAnswered.models.length-1].get('questionID');	
+				explanationNumber = (explanationNumber - 1);
+				console.log(explanationNumber);
+				//var explanation = questions.questions[explanationNumber].get('explanation');
+				console.log('1', questions.questions);
+				//console.log('1',explanation)
+				
+				var question = questions.questions[explanationNumber].Question;
+				$scope.question = question;
+				
+				var correctAns = questions.questions[explanationNumber].correctAnswer;
+				console.log('correctAns', correctAns);
+				
+				console.log('user', questionsAnswered);
+				
+				
+				var explanation = questions.questions[explanationNumber].explanation;
+				$scope.explanation = explanation;
+
+				var answerSplit = questions.questions[explanationNumber].Answer.split(';');
+				var answer = answerSplit[correctAns];
+				$scope.answer = answer;
+
+				//console.log('answer', answer);
+				
+				
+	})
+	.controller('feedbackControllerTimeUp', function($scope, $state, utils, $swipe, questionsAnswered, profile, questions) {
+				setUIViewTransition('transition-fade');
+				$scope.feedbackWrong = "You ran out of time!";		
+	})
+
 	
 	.controller('healthAssessController', function($scope, profile, $state) {
 				setUIViewTransition('transition-fade');
@@ -568,7 +657,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 						var complete = profile.get('complete');
 
 						var group = profile.get('expGroup');
-						if(complete == 'complete')
+						if(complete == 'completeExperiment')
 						{
 							$state.go('last');
 						}

@@ -15,13 +15,13 @@
     <hr />
     <span>
     <h1 class="text-center">
-      <timer interval="1000" countdown="30" finish-callback="finishedTimer()">{{countdown}}</timer>
+      <timer interval="1000" countdown="5" finish-callback="redirectPage(response)">{{countdown}}</timer>
     </h1>
     </span> 
     
     <!-- omg question {{ questionid }} -->
     <div ng-repeat="x in answerSplit">
-      <div class="hideButton btn btn-block btn-info next" ng-click="setResponse($index)">{{ x }}</div>
+      <div class="btn btn-block btn-info next" ng-click="setResponse($index)">{{ x }}</div>
       <br />
     </div>
   </div>
