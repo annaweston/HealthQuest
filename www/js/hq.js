@@ -51,82 +51,89 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 					}
 					else
 					{
-							
-						if(profile.get('expGroup') == 'control') 
-						{
-							
+						var stopThem = 	profile.get('direct');
+						if(typeof timeOut === "undefined" )
+						{ 
+							if(profile.get('expGroup') == 'control') 
+							{
+								
+									switch(profile.get('stage')) 
+									{
+										case 'profileform':
+											$state.go('test');
+											break;
+										case 'test':
+											$state.go('healthassessGeneral');
+											break;
+										case 'healthgen1':
+											$state.go('healthassessGeneral2');
+											break;
+										case 'healthgen2':
+											$state.go('healthassessGeneral3');
+											break;
+										case 'healthgen3':
+											$state.go('healthassessSmoking');
+											break;
+										case 'healthsmoke':
+											$state.go('healthassessEating');
+											break;
+										case 'healtheat':
+											$state.go('healthassessAlcohol');
+											break;	
+										case 'healthalco':
+											$state.go('healthassessFitness');
+											break;
+										case 'healthfit':
+											$state.go('categories');
+											break;		
+										case 'category':
+											$state.go('last');
+											break;	
+									}
+							}
+							else
+							{
 								switch(profile.get('stage')) 
-								{
-									case 'profileform':
-										$state.go('test');
-										break;
-									case 'test':
-										$state.go('healthassessGeneral');
-										break;
-									case 'healthgen1':
-										$state.go('healthassessGeneral2');
-										break;
-									case 'healthgen2':
-										$state.go('healthassessGeneral3');
-										break;
-									case 'healthgen3':
-										$state.go('healthassessSmoking');
-										break;
-									case 'healthsmoke':
-										$state.go('healthassessEating');
-										break;
-									case 'healtheat':
-										$state.go('healthassessAlcohol');
-										break;	
-									case 'healthalco':
-										$state.go('healthassessFitness');
-										break;
-									case 'healthfit':
-										$state.go('categories');
-										break;		
-									case 'category':
-										$state.go('last');
-										break;	
-								}
+									{
+										case 'profileform':
+											$state.go('test');
+											break;
+										case 'test':
+											$state.go('healthassessGeneral');
+											break;
+										case 'healthgen1':
+											$state.go('healthassessGeneral2');
+											break;
+										case 'healthgen2':
+											$state.go('healthassessGeneral3');
+											break;
+										case 'healthgen3':
+											$state.go('healthassessSmoking');
+											break;
+										case 'healthsmoke':
+											$state.go('healthassessEating');
+											break;
+										case 'healtheat':
+											$state.go('healthassessAlcohol');
+											break;	
+										case 'healthalco':
+											$state.go('healthassessFitness');
+											break;
+										case 'healthfit':
+											$state.go('categories');
+											break;		
+										case 'category':
+											$state.go('question');
+											break;	
+										default:
+											$state.go('profileReg');
+	
+									}		
+							}
 						}
 						else
 						{
-							switch(profile.get('stage')) 
-								{
-									case 'profileform':
-										$state.go('test');
-										break;
-									case 'test':
-										$state.go('healthassessGeneral');
-										break;
-									case 'healthgen1':
-										$state.go('healthassessGeneral2');
-										break;
-									case 'healthgen2':
-										$state.go('healthassessGeneral3');
-										break;
-									case 'healthgen3':
-										$state.go('healthassessSmoking');
-										break;
-									case 'healthsmoke':
-										$state.go('healthassessEating');
-										break;
-									case 'healtheat':
-										$state.go('healthassessAlcohol');
-										break;	
-									case 'healthalco':
-										$state.go('healthassessFitness');
-										break;
-									case 'healthfit':
-										$state.go('categories');
-										break;		
-									case 'category':
-										$state.go('question');
-										break;	
-									default:
-										$state.go('profileReg');
-
-								}		
+							$state.go('thankyou')
 						}
 					}
 			}
@@ -298,7 +305,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 		})
 		
 		.state('control', {
-			url:'/thankyou',
+			url:'/thankyouemail',
 			templateUrl:'tmpl/welcome.html',
 			resolve : {
 				profile:function(storage)  { return storage.getProfile(); },
@@ -665,6 +672,8 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 						{
 							if(group == 'control')
 							{
+								profile.set({direct: 'controlGroup'})
+								profile.save();
 								$state.go('control');
 							}
 							else
