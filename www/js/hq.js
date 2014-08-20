@@ -570,12 +570,15 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 						var group = profile.get('expGroup');
 						if(complete == 'complete')
 						{
+							
 							$state.go('last');
 						}
 						else
 						{
 							if(group == 'control')
 							{
+								profile.set({ direct : 'control'});
+								profile.save();
 								$state.go('control');
 							}
 							else
