@@ -31,17 +31,26 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 			},		
 			controller: function($scope, $state, utils, profile, questionsAnswered, questions) 
 			{
-					timeOut = profile.get('startOfExp');
-
-					if(typeof timeOut === "undefined" )
+				
+				timeOut = profile.get('startOfExp');
+				
+					if(typeof timeOut == "undefined")
 					{
 						timeOut= new Date().getTime();
 					}
-					//console.log(timeOut);
-					$scope.now= new Date().getTime();				
-					//console.log($scope.now);
+					$scope.now= new Date().getTime();	
+				
+					var name = profile.get('name');
+					if(typeof name == "undefined")
+					{
+						$state.go('profileReg');	
+					}
+					else
+					{
+						$state.go('test');	
+					}
 									
-					var diffDays = ($scope.now - timeOut);
+			/*		var diffDays = ($scope.now - timeOut);
 						
 					if(diffDays >= 864000000)
 					{
@@ -51,13 +60,13 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 					}
 					else
 					{
+						
 						var stopThem = 	profile.get('direct');
-						if(typeof timeOut === "undefined" )
-						{ 
-							if(profile.get('expGroup') == 'control') 
+						//console.log(stopThem);
+						if(profile.get('expGroup') == 'control') 
 							{
-								
-									switch(profile.get('stage')) 
+								var stage = profile.get('stage');
+									switch(stage) 
 									{
 										case 'profileform':
 											$state.go('test');
@@ -84,16 +93,19 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 											$state.go('healthassessFitness');
 											break;
 										case 'healthfit':
-											$state.go('categories');
-											break;		
-										case 'category':
-											$state.go('last');
+											$state.go('control');
 											break;	
+										case 'controlG':
+											$state.go('thankyou');
+											break;	
+										default:
+											$state.go('thankyou');	
 									}
 							}
 							else
 							{
-								switch(profile.get('stage')) 
+									var stage = profile.get('stage');
+									switch(stage) 
 									{
 										case 'profileform':
 											$state.go('test');
@@ -130,12 +142,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 	
 									}		
 							}
-						}
-						else
-						{
-							$state.go('thankyou')
-						}
-					}
+					}*/
 			}
 		})
 		
@@ -314,7 +321,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				setUIViewTransition('transition-fade');	
 				
 				$scope.addControl = function(response){				
-					profile.set({ id : "control" , controlGroup : $scope.emailText });
+					profile.set({ id : "control" , controlGroup : $scope.emailText, stage : 'controlG' });
 					profile.save();
 					$state.go('thankyou');
 				}
@@ -369,8 +376,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 	
 */	.controller('formController', function($scope, profile, $state) {
 				setUIViewTransition('transition-fade');
-				
-							
+					
 				var randCategory = (Math.random());
 				randCategory = Math.round(randCategory);
 				if(randCategory % 2 == 0) 
@@ -588,8 +594,8 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				$scope.addHealthGen1 = function(response){
 					if(response != false)
 					{
-						profile.set({ healthAssess1a : $scope.healthassessSection1a});
-						profile.set({ healthAssess1b : $scope.healthassessSection1b});
+						profile.set({ healthFinalAssess1a : $scope.healthassessSection1a});
+						profile.set({ healthFinalAssess1b : $scope.healthassessSection1b});
 						profile.set({ stage : 'healthgen1'});
 						profile.save();
 						$state.go('healthassessGeneral2');
@@ -599,8 +605,8 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				$scope.addHealthGen2 = function(response){
 				if(response != false)
 					{
-						profile.set({ healthAssess1c : $scope.healthassessSection1c});
-						profile.set({ healthAssess1d : $scope.healthassessSection1d});
+						profile.set({ healthFinalAssess1c : $scope.healthassessSection1c});
+						profile.set({ healthFinalAssess1d : $scope.healthassessSection1d});
 						profile.set({ stage : 'healthgen2'});
 						profile.save();
 						$state.go('healthassessGeneral3');
@@ -611,7 +617,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				if(response != false)
 					{
 
-					profile.set({ healthAssess1e : $scope.healthassessSection1e});
+					profile.set({ healthFinalAssess1e : $scope.healthassessSection1e});
 					profile.set({ stage : 'healthgen3'});
 					profile.save();
 					//console.log(profile);
@@ -622,9 +628,9 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				$scope.addHealthSmoking = function(response){
 					if(response != false)
 					{
-						profile.set({ healthAssess2a : $scope.healthassessSection2a});
-						profile.set({ healthAssess2b : $scope.healthassessSection2b});
-						profile.set({ healthAssess2c : $scope.healthassessSection2c});
+						profile.set({ healthFinalAssess2a : $scope.healthassessSection2a});
+						profile.set({ healthFinalAssess2b : $scope.healthassessSection2b});
+						profile.set({ healthFinalAssess2c : $scope.healthassessSection2c});
 						profile.set({ stage : 'healthsmoke'});
 						profile.save();
 						$state.go('healthassessEating');
@@ -635,8 +641,9 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				$scope.addHealthEating = function(response){
 					if(response != false)
 					{
-						profile.set({ healthAssess3a : $scope.healthassessSection3a});
-						profile.set({ healthAssess3b : $scope.healthassessSection3b});
+						console.log(response);
+						profile.set({ healthFinalAssess3a : $scope.healthassessSection3a});
+						profile.set({ healthFinalAssess3b : $scope.healthassessSection3b});
 						profile.set({ stage : 'healtheat'});
 						profile.save();
 						$state.go('healthassessAlcohol');
@@ -646,8 +653,8 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				$scope.addHealthAlcohol = function(response){
 					if(response != false)
 					{
-						profile.set({ healthAssess4a : $scope.healthassessSection4a});
-						profile.set({ healthAssess4b : $scope.healthassessSection4b});
+						profile.set({ healthFinalAssess4a : $scope.healthassessSection4a});
+						profile.set({ healthFinalAssess4b : $scope.healthassessSection4b});
 						profile.set({ stage : 'healthalco'});
 						profile.save();
 						$state.go('healthassessFitness');
@@ -657,9 +664,12 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 				$scope.addHealthFitness = function(response){					
 				if(response != false)
 					{
-						profile.set({ healthAssess5a : $scope.healthassessSection5a});
+						profile.set({ healthFinalAssess5a : $scope.healthassessSection5a});
 						profile.set({ stage : 'healthfit'});
 						profile.save();
+						
+						$state.go('last');
+						/*
 						
 						var complete = profile.get('complete');
 
@@ -680,7 +690,7 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 							{
 								$state.go('categories');
 							}
-						}
+						} */
 					}
 				}
 				
@@ -690,7 +700,8 @@ angular.module('hq', ['ui.router', 'ngAnimate', 'ngTouch', 'timer'])
 					{
 						profile.set({ behavChange : $scope.behavChange});
 						profile.set({ behavQuiz : $scope.behavQuiz});
-						
+						profile.set({ behavComment : $scope.behavComment});
+
 						profile.save();
 						$state.go('final');
 					}

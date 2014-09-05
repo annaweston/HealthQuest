@@ -1,0 +1,27 @@
+<div class="home" ng-click="unsetShowMenu($event)" ng-swipe-right="showMenu()" ng-swipe-left="hideMenu()">
+<div class="backmenu">
+  <ul>
+    <!--sets the initial questionid to 1-->
+    <li><a ui-sref="question">Let's Play!</a></li>
+    <li><a ui-sref="stats">Your Stats!</a></li>
+    <li><a ui-sref="categories">Category Options</a></li>
+  </ul>
+</div>
+<div ng-class="{front:true,showmenu:home.showmenu}">
+  <div class="button menu"> <a class="image" ng-click="home.showmenu=!home.showmenu" target="_blank"> <img src="img/menuburger-thin.png"> </a> </div>
+  <div class="start">
+    <div class="copy">
+    <br />
+      <div class="text-center question_buffer">
+        <h1>You ran out of time!</h1>
+        <hr />
+      </div>
+      <div class="form-group row">
+            <div class="col-xs-6 col-xs-offset-3 next">
+              <a ui-sref="question" class="next btn btn-block btn-info" > Next Question <span class="glyphicon glyphicon-circle-arrow-right"></span> </a>
+            </div>
+     </div>
+
+    </div>
+  </div>
+</div>

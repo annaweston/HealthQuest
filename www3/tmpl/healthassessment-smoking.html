@@ -1,0 +1,41 @@
+<div class="start">
+<div class="copy">
+  <div id="form-container">
+      <div class="text-center">
+        <h1>health assessment</h1>
+      </div>
+    <!-- use ng-submit to catch the form submission and use our Angular function --> 
+    <!-- our nested state views will be injected here -->
+    <div id="form-views">
+      <div id="status-buttons" class="text-center"> <a id="span2" ui-sref-active="active"><span>2</span></a></div>
+      <form name="userform" ng-submit="addHealthSmoking(userform.$valid)" novalidate>
+        <div class="size">
+          <label>Have you ever smoked a cigarette, a cigar, or a pipe?</label>
+          <select name="genSmokeEver" class="field" ng-model="healthassessSection2a" ng-options="x.healthassessSection2a as x.Value1 for x in HealthGen2a"
+            required>
+            <option value="">--please choose--</option>
+          </select>
+          <small class="error" 
+             ng-show="userform.genSmokeEver.$invalid && userform.genSmokeEver.$dirty"> Please make a selection </small> </div>
+        <br />
+        <div class="size">
+          <label>Do you smoke at all nowadays?</label>
+          <select name="genSmokeNow" class="field" ng-model="healthassessSection2b" ng-options="x.healthassessSection2b as x.Value1 for x in HealthGen2b"
+            required>
+            <option value="">--please choose--</option>
+          </select>
+        </div>
+        <br />
+        <div class="size">
+          <label>How many do you have in an average week?</label>
+          <input name="genSmokeNum" class="field" type="number" ng-model="healthassessSection2c" required />
+        </div>
+        <div class="form-group row next">
+          <div class="col-xs-6 col-xs-offset-3 next">
+            <button class="btn btn-block btn-info" > Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

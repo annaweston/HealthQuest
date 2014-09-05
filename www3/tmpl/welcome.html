@@ -1,0 +1,23 @@
+<div class="control">
+  <div class="start">
+    <div class="copy">
+      <div class="text-center question_buffer">
+        <h1>healthquest<sub style="font-size: 50%">BETA</sub></h1>
+      </div>
+      <h4>Thank you for taking the time to complete the health assessment questionnaire and test. You have been assigned to the group that sits back and does nothing until the end of the study. </h4>
+      <p> Please could you confirm your email address so that I can contact you for the last part of the study: </p>
+      <form name="profileForm" ng-submit="addControl(profileForm.$valid)">
+        <div class="size">
+          <label>Email</label>
+          <input type="email" placeholder="how can I contact you?" class="field" ng-model="emailText" required/>
+        </div>
+        <div class="col-xs-6 col-xs-offset-3 next">
+          <button type="submit" class="next btn btn-block btn-info" > Submit <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
+        </div>
+      </form>
+      <br />
+      <br />
+      <br />
+    </div>
+  </div>
+</div>

@@ -120,61 +120,59 @@ angular.module('hq')
 				
 				
 			$scope.setResponse = function(response) {
-				var timeStop= new Date().getTime();				
-				var timetoAns = ((timeStop - $scope.timeStart)/1000);
-				
-				var profile_name = profile.get("name");
-				var profile_email = profile.get("email");
-				var qs_completed = profile.get("qNumberCompleted");
-
-
-				console.log(qs_completed);
-				
-				if(!response)
-				{
-					response = "timedOut";
-				}
-
-				if(!qs_completed)
-				{
-					qs_completed = 1;
+					var timeStop= new Date().getTime();				
+					var timetoAns = ((timeStop - $scope.timeStart)/1000);
 					
-				}
-				else
-				{
-					qs_completed = qs_completed + 1;
-
-				}
-
-				questionsAnswered.create({
-					id: "test",
-					pName: profile_name,
-					pEmail: profile_email,
-					qNumberCompleted: qs_completed,
-					questionID : $scope.questionid,
-					qUserAns : response,
-					qCorrectAns : $scope.correctAnswer,
-					qTimeStart : $scope.timeStart,
-					qTimeStop : timeStop,
-					qTimetoAns : timetoAns,
-					qTimeofDay: timeStop});
-				
-				profile.set({ profName: profile_name, profEmail: profile_email, qNumberCompleted: qs_completed });
+					var profile_name = profile.get("name");
+					var profile_email = profile.get("email");
+					var qstest_completed = profile.get("qTestNumberCompleted");
 	
-				profile.save();
+	
+					if(typeof response == "undefined")
+					{
+						response = "timedOut";
+					}
+	
+					if(typeof qstest_completed == "undefined")
+					{
+						qstest_completed = 1;
+						
+					}
+					else
+					{
+						qstest_completed = qstest_completed + 1;
+	
+					}
+	
+					questionsAnswered.create({
+						id: "test",
+						pName: profile_name,
+						pEmail: profile_email,
+						qTestNumberCompleted: qstest_completed,
+						questionID : $scope.questionid,
+						qUserAns : response,
+						qCorrectAns : $scope.correctAnswer,
+						qTimeStart : $scope.timeStart,
+						qTimeStop : timeStop,
+						qTimetoAns : timetoAns,
+						qTimeofDay: timeStop});
+					
+					profile.set({ profName: profile_name, profEmail: profile_email, qTestNumberCompleted: qstest_completed });
+		
+					profile.save();
+					
+					if(qstest_completed >= 20)
+					{
+						//console.log(qs_completed);
+						$state.go('healthassessGeneral');
+					}
+					else
+					{	
+						//console.log(qs_completed);
+						$state.go('test');
+					}
+	
 				
-				if(qs_completed >= 20)
-				{
-					console.log(qs_completed);
-					$state.go('healthassessGeneral');
-				}
-				else
-				{	
-					console.log(qs_completed);
-					$state.go('reload');
-				}
-
-			
 				}
 				
 				$scope.finishedTimer = function(){
@@ -294,13 +292,13 @@ $state.go('timeOut');
 				
 				if(typeof $scope.userAnswer === "undefined" )
 				{ 
-					console.log('fjklj;mdsamfdsamfmsdmfas', $scope.userAnswer);
+					//console.log('fjklj;mdsamfdsamfmsdmfas', $scope.userAnswer);
 					$scope.userAnswer = "timedOut";
 				};
 				
 				if(typeof $scope.userAnswer === "null" )
 				{ 
-					console.log('fjkljnull', $scope.userAnswer);
+					//console.log('fjkljnull', $scope.userAnswer);
 					$scope.userAnswer = "timedOut";
 				};
 				

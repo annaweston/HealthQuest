@@ -8,12 +8,12 @@
       <form name="profileForm" ng-submit="addProfile(profileForm.$valid)" novalidate>
         <!-- our nested state views will be injected here -->
         <div class="size">
-          <label>hey, what should I call you?</label>
+          <label>what's your name again?</label>
           <input type="text" name="text2" placeholder="game name" class="field" ng-model="nameText" ng-pattern="/^[a-zA-Z0-9]*$/" required/>
            <p style="font:italic; font-size:10pt">Please only use letters or numbers</p> 
       </div>
         <div class="size">
-          <label>how do I contact you?</label>
+          <label>email?</label>
           <input type="email" placeholder="email" class="field" ng-model="emailText" required/>
         </div>
         <div class="size">

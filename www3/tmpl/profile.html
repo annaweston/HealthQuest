@@ -1,0 +1,44 @@
+<div class="profile">
+  <div class="start">
+    <div class="copy">
+      <div class=" text-center">
+        <h1 class="burgerPadding">welcome</h1>
+      </div>
+      <!-- use ng-submit to catch the form submission and use our Angular function  ng-submit="processForm()"-->
+      <form name="profileForm" ng-submit="addProfile(profileForm.$valid)" novalidate>
+        <!-- our nested state views will be injected here -->
+        <div class="size">
+          <label>hey, what should I call you?</label>
+          <input type="text" name="text2" placeholder="game name" class="field" ng-model="nameText" ng-pattern="/^[a-zA-Z0-9]*$/" required/>
+           <p style="font:italic; font-size:10pt">Please only use letters or numbers</p> 
+      </div>
+        <div class="size">
+          <label>how do I contact you?</label>
+          <input type="email" placeholder="email" class="field" ng-model="emailText" required/>
+        </div>
+        <div class="size">
+          <label>how old are you?</label>
+          <input type="number" placeholder="age" class="field" ng-model="ageText" min="18" required/>
+        </div>
+        <div class="size">
+          <label>are you male or female?</label>
+          <select name="gender" class="field" ng-model="genderText" ng-options="x.gender as x.Value1 for x in ProfileGender"
+            required>
+            <option value="">--please choose--</option>
+          </select>
+        </div>
+        <div>
+        <small class="error" 
+             ng-show="profileForm.$invalid && profileForm.$dirty">Please complete the form or check inputs are valid. </small> 
+        </div>
+
+        <div class="form-group row next"> 
+          <!-- ui-sref="healthassess.general" -->
+          <div class="col-xs-6 col-xs-offset-3 next">
+            <button class="btn btn-block btn-info" > Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

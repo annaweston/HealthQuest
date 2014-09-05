@@ -1,0 +1,28 @@
+<div class="start">
+  <div class="copy">
+    <div id="form-container">
+      <div class=" text-center">
+        <h1>health assessment</h1>
+      </div>
+      <!-- use ng-submit to catch the form submission and use our Angular function --> 
+      <!-- our nested state views will be injected here -->
+      <div id="status-buttons" class="text-center"> <a id="span5" ui-sref-active="active"><span>5</span></a></div>
+      <form name="userform" ng-submit="addHealthFitness(userform.$valid)">
+        <div class="size">
+          <label>In the past week, on how many days have you done a total of 30 minutes or more of moderate or intensive physical activity?</label>
+          <select name="genFit" class="field" ng-model="healthassessSection5a" ng-options="x.healthassessSection1c as x.Value1 for x in HealthGen1c"
+            required>
+            <option value="">--please choose--</option>
+          </select>
+          <small class="error" 
+             ng-show="userform.genHappy.$invalid && userform.genHappy.$dirty"> Please make a selection </small> </div>
+        <hr />
+        <div class="form-group row">
+          <div class="col-xs-6 col-xs-offset-3 next">
+            <button  class="btn btn-block btn-info" > Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span> </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
